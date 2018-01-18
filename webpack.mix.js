@@ -24,16 +24,9 @@ mix.setPublicPath('./').js([
 mix.styles([
 	// Start of dependencies
 	'node_modules/bootstrap/dist/css/bootstrap.min.css',
-	'resources/assets/css/dependencies/fontawesome-all.css',
-	'resources/assets/css/dependencies/forms.css',
-	'resources/assets/css/dependencies/paper-kit.css',
-	// 'resources/assets/css/dependencies/nucleo-icons.css',
-	// 'resources/assets/css/dependencies/slick.css',
-	// 'resources/assets/css/dependencies/slick-theme.css',
+	'resources/assets/css/dependencies/fontawesome-all.css'
 	// End of dependencies
 	// Start of custom css
-	'resources/assets/css/style.css',
-	// 'resources/assets/css/layers.css',
 	// End of custom css
 ], 'css/style.css');
 

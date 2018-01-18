@@ -23,6 +23,10 @@
     "vue-headful": "^1.0.0"
   },
   "dependencies": {
-    "laravel-mix": "^1.7.2"
+    "bootstrap-vue": "^1.4.1",
+    "chart.js": "^2.7.1",
+    "laravel-mix": "^1.7.2",
+    "simple-line-icons": "^2.4.1",
+    "vue-chartjs": "^3.1.0"
   }
 }
