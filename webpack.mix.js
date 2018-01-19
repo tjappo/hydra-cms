@@ -35,6 +35,14 @@ mix.copyDirectory('resources/assets/data', 'data');
 
 // Resolve the webpack bug, where fs is not a function
 mix.webpackConfig({
+	module: {
+		rules: [
+			{
+				test: /\.exec\.js$/,
+				use: ['script-loader']
+			}
+		],
+	},
 	plugins: [
 		// Fixes warning in moment-with-locales.min.js
 		//   Module not found: Error: Can't resolve './locale' in ...
@@ -43,6 +51,7 @@ mix.webpackConfig({
 		new webpack.ProvidePlugin({
 			$: 'jquery',
 			jQuery: 'jquery',
+			'window.jQuery': 'jquery',
 			Popper: ['popper.js', 'default'],
 			Alert: 'exports-loader?Alert!bootstrap/js/dist/alert',
 			Button: 'exports-loader?Button!bootstrap/js/dist/button',

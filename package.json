@@ -18,11 +18,13 @@
     "fs": "0.0.1-security",
     "jquery": "^3.2.1",
     "popper": "^1.0.1",
+    "script-loader": "^0.7.2",
     "toastr": "^2.1.4",
     "vue": "^2.5.13",
     "vue-headful": "^1.0.0"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^1.0.0-alpha.2",
     "bootstrap-vue": "^1.4.1",
     "chart.js": "^2.7.1",
     "laravel-mix": "^1.7.2",
