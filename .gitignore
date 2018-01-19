@@ -237,6 +237,6 @@ tags
 
 # End of https://www.gitignore.io/api/vim,git,node,macos,laravel,composer,phpstorm,jetbrains
 
-css
-js
-data
+/css
+/js
+/data
