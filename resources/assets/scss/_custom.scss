@@ -22,16 +22,18 @@
   border-radius: 30px;
   background-color: #FFFFFF;
   transition: background-color 0.3s ease-in;
+  text-indent: 100%;
+  white-space: nowrap;
 }
 
 .switch-label:before {
   content: "";
   display: block;
   width: 30px;
-  margin: 0px;
+  height: 30px;
+  margin: 0;
   background: #FFFFFF;
   position: absolute;
-  top: 0;
   bottom: 0;
   right: 28px;
   border: 2px solid #E3E3E3;
@@ -48,5 +50,5 @@
 }
 
 .switch-checkbox:checked + .switch-label:before {
-  right: 0px;
+  right: 0;
 }

@@ -6866,14 +6866,17 @@
 			const group = document.createElement('div');
 
 			if (label && input.type === 'checkbox') {
+				let checkboxLabel = this.getFormInputLabel('');
+				checkboxLabel.innerText = label.innerText;
+				group.appendChild(checkboxLabel);
+
 				group.className += 'switch-wrapper';
 				input.className += "switch-checkbox";
 				group.appendChild(input);
 				label.className = "switch-label";
 				group.appendChild(label);
-				// let dateSpan = document.createElement('span');
-				// dateSpan.className = "form-check-sign";
-				// label.appendChild(dateSpan);
+				input.id = label.innerText;
+				label.setAttribute('for', input.id);
 			}
 			else {
 				group.className += ' form-group';
