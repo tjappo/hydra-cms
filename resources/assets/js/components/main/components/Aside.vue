@@ -1,11 +1,11 @@
 <template>
-  <aside class="aside-menu">
+    <aside class="aside-menu">
 
-  </aside>
+    </aside>
 </template>
 
 <script>
-export default {
-  name: 'custom-aside'
-}
+	export default {
+		name: 'custom-aside'
+	}
 </script>

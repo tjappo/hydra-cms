@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import AdminIndex from "../components/admin/Index.vue";
 import AdminCreate from "../components/admin/Create.vue";
 import AdminEdit from "../components/admin/Edit.vue";
-
 // Views
 import Dashboard from '../components/index/Dashboard.vue';
 
@@ -46,7 +45,7 @@ const router = new VueRouter({
 	// mode: 'history',
 	// base: window.location.hostname != 'localhost' ? '/' + window.location.pathname + '/' : '/',
 	routes: routes,
-	scrollBehavior: () => ({ y: 0 }),
+	scrollBehavior: () => ({y: 0}),
 });
 
 // router.afterEach(function(to, from){

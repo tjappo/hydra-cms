@@ -32,7 +32,7 @@ module.exports = {
 					this.$router.push({
 						name: 'AdminIndex',
 						params: {
-							'name' : this.name
+							'name': this.name
 						}
 					});
 				}

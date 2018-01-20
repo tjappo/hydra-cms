@@ -9,7 +9,6 @@
                     <router-view></router-view>
                 </div>
             </main>
-            <AppAside/>
         </div>
         <AppFooter/>
     </div>
@@ -17,50 +16,49 @@
 
 <script>
 	import nav from './components/_nav';
-	import {Header as AppHeader, Sidebar, Aside as AppAside, Footer as AppFooter, Breadcrumb} from './index.js';
+	import {Header as AppHeader, Sidebar, Footer as AppFooter, Breadcrumb} from './index.js';
 	import TextFilter from '../filters/textFilters.js';
 
 	export default {
 		name: 'app',
-        mixins: [TextFilter],
+		mixins: [TextFilter],
 		components: {
 			AppHeader,
 			Sidebar,
-			AppAside,
 			AppFooter,
 			Breadcrumb
 		},
-		data () {
+		data() {
 			return {
 				nav: nav.items
 			}
 		},
-        methods: {
+		methods: {
 			addDynamicRoutes() {
-		        let children = [];
-		        for (let route of this.allRoutes) {
-			        children.push({
-				        name: this.$options.filters.capitalize(route),
-				        url: '/admin/' + route,
-				        icon: 'fas fa-puzzle-piece'
-			        });
-		        }
-		        this.nav.push({
-			        name: 'Data',
-			        url: '/',
-			        icon: 'icon-puzzle',
-			        children: children
-		        });
-            }
-        },
-        mounted() {
+				let children = [];
+				for (let route of this.allRoutes) {
+					children.push({
+						name: this.$options.filters.capitalize(route),
+						url: '/admin/' + route,
+						icon: 'fas fa-puzzle-piece'
+					});
+				}
+				this.nav.push({
+					name: 'Data',
+					url: '/',
+					icon: 'icon-puzzle',
+					children: children
+				});
+			}
+		},
+		mounted() {
 			this.addDynamicRoutes();
-        },
+		},
 		computed: {
-			name () {
+			name() {
 				return this.$route.name
 			},
-			list () {
+			list() {
 				return this.$route.matched
 			}
 		}
