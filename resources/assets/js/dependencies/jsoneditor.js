@@ -6190,7 +6190,7 @@
 		},
 		getCheckboxLabel: function (text) {
 			var el = this.getFormInputLabel(text);
-			el.style.fontWeight = 'normal';
+			el.removeAttribute("style");
 			return el;
 		},
 		getHeader: function (text) {
@@ -6207,8 +6207,8 @@
 		},
 		getCheckbox: function () {
 			var el = this.getFormInputField('checkbox');
-			el.style.display = 'inline-block';
-			el.style.width = 'auto';
+			// el.style.display = 'inline-block';
+			// el.style.width = 'auto';
 			return el;
 		},
 		getMultiCheckboxHolder: function (controls, label, description) {
@@ -6866,14 +6866,14 @@
 			const group = document.createElement('div');
 
 			if (label && input.type === 'checkbox') {
-				group.className += 'form-check';
-				label.appendChild(input);
-				label.className = "form-check-label";
+				group.className += 'switch-wrapper';
+				input.className += "switch-checkbox";
+				group.appendChild(input);
+				label.className = "switch-label";
 				group.appendChild(label);
-				input.className += "form-check-input";
-				let dateSpan = document.createElement('span');
-				dateSpan.className = "form-check-sign";
-				label.appendChild(dateSpan);
+				// let dateSpan = document.createElement('span');
+				// dateSpan.className = "form-check-sign";
+				// label.appendChild(dateSpan);
 			}
 			else {
 				group.className += ' form-group';

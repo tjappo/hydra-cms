@@ -24,7 +24,7 @@ mix.setPublicPath('./').js([
 mix.styles([
 	// Start of dependencies
 	'node_modules/bootstrap/dist/css/bootstrap.min.css',
-	'resources/assets/css/dependencies/fontawesome-all.css'
+	'resources/assets/css/dependencies/fontawesome-all.css',
 	// End of dependencies
 	// Start of custom css
 	// End of custom css

@@ -5,4 +5,3 @@ window.ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
 window.toastr = require('toastr');
 
 require('./dependencies/jsoneditor.js');
-require('./dependencies/bootstrap-switch.js');

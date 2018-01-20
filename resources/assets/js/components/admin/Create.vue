@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="card">
                 <div class="card-header">
-                    Add item of <strong>{{title | capitalize}}</strong> page
+                    Add item to <strong>{{title | capitalize}}</strong> page
                 </div>
                 <div class="card-body">
                     <div id="jsoneditor-wrapper"></div>
@@ -16,6 +16,14 @@
                     <button type="submit" class="btn btn-primary" @click="submitForm" :disabled="hasErrors">Submit
                     </button>
                     <span id='valid_indicator' class="float-right"></span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="switch-wrapper">
+                        <input type="checkbox" id="switch"/>
+                        <label for="switch">Toggle</label>
+                    </div>
                 </div>
             </div>
         </div>
