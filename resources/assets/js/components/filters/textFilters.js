@@ -8,6 +8,9 @@ module.exports = {
 			if (!value) return '';
 			value = value.toString();
 			return value.charAt(0).toUpperCase() + value.slice(1);
+		},
+		numberWithCommas: (number) => {
+			return (!!number) ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 'NaN';
 		}
 	}
 };
