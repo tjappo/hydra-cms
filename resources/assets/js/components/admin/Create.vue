@@ -5,17 +5,19 @@
                 :description="metaDescription || 'Page meta description'"
         />
         <div class="row justify-content-center">
-            <div class="card w-100">
-                <div class="card-header">
-                    Add item to <strong>{{title | capitalize}}</strong> page
-                </div>
-                <div class="card-body">
-                    <div id="jsoneditor-wrapper"></div>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" @click="submitForm" :disabled="hasErrors">Submit
-                    </button>
-                    <span id='valid_indicator' class="float-right"></span>
+            <div class="col">
+                <div class="card w-100">
+                    <div class="card-header">
+                        Add item to <strong>{{title | capitalize}}</strong> page
+                    </div>
+                    <div class="card-body">
+                        <div id="jsoneditor-wrapper"></div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" @click="submitForm" :disabled="hasErrors">Submit
+                        </button>
+                        <span id='valid_indicator' class="float-right"></span>
+                    </div>
                 </div>
             </div>
         </div>
