@@ -7,6 +7,11 @@
 
 **Large**
 * Add proper image handling
-* Add security
-    * Add user login
 * Improve error handling
+* Add Create New Schema functionality
+
+* Extra:
+    * Add relationships between data
+    * Add Importing data
+    * Add security
+        * Add user login
