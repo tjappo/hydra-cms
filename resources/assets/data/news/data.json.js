@@ -28,7 +28,7 @@ window['newsData'] = [
 // }
 window['newsSchema'] = {
 	"title": "newsData",
-	"url": "./data/news/data.json.js",
+	"url": "/news/data.json.js",
 	"type": "object",
 	"properties": {
 		"category": {

@@ -139,7 +139,7 @@ window['faqData'] = [
 //  Url to this file relatively to the root folder
 window['faqSchema'] = {
 	"title": "faqData",
-	"url": "./data/faq/data.json.js",
+	"url": "/faq/data.json.js",
 	"type": "object",
 	"properties": {
 		"category": {

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const config = require('../../../../../../config');
 
 module.exports = {
 
@@ -67,6 +68,7 @@ module.exports = {
 	 * @param res response object
 	 */
 	processFile(url, varName, newData, callback, res) {
+		url = config.dataPath + url;
 		module.exports.checkFile(url, module.exports.extractDataString(url, varName,
 			(err, offset, content, schema) => {
 				content = callback(content, newData, schema, varName);

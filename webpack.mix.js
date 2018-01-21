@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const config = require('./config.js');
 
 /*
  |--------------------------------------------------------------------------
@@ -30,7 +31,7 @@ mix.styles([
 	// End of custom css
 ], 'css/style.css');
 
-mix.copyDirectory('resources/assets/data', 'data');
+mix.copyDirectory(config.dataPath, 'export/data');
 
 
 // Resolve the webpack bug, where fs is not a function

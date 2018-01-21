@@ -123,7 +123,7 @@ window['teamData'] = [
 //  Url to this file relatively to the root folder
 window['teamSchema'] = {
 	"title": "teamData",
-	"url": "./data/team/data.json.js",
+	"url": "/team/data.json.js",
 	"type": "object",
 	"properties": {
 		"name": {

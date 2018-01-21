@@ -1279,7 +1279,7 @@ window['roadmapData'] = [
 //  Url to this file relatively to the root folder
 window['roadmapSchema'] = {
 	"title": "roadmapData",
-	"url": "./data/roadmap/data.json.js",
+	"url": "/roadmap/data.json.js",
 	"type": "object",
 	"properties": {
 		"category": {
