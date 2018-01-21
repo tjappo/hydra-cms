@@ -1,4 +1,5 @@
 const fs = require('fs');
+const {join} = require('path');
 const config = require('../../../../../../config');
 
 module.exports = {
@@ -185,6 +186,24 @@ module.exports = {
 			return item.id !== Number(id);
 		});
 		return content;
+	},
+
+	/**
+	 * Gets all the directories within a given source
+	 * @param source given source
+	 */
+	getDirectories(source) {
+		const isDirectory = source => {
+			return fs.lstatSync(source).isDirectory()
+		};
+		return fs.readdirSync(source).map(name => join(source, name)).filter(isDirectory).map(source => source.replace(config.dataPath, ''));
+	},
+
+	/**
+	 * Filters
+	 */
+	filterDirectories() {
+
 	}
 
 };

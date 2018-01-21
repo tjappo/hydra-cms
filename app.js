@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const functions = require('./resources/assets/js/components/admin/backend/functions.js');
+const config = require('./config');
 
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -15,18 +16,9 @@ app.use(function (req, res, next) {
 
 	// Website you wish to allow to connect
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-	res.setHeader('Access-Control-Allow-Origin', 'http://shift-2.0.dev');
-
-	// Request methods you wish to allow
-	// res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
 	// Request headers you wish to allow
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-	// Set to true if you need the website to include cookies in the requests sent
-	// to the API (e.g. in case you use sessions)
-	// res.setHeader('Access-Control-Allow-Credentials', true);
 
 	// Pass to next layer of middleware
 	next();
@@ -34,12 +26,12 @@ app.use(function (req, res, next) {
 
 app.use(express.static(__dirname));
 app.get('/', (req, res) => res.sendfile('index.html'));
-//app.get('/', (req, res) => res.send('Hello World!'));
 
 /**
  * Routes for adding items
  */
-const routes = ['news', 'roadmap', 'team', 'faq'];
+const routes = functions.getDirectories(config.dataPath)
+	.filter((source) => !config.ignoreFolders.includes(source));
 
 for (let route of routes) {
 	// noinspection JSCheckFunctionSignatures, gets warning of the .put function of axios

@@ -5,5 +5,6 @@ const config = require('./config.global');
  */
 config.dataPath = 'resources/assets/data/';
 config.exportPath = 'export/';
+config.ignoreFolders = ['img'];
 
 module.exports = config;
