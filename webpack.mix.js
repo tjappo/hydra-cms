@@ -31,7 +31,7 @@ mix.styles([
 	// End of custom css
 ], 'css/style.css');
 
-mix.copyDirectory(config.dataPath, 'export/data');
+mix.copyDirectory(config.dataPath, config.exportPath + 'data');
 
 
 // Resolve the webpack bug, where fs is not a function

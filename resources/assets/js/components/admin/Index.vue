@@ -25,7 +25,7 @@
                                 <tbody>
                                 <tr v-for="item in data">
                                     <td :scope="getScope(key)" v-for="(value, key) in item">
-                                        <img :src="value" alt="image" v-if="key === 'image'" height="100px"
+                                        <img :src="config.exportPath + value" alt="image" v-if="key === 'image'" height="100px"
                                              width="100px">
                                         <ul class="list-group"
                                             v-else-if="Array.isArray(value) || typeof value === 'object'">
@@ -66,6 +66,7 @@
 <script>
 	import DeleteMixin from './frontend/delete';
 	import TextFilter from '../filters/textFilters';
+	import Config from '../../../../../config.js';
 
 	export default {
 		mixins: [DeleteMixin, TextFilter],
@@ -75,6 +76,7 @@
 		data() {
 			return {
 				data: undefined,
+                config: Config,
 			}
 		},
 		methods: {

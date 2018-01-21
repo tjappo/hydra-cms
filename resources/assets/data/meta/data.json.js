@@ -71,7 +71,7 @@ window['metaData'] = [
 // }
 window['metaSchema'] = {
 	"title": "metaData",
-	"url": "/meta/data.json.js",
+	"url": "meta/data.json.js",
 	"type": "object",
 	"properties": {
 		"page": {
