@@ -48,11 +48,9 @@
 
 </div>
 <!-- Data -->
-<script type="text/javascript" src="data/faq/data.json.js"></script>
-<script type="text/javascript" src="data/meta/data.json.js"></script>
-<script type="text/javascript" src="data/news/data.json.js"></script>
-<script type="text/javascript" src="data/roadmap/data.json.js"></script>
-<script type="text/javascript" src="data/team/data.json.js"></script>
+<% routes.forEach((route) => { %>
+    <script type="text/javascript" src="<%= exportPath %>data/<%= route %>/data.json.js"></script>
+<% }); %>
 
 <!-- Custom js -->
 <script src="js/app.js"></script>
