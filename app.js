@@ -4,9 +4,10 @@ const bodyParser = require('body-parser');
 const functions = require('./resources/assets/js/components/admin/backend/functions.js');
 const config = require('./config');
 
-app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.json({limit: '5mb'}));       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-	extended: true
+	extended: true,
+	limit: '5mb'
 }));
 app.set('view engine', 'ejs');
 

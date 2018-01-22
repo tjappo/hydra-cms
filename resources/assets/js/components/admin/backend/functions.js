@@ -1,6 +1,11 @@
 const fs = require('fs');
 const {join} = require('path');
+const hash = require('object-hash');
 const config = require('../../../../../../config');
+
+tempVariables = {
+	writing: [],
+};
 
 module.exports = {
 
@@ -12,8 +17,8 @@ module.exports = {
 	 * @param res response object
 	 */
 	create(url, varName, newData, res) {
-		module.exports.processFile(url, varName, newData, (content, newData, schema) => {
-			return module.exports.addContent(content, newData, varName, schema);
+		module.exports.processFile(url, varName, newData, (content, newData, schema, callback) => {
+			return module.exports.addContent(content, newData, varName, schema, callback);
 		}, res);
 	},
 
@@ -72,8 +77,9 @@ module.exports = {
 		url = config.dataPath + url;
 		module.exports.checkFile(url, module.exports.extractDataString(url, varName,
 			(err, offset, content, schema) => {
-				content = callback(content, newData, schema, varName);
-				module.exports.writeToFile(url, offset, content, schema);
+				content = callback(content, newData, schema, (content) => {
+					module.exports.writeToFile(url, offset, content, schema);
+				});
 				res.status(200).send(content);
 			}
 		));
@@ -139,6 +145,37 @@ module.exports = {
 			if (typeof newData[key] !== schema.properties[key].type)
 				throw new Error("Type mismatch error, expected: " + schema.properties[key].type + ", but got: " + newData[key]);
 		}
+		newData = module.exports.processImage(newData, varName, schema);
+		return newData;
+	},
+
+	/**
+	 * Process the image files of the given new data
+	 * @param {Object} newData data to validate
+	 * @param {string} varName name of data variable
+	 * @param {string} schema schema of the json editor
+	 * @returns {Object} processed new data
+	 */
+	processImage(newData, varName, schema) {
+		for (key of Object.keys(newData)) {
+			if (schema.properties[key].media && schema.properties[key].media.binaryEncoding === "base64") {
+				tempVariables.writing.push(
+					new Promise((resolve, reject) => {
+						const data = newData[key].split(';base64,'),
+							extension = data[0].split('/').pop(),
+							imageData = data.pop(),	path = 'img/' + varName.substring(0, varName.length - 4),
+							fileName = hash(newData) + '.' + extension,
+							tempKey = key;
+						fs.writeFile(config.dataPath + path + '/' + fileName, new Buffer(imageData, "base64"), (err) => {
+							if (err) reject(new Error("Image upload error, at: " + varName));
+
+							newData[tempKey] = path + '/' + fileName;
+							resolve(newData);
+						});
+					})
+				);
+			}
+		}
 		return newData;
 	},
 
@@ -150,11 +187,14 @@ module.exports = {
 	 * @param {string} schema schema of the json editor
 	 * @returns {Object[]} new combined data
 	 */
-	addContent(content, newData, varName, schema) {
+	addContent(content, newData, varName, schema, callback) {
 		newData = module.exports.validateContent(newData, varName, schema);
 		newData = Object.assign({"id": content.length + 1}, newData);
-		content.push(newData);
-		return content;
+		Promise.all(tempVariables.writing).then((values) => {
+			content.push(values[values.length - 1]);
+			callback(content);
+			return content;
+		});
 	},
 
 	/**
@@ -198,12 +238,5 @@ module.exports = {
 		};
 		return fs.readdirSync(source).map(name => join(source, name)).filter(isDirectory).map(source => source.replace(config.dataPath, ''));
 	},
-
-	/**
-	 * Filters
-	 */
-	filterDirectories() {
-
-	}
 
 };

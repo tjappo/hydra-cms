@@ -46,12 +46,12 @@
 					(response) => {
 						NotificationEventListener.fire('success', "Object created");
 						this.data = response.data;
-						this.$router.push({
-							name: 'AdminIndex',
-							params: {
-								'name': this.name
-							}
-						});
+//						this.$router.push({
+//							name: 'AdminIndex',
+//							params: {
+//								'name': this.name
+//							}
+//						});
 					}
 				).catch(
 					(error) => NotificationEventListener.fire('error', error.response.data)
