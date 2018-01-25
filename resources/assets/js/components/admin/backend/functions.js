@@ -31,8 +31,8 @@ module.exports = {
 	 * @param res response object
 	 */
 	update(oldData, url, varName, newData, res) {
-		module.exports.processFile(url, varName, newData, (content, newData, schema) => {
-			return module.exports.updateContent(oldData, content, newData, varName, schema);
+		module.exports.processFile(url, varName, newData, (content, newData, schema, callback) => {
+			return module.exports.updateContent(oldData, content, newData, varName, schema, callback);
 		}, res);
 	},
 
@@ -44,9 +44,10 @@ module.exports = {
 	 * @param res response object
 	 */
 	delete(url, varName, id, res) {
-		module.exports.processFile(url, varName, "", (content) => {
-			return module.exports.deleteContent(id, content);
-		}, res);
+	    const newData = "";
+		module.exports.processFile(url, varName, newData, (content, newData, undefined, callback) => {
+            return module.exports.deleteContent(id, content, callback);
+        }, res);
 	},
 
 	/**
@@ -185,6 +186,7 @@ module.exports = {
 	 * @param {Object} newData data to add
 	 * @param {string} varName name of data variable
 	 * @param {string} schema schema of the json editor
+     * @param {function} callback function
 	 * @returns {Object[]} new combined data
 	 */
 	addContent(content, newData, varName, schema, callback) {
@@ -204,27 +206,33 @@ module.exports = {
 	 * @param {Object} newData new edited data
 	 * @param {string} varName name of data variable
 	 * @param {string} schema schema of the json editor
+     * @param {function} callback function
 	 * @returns {Object[]} new combined data
 	 */
-	updateContent(oldData, content, newData, varName, schema) {
+	updateContent(oldData, content, newData, varName, schema, callback) {
 		newData = module.exports.validateContent(newData, varName, schema);
 		const index = content.findIndex(x => x.id === oldData.id);
-		Object.keys(newData).forEach((key) => {
-			content[index][key] = newData[key];
-		});
-		return content;
+        Promise.all(tempVariables.writing).then((values) => {
+            Object.keys(values).forEach((key) => {
+                content[index][key] = values[key];
+            });
+            callback(content);
+            return content;
+        });
 	},
 
 	/**
 	 * Deletes the data with the given id
 	 * @param {string} id given id to delete
 	 * @param {Object[]} content all of the data
+     * @param {function} callback function
 	 * @returns {Object[]} new combined data
 	 */
-	deleteContent(id, content) {
+	deleteContent(id, content, callback) {
 		content = content.filter(function (item) {
 			return item.id !== Number(id);
 		});
+		callback(content);
 		return content;
 	},
 
