@@ -14,7 +14,10 @@
   "author": "Jasper Hu",
   "license": "ISC",
   "devDependencies": {
+    "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
+    "browser-sync": "^2.23.6",
+    "browser-sync-webpack-plugin": "^1.2.0",
     "ejs": "^2.5.7",
     "fs": "0.0.1-security",
     "jquery": "^3.2.1",
@@ -23,7 +26,8 @@
     "script-loader": "^0.7.2",
     "toastr": "^2.1.4",
     "vue": "^2.5.13",
-    "vue-headful": "^1.0.0"
+    "vue-headful": "^1.0.0",
+    "vue-router": "^3.0.1"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^1.0.0-alpha.2",
