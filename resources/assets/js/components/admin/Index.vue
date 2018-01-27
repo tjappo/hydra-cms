@@ -14,7 +14,7 @@
                         <router-link :to="{ name: 'AdminCreate', params: {'name': name}}" exact>
                             <a href="#" class="btn btn-primary">Create new {{name | capitalize}} item</a>
                         </router-link>
-                        <div id="items-wrapper">
+                        <div id="items-wrapper" class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
