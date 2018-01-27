@@ -17,7 +17,7 @@ module.exports = {
 		deleteObject() {
 			const schema = window[this.deleteData[0] + 'Schema'];
 			if (typeof schema === "undefined") {
-				NotificationEventListener.fire('error', 'Data could not be retrieved from: ' + this.name);
+				VueEventListener.fire('error', 'Data could not be retrieved from: ' + this.name);
 				return;
 			}
 			// WRITE TO FILE
@@ -27,8 +27,8 @@ module.exports = {
 				id: this.deleteData[1]
 			}).then(
 				(response) => {
-					NotificationEventListener.fire('success', "Object deleted");
-					this.data = response.data;
+					VueListener.fire('success', "Object deleted");
+					window[schema.title] = response.data;
 					this.$router.push({
 						name: 'AdminIndex',
 						params: {
@@ -37,7 +37,7 @@ module.exports = {
 					});
 				}
 			).catch(
-				(error) => NotificationEventListener.fire('error', error.response.data)
+				(error) => VueEventListener.fire('error', error.response.data)
 			);
 			$("#popover" + this.deleteData[1]).popover('hide');
 		},

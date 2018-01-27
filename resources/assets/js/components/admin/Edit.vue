@@ -53,8 +53,8 @@
 					url: this.schema.url
 				}).then(
 					(response) => {
-						NotificationEventListener.fire('success', "Object updated");
-						this.data = response.data;
+						VueEventListener.fire('success', "Object updated");
+						window[this.schema.title] = response.data;
 						this.$router.push({
 							name: 'AdminIndex',
 							params: {
@@ -63,7 +63,7 @@
 						});
 					}
 				).catch(
-					(error) => NotificationEventListener.fire('error', error.response.data)
+					(error) => VueEventListener.fire('error', error.response.data)
 				);
 			},
 			validateID() {
@@ -75,7 +75,7 @@
 						return;
 					}
 				}
-				NotificationEventListener.fire('error', 'Given ID could not be verified: ' + this.id);
+				VueEventListener.fire('error', 'Given ID could not be verified: ' + this.id);
 				this.$router.push('/');
 			},
 			prepareData(data) {

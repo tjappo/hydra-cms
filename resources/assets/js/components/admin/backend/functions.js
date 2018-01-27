@@ -3,12 +3,15 @@ const {join} = require('path');
 const hash = require('object-hash');
 const config = require('../../../../../../config');
 
-tempVariables = {
-	writing: [],
+/**
+ * Temporary variables
+ */
+let tempVariables = {
+	processingImage: [],
+	writing: []
 };
 
 module.exports = {
-
 	/**
 	 * Creates the new object and persists it
 	 * @param {string} url path to data file
@@ -44,10 +47,10 @@ module.exports = {
 	 * @param res response object
 	 */
 	delete(url, varName, id, res) {
-	    const newData = "";
+		const newData = "";
 		module.exports.processFile(url, varName, newData, (content, newData, undefined, callback) => {
-            return module.exports.deleteContent(id, content, callback);
-        }, res);
+			return module.exports.deleteContent(id, content, callback);
+		}, res);
 	},
 
 	/**
@@ -78,10 +81,12 @@ module.exports = {
 		url = config.dataPath + url;
 		module.exports.checkFile(url, module.exports.extractDataString(url, varName,
 			(err, offset, content, schema) => {
-				content = callback(content, newData, schema, (content) => {
+				callback(content, newData, schema, (content) => {
 					module.exports.writeToFile(url, offset, content, schema);
+					Promise.all(tempVariables.writing).then((values) => {
+						res.status(200).send(values[values.length - 1]);
+					});
 				});
-				res.status(200).send(content);
 			}
 		));
 	},
@@ -128,9 +133,14 @@ module.exports = {
 	 */
 	writeToFile(url, offset, content, schema) {
 		const toWrite = offset + JSON.stringify(content, null, "\t") + ';' + schema;
-		fs.writeFile(url, toWrite, (err) => {
-			if (err) throw err;
-		});
+		tempVariables.writing.push(
+			new Promise((resolve, reject) => {
+				fs.writeFile(url, toWrite, (err) => {
+					if (err) reject(err);
+					resolve(content);
+				});
+			})
+		);
 	},
 
 	/**
@@ -141,12 +151,11 @@ module.exports = {
 	 * @returns {Object} validated new data
 	 */
 	validateContent(newData, varName, schema) {
-		schema = module.exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
 		for (key of Object.keys(newData)) {
 			if (typeof newData[key] !== schema.properties[key].type)
 				throw new Error("Type mismatch error, expected: " + schema.properties[key].type + ", but got: " + newData[key]);
 		}
-		newData = module.exports.processImage(newData, varName, schema);
+		module.exports.processImages(newData, varName, schema);
 		return newData;
 	},
 
@@ -155,29 +164,65 @@ module.exports = {
 	 * @param {Object} newData data to validate
 	 * @param {string} varName name of data variable
 	 * @param {string} schema schema of the json editor
-	 * @returns {Object} processed new data
 	 */
-	processImage(newData, varName, schema) {
+	processImages(newData, varName, schema) {
 		for (key of Object.keys(newData)) {
 			if (schema.properties[key].media && schema.properties[key].media.binaryEncoding === "base64") {
-				tempVariables.writing.push(
-					new Promise((resolve, reject) => {
-						const data = newData[key].split(';base64,'),
-							extension = data[0].split('/').pop(),
-							imageData = data.pop(),	path = 'img/' + varName.substring(0, varName.length - 4),
-							fileName = hash(newData) + '.' + extension,
-							tempKey = key;
-						fs.writeFile(config.dataPath + path + '/' + fileName, new Buffer(imageData, "base64"), (err) => {
-							if (err) reject(new Error("Image upload error, at: " + varName));
-
-							newData[tempKey] = path + '/' + fileName;
-							resolve(newData);
-						});
-					})
-				);
+				const data = newData[key].split(';base64,'),
+					extension = data[0].split('/').pop(),
+					imageData = data.pop(),
+					path = 'img/' + varName.substring(0, varName.length - 4),
+					fileName = hash(newData) + '.' + extension,
+					tempKey = key;
+				module.exports.processImage(imageData, path, fileName, varName, newData, tempKey);
 			}
 		}
-		return newData;
+	},
+
+	/**
+	 * Processes one image and adds it to the promise list
+	 * @param imageData the base 64 encoded image
+	 * @param path the path to the given file
+	 * @param fileName name of the file
+	 * @param varName name of the variable
+	 * @param newData the new data
+	 * @param tempKey the key of the given data
+	 */
+	processImage(imageData, path, fileName, varName, newData, tempKey) {
+		tempVariables.processingImage.push(
+			new Promise((resolve, reject) => {
+				if (!!imageData) {
+					fs.writeFile(config.dataPath + path + '/' + fileName, new Buffer(imageData, "base64"), (err) => {
+						if (err) reject(new Error("Image upload error, at: " + varName));
+
+						newData[tempKey] = path + '/' + fileName;
+						resolve(newData);
+					});
+				} else {
+					newData[tempKey] = "";
+					resolve(newData);
+				}
+			})
+		);
+	},
+
+	/**
+	 * Sets the data in the right order using the schema
+	 * @param {String[]} keys the possible keys
+	 * @param {Object} values new values of the concerning schema
+	 * @param {Object} oldData old data if any
+	 * @returns {Object}
+	 */
+	setData(keys, values, oldData) {
+		let toPush = {};
+		Object.keys(keys).forEach((key) => {
+			if (key in values) {
+				toPush[key] = values[key];
+			} else {
+				toPush[key] = (!!oldData) ? oldData[key] : null;
+			}
+		});
+		return toPush
 	},
 
 	/**
@@ -186,16 +231,16 @@ module.exports = {
 	 * @param {Object} newData data to add
 	 * @param {string} varName name of data variable
 	 * @param {string} schema schema of the json editor
-     * @param {function} callback function
-	 * @returns {Object[]} new combined data
+	 * @param {function} callback function
 	 */
 	addContent(content, newData, varName, schema, callback) {
+		schema = module.exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
 		newData = module.exports.validateContent(newData, varName, schema);
-		newData = Object.assign({"id": content.length + 1}, newData);
-		Promise.all(tempVariables.writing).then((values) => {
-			content.push(values[values.length - 1]);
+		Promise.all(tempVariables.processingImage).then((values) => {
+			values = module.exports.setData(schema.properties, values[values.length - 1], undefined);
+			values = Object.assign({"id": content.length + 1}, values);
+			content.push(values);
 			callback(content);
-			return content;
 		});
 	},
 
@@ -206,34 +251,30 @@ module.exports = {
 	 * @param {Object} newData new edited data
 	 * @param {string} varName name of data variable
 	 * @param {string} schema schema of the json editor
-     * @param {function} callback function
-	 * @returns {Object[]} new combined data
+	 * @param {function} callback function
 	 */
 	updateContent(oldData, content, newData, varName, schema, callback) {
+		schema = module.exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
 		newData = module.exports.validateContent(newData, varName, schema);
 		const index = content.findIndex(x => x.id === oldData.id);
-        Promise.all(tempVariables.writing).then((values) => {
-            Object.keys(values).forEach((key) => {
-                content[index][key] = values[key];
-            });
-            callback(content);
-            return content;
-        });
+		Promise.all(tempVariables.processingImage).then((values) => {
+			content[index] = module.exports.setData(schema.properties, values[values.length - 1], oldData);
+			content[index] = Object.assign({"id": oldData.id}, content[index]);
+			callback(content);
+		});
 	},
 
 	/**
 	 * Deletes the data with the given id
 	 * @param {string} id given id to delete
 	 * @param {Object[]} content all of the data
-     * @param {function} callback function
-	 * @returns {Object[]} new combined data
+	 * @param {function} callback function
 	 */
 	deleteContent(id, content, callback) {
 		content = content.filter(function (item) {
 			return item.id !== Number(id);
 		});
 		callback(content);
-		return content;
 	},
 
 	/**

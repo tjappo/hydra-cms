@@ -25,10 +25,10 @@
                                 <tbody>
                                 <tr v-for="item in data">
                                     <td :scope="getScope(key)" v-for="(value, key) in item">
-                                        <img :src="config.exportPath + value" alt="image" v-if="key === 'image'" height="100px"
-                                             width="100px">
+                                        <img :src="config.exportPath + value" alt="image" v-if="key === 'image' && !!value"
+                                             height="100px" width="100px">
                                         <ul class="list-group"
-                                            v-else-if="Array.isArray(value) || typeof value === 'object'">
+                                            v-else-if="Array.isArray(value) || typeof value === 'object' && !!value">
                                             <li class="list-group-item" v-for="(value2, key2) in value">
                                                 <div class="d-block">
                                                     <span class="w-50"><strong>{{key2}}</strong></span>
@@ -80,14 +80,11 @@
 			}
 		},
 		methods: {
-			scrollEvent() {
-				$(".wrapper").get(0).scrollIntoView({behavior: 'smooth'});
-			},
 			loadData() {
 				const data = this.name + 'Data';
 
 				if (!window[data]) {
-					NotificationEventListener.fire('error', 'Data could not be retrieved from: ' + this.name);
+					VueEventListener.fire('error', 'Data could not be retrieved from: ' + this.name);
 					this.$router.push('/');
 				}
 
@@ -102,7 +99,6 @@
 		},
 		mounted() {
 			this.loadData();
-//			this.scrollEvent();
 		},
 		watch: {
 			'$route.params.name'() {

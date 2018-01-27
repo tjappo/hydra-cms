@@ -64,15 +64,11 @@ window['newsSchema'] = {
 		},
 		"image": {
 			"type": "string",
-			"description": "Url of the image",
-			"default": "data/img/news/{name of file}",
-			"required": true
-		},
-		"image2": {
-			"type": "string",
 			"media": {
 				"binaryEncoding": "base64"
-			}
+			},
+			"description": "Image of news item",
+			"required": false
 		},
 		"preview": {
 			"type": "object",

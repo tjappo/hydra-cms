@@ -1,4 +1,4 @@
-window.NotificationEventListener = new class {
+window.VueEventListener = new class {
 	constructor() {
 		this.vue = new Vue();
 	}

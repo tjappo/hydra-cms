@@ -44,17 +44,17 @@
 					url: this.schema.url
 				}).then(
 					(response) => {
-						NotificationEventListener.fire('success', "Object created");
-						this.data = response.data;
-//						this.$router.push({
-//							name: 'AdminIndex',
-//							params: {
-//								'name': this.name
-//							}
-//						});
+						VueEventListener.fire('success', "Object created");
+						window[this.schema.title] = response.data;
+						this.$router.push({
+							name: 'AdminIndex',
+							params: {
+								'name': this.name
+							}
+						});
 					}
 				).catch(
-					(error) => NotificationEventListener.fire('error', error.response.data)
+					(error) => VueEventListener.fire('error', error.response.data)
 				);
 			},
 		},

@@ -68,7 +68,7 @@ module.exports = {
 			const schema = this.name + 'Schema';
 
 			if (!window[data] || !window[schema]) {
-				NotificationEventListener.fire('error', 'Data could not be retrieved from: ' + this.name);
+				VueEventListener.fire('error', 'Data could not be retrieved from: ' + this.name);
 				this.$router.push('/');
 			}
 

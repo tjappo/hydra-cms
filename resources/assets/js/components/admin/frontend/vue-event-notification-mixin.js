@@ -15,9 +15,9 @@ module.exports = {
 		}
 	},
 	mounted() {
-		NotificationEventListener.listen('success', (message) => this.successNotification(message));
-		NotificationEventListener.listen('error', (message) => this.errorNotification(message));
-		NotificationEventListener.listen('warning', (message) => this.warningNotification(message));
-		NotificationEventListener.listen('remove', this.removeNotifications());
+		VueEventListener.listen('success', (message) => this.successNotification(message));
+		VueEventListener.listen('error', (message) => this.errorNotification(message));
+		VueEventListener.listen('warning', (message) => this.warningNotification(message));
+		VueEventListener.listen('remove', this.removeNotifications());
 	}
 };
