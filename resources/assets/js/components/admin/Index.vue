@@ -109,4 +109,7 @@
 </script>
 
 <style>
+    .popover-button {
+        cursor: pointer;
+    }
 </style>
