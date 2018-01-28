@@ -6,7 +6,6 @@
 **Medium**
 
 **Large**
-* Add proper image handling
 * Improve error handling
 * Add Create New Schema functionality
 

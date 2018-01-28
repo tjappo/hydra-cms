@@ -64,7 +64,7 @@
 </template>
 
 <script>
-	import DeleteMixin from './frontend/delete';
+	import DeleteMixin from '../admin/frontend/delete';
 	import TextFilter from '../filters/textFilters';
 	import Config from '../../../../../config.js';
 

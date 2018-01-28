@@ -8,7 +8,7 @@
             <div class="col">
                 <div class="card w-100">
                     <div class="card-header">
-                        Add item to <strong>{{title | capitalize}}</strong> page
+                        Edit item of <strong>{{title | capitalize}}</strong> page
                     </div>
                     <div class="card-body">
                         <div id="jsoneditor-wrapper"></div>
@@ -25,11 +25,19 @@
 </template>
 
 <script>
-	import AdminMixin from './frontend/functions';
+	import AdminMixin from '../admin/frontend/functions';
 	import TextFilter from '../filters/textFilters.js';
 
 	export default {
 		mixins: [AdminMixin, TextFilter],
+		props: {
+			'id': [Number, String],
+		},
+		data() {
+			return {
+				oldData: undefined
+			}
+		},
 		methods: {
 			scrollEvent() {
 				$(".wrapper").get(0).scrollIntoView({behavior: 'smooth'});
@@ -38,13 +46,14 @@
 				const values = this.editor.getValue();
 
 				// WRITE TO FILE
-				axios.post('http://localhost:8000/' + this.name + '/add', {
+				axios.put('http://localhost:8000/' + this.name + '/update', {
+					oldData: this.oldData,
 					data: values,
 					varName: this.schema.title,
 					url: this.schema.url
 				}).then(
 					(response) => {
-						VueEventListener.fire('success', "Object created");
+						VueEventListener.fire('success', "Object updated");
 						window[this.schema.title] = response.data;
 						this.$router.push({
 							name: 'AdminIndex',
@@ -57,9 +66,27 @@
 					(error) => VueEventListener.fire('error', error.response.data)
 				);
 			},
+			validateID() {
+				const index = (typeof this.id === "number") ? this.id : Number(this.id);
+				for (let item of this.data) {
+					if (item.id === index) {
+						this.oldData = item;
+						this.prepareData(Object.assign({}, item));
+						return;
+					}
+				}
+				VueEventListener.fire('error', 'Given ID could not be verified: ' + this.id);
+				this.$router.push('/');
+			},
+			prepareData(data) {
+				Object.keys(data).forEach((key) => {
+					if (!Object.keys(this.schema.properties).includes(key)) delete data[key];
+				});
+				this.editor.setValue(data);
+			}
 		},
 		mounted() {
-			this.loadData();
+			this.loadData(this.validateID);
 			this.scrollEvent();
 		},
 		computed: {
@@ -68,8 +95,11 @@
 			}
 		},
 		watch: {
+			'$route.params.id'() {
+				this.validateID();
+			},
 			'$route.params.name'() {
-				this.loadData();
+				this.loadData(this.validateID);
 			}
 		}
 	}

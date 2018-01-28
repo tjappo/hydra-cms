@@ -1,8 +1,8 @@
 import VueRouter from 'vue-router';
 
-import AdminIndex from "../components/admin/Index.vue";
-import AdminCreate from "../components/admin/Create.vue";
-import AdminEdit from "../components/admin/Edit.vue";
+import AdminIndex from "../components/data/Index.vue";
+import AdminCreate from "../components/data/Create.vue";
+import AdminEdit from "../components/data/Edit.vue";
 // Views
 import Dashboard from '../components/index/Dashboard.vue';
 
