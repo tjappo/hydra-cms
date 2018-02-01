@@ -8,13 +8,17 @@
             <div class="col">
                 <div class="card w-100">
                     <div class="card-header">
-                        Add item to <strong>{{title | capitalize}}</strong> page
+                        Create new schema: <strong>{{test.title}}</strong>
                     </div>
                     <div class="card-body">
-                        <div id="jsoneditor-wrapper"></div>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input id="title" type="text" class="form-control" v-model="test.title">
+                        </div>
+
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary" @click="submitForm" :disabled="hasErrors">Submit
+                        <button type="submit" class="btn btn-primary" @click="submitForm">Submit
                         </button>
                         <span id='valid_indicator' class="float-right"></span>
                     </div>
@@ -25,47 +29,31 @@
 </template>
 
 <script>
-	import AdminMixin from '../admin/frontend/functions';
 	import TextFilter from '../filters/textFilters.js';
 
 	export default {
-		mixins: [AdminMixin, TextFilter],
+		mixins: [TextFilter],
+        data() {
+		    return {
+		        title: "",
+                test: {
+		            'title': ""
+                }
+            }
+        },
 		methods: {
 			scrollEvent() {
 				$(".wrapper").get(0).scrollIntoView({behavior: 'smooth'});
 			},
 			submitForm() {
-				const values = this.editor.getValue();
 
-				// WRITE TO FILE
-				axios.post('http://localhost:8000/' + this.name + '/add', {
-					data: values,
-					varName: this.schema.title,
-					url: this.schema.url
-				}).then(
-					(response) => {
-						VueEventListener.fire('success', "Object created");
-						window[this.schema.title] = response.data;
-						this.$router.push({
-							name: 'AdminIndex',
-							params: {
-								'name': this.name
-							}
-						});
-					}
-				).catch(
-					(error) => VueEventListener.fire('error', error.response.data)
-				);
 			},
 		},
 		mounted() {
-			this.loadData();
 			this.scrollEvent();
 		},
 		computed: {
-			title() {
-				return (this.schema) ? this.schema.title.substring(0, this.schema.title.length - 4) : '';
-			}
+
 		},
 		watch: {
 			'$route.params.name'() {
