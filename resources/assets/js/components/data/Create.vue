@@ -31,9 +31,6 @@
 	export default {
 		mixins: [AdminMixin, TextFilter],
 		methods: {
-			scrollEvent() {
-				$(".wrapper").get(0).scrollIntoView({behavior: 'smooth'});
-			},
 			submitForm() {
 				const values = this.editor.getValue();
 
@@ -60,7 +57,6 @@
 		},
 		mounted() {
 			this.loadData();
-			this.scrollEvent();
 		},
 		computed: {
 			title() {

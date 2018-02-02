@@ -39,9 +39,6 @@
 			}
 		},
 		methods: {
-			scrollEvent() {
-				$(".wrapper").get(0).scrollIntoView({behavior: 'smooth'});
-			},
 			submitForm() {
 				const values = this.editor.getValue();
 
@@ -87,7 +84,6 @@
 		},
 		mounted() {
 			this.loadData(this.validateID);
-			this.scrollEvent();
 		},
 		computed: {
 			title() {
