@@ -29,12 +29,11 @@
                             <tbody>
                             <tr v-for="(item, index) in data.items">
                                 <td>
-                                    <input type="text" class="form-control" placeholder="Name" v-model="item.name"
-                                           required>
+                                    <input type="text" class="form-control" placeholder="Name" v-model="item.name">
                                 </td>
                                 <td>
                                     <select class="form-control" required v-model="item.type">
-                                        <option value="string">String</option>
+                                        <option value="string" selected>String</option>
                                         <option value="integer">Number</option>
                                         <option value="boolean">Boolean</option>
                                         <option value="upload">Media upload</option>
@@ -51,7 +50,7 @@
                                 <td>
                                     <div class="switch-wrapper">
                                         <input :id="'hidden-' + item.name" type="checkbox" class="switch-checkbox"
-                                               v-model="item.hidden" required>
+                                               v-model="item.hidden">
                                         <label class="switch-label" :for="'hidden-' + item.name">hidden</label>
                                     </div>
                                 </td>
@@ -89,8 +88,12 @@
 			}
 		},
 		methods: {
+			validateForm() {
+				// validate
+            },
 			submitForm() {
-
+				this.validateForm();
+                // submit
 			},
 			addColumn() {
 				this.data.items.push({
