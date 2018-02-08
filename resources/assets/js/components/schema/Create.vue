@@ -96,7 +96,10 @@
         methods: {
             validateForm() {
                 const sanitized = this.validateString(this.data.title);
-                if (!!sanitized) return; // throw error: title not sanitized
+                if (!sanitized) {
+                    VueEventListener.fire('error', "Title is not valid: " + this.data.title);
+                    return;
+                }
 
                 this.data.title = sanitized;
 
@@ -106,14 +109,18 @@
                     item.hidden = (!!item.hidden);
                     item.name = this.validateString(item.name);
                     item.type = this.validateString(item.type);
-                    if (item.type in this.types) return;
+                    if (item.type in this.types) {
+                        VueEventListener.fire('error', "Type is not valid: " + item.type);
+                        return;
+                    }
                 }
 
                 return true;
             },
             submitForm() {
                 this.validateForm();
-                // submit
+
+                console.log(this.data);
             },
             addColumn() {
                 this.data.items.push({
