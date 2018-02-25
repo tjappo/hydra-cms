@@ -62,7 +62,7 @@
                         </div>
                         <div class="card-footer">
                             <input type="submit" class="btn btn-primary" @click.prevent="submitForm" value="Submit">
-                            <span id='valid_indicator' class="float-right"></span>
+                            <b-link class="btn btn-secondary float-right" :to="{name: 'Index'}">Cancel</b-link>
                         </div>
                     </form>
                 </div>
