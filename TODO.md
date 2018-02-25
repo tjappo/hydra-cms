@@ -1,6 +1,7 @@
 ##Todo list
 **Bugs**
 Hidden label when name is not unique
+Reload node folders when schema is created
 
 **Small**
 

@@ -123,15 +123,12 @@
                     title: this.data.title,
                     items: this.data.items
                 }).then(
-                    (response) => {
+                    () => {
                         VueEventListener.fire('success', "Schema created");
-                        // window[this.schema.title] = response.data;
-                        // this.$router.push({
-                        //     name: 'AdminIndex',
-                        //     params: {
-                        //         'name': this.name
-                        //     }
-                        // });
+                        window[this.data.title] = [];
+                        this.$router.push({
+                            name: 'Index'
+                        });
                     }
                 ).catch(
                     (error) => VueEventListener.fire('error', error.response.data)

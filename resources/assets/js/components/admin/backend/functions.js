@@ -53,32 +53,33 @@ module.exports = {
      * @returns {Object} corresponding schema
      */
     getSchemaObject(item, res) {
+        let baseObject, stringObject;
         switch (item.type) {
             case "string":
                 return module.exports.getStringObject(item);
             case "integer":
                 return module.exports.getBaseObject(item);
             case "boolean":
-                let baseObject = module.exports.getBaseObject(item);
+                baseObject = module.exports.getBaseObject(item);
                 baseObject.default = !!item.default;
                 baseObject.format = "checkbox";
                 return baseObject;
             case "upload":
-                let baseObject = module.exports.getBaseObject(item);
+                baseObject = module.exports.getBaseObject(item);
                 baseObject.media = {
                     "binaryEncoding": "base64"
                 };
                 delete baseObject.default;
                 return baseObject;
             case "html":
-                let stringObject = module.exports.getStringObject(item);
+                stringObject = module.exports.getStringObject(item);
                 stringObject.properties.en.format = "html";
                 stringObject.properties.en.options = {
                     "wysiwyg": true
                 };
                 return stringObject;
             default:
-                res.send(500, "Error, invalid type: " + item.type);
+                res.status(500).send("Error, invalid type: " + item.type);
         }
 
     },
@@ -105,18 +106,23 @@ module.exports = {
      * @param res response object
      */
     createSchema(title, items, res) {
-        const dataName = "window['" + title + "Data']",
-            dataOffset = dataName + " = ",
-            schemaOffset = "window['" + title + "Schema'] = ",
-            url = title + "/data.json.js",
+        const dataName = title + "Data",
+            dataOffset = "window['" + dataName + "'] = ",
+            schemaOffset = "\n\nwindow['" + title + "Schema'] = ",
+            url = config.dataPath + title + "/data.json.js",
             schema = {
-                "title": dataName,
+                "title": title + 'Data',
                 "url": url,
                 "type": "object",
                 "properties": module.exports.getSchema(items, res)
             };
 
-        module.exports.writeToFile(url, dataOffset, [], schemaOffset + JSON.stringify(schema, null, "\t"));
+        if (!fs.existsSync(config.dataPath + title)){
+            fs.mkdirSync(config.dataPath + title);
+        } else {
+            res.status(500).send("Error, path already exists: " + url);
+        }
+        module.exports.writeToFile(url, dataOffset, [], schemaOffset + JSON.stringify(schema, null, "\t") + ';');
         Promise.all(tempVariables.writing).then((values) => {
             res.status(200).send(values[values.length - 1]);
         });

@@ -85,11 +85,11 @@ for (let route of routes) {
 }
 
 app.post('/schema/create', (req, res) => {
-    const title = req.title,
-        items = req.items
+    const title = req.body.title,
+        items = req.body.items
     try {
         functions.createSchema(title, items, res);
-        // res.status(200).send('Object deleted');
+
     } catch (err) {
         console.log(err.stack);
         res.status(500).send('An unexpected error has occurred');
