@@ -17,7 +17,7 @@
                         <button type="submit" class="btn btn-primary" @click="submitForm" :disabled="hasErrors">Submit
                         </button>
                         <b-link class="btn btn-secondary float-right" :to="{name: 'Index'}">Cancel</b-link>
-                        <span id='valid_indicator' class="float-right"></span>
+                        <span id='valid_indicator' class="mt-1 mr-3 float-right"></span>
                     </div>
                 </div>
             </div>
