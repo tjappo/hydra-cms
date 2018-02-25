@@ -23,7 +23,7 @@
                                     <td><strong>Type</strong></td>
                                     <td><strong>Description</strong></td>
                                     <td><strong>Default value</strong></td>
-                                    <td><strong>Hidden</strong></td>
+                                    <td><strong>Required</strong></td>
                                     <td></td>
                                 </tr>
                                 </thead>
@@ -46,9 +46,9 @@
                                     </td>
                                     <td>
                                         <div class="switch-wrapper">
-                                            <input :id="'hidden-' + item.name" type="checkbox" class="switch-checkbox"
-                                                   v-model="item.hidden">
-                                            <label class="switch-label" :for="'hidden-' + item.name">hidden</label>
+                                            <input :id="'required-' + item.name" type="checkbox" class="switch-checkbox"
+                                                   v-model="item.required">
+                                            <label class="switch-label" :for="'required-' + item.name">required</label>
                                         </div>
                                     </td>
                                     <td>
@@ -61,8 +61,7 @@
                             <button type="button" class="btn btn-success" @click="addColumn()">Add new column</button>
                         </div>
                         <div class="card-footer">
-                            <input type="submit" class="btn btn-primary" @click="submitForm" value="Submit"
-                                   :disabled="validateForm()">
+                            <input type="submit" class="btn btn-primary" @click.prevent="submitForm" value="Submit">
                             <span id='valid_indicator' class="float-right"></span>
                         </div>
                     </form>
@@ -79,7 +78,6 @@
         mixins: [TextFilter],
         data() {
             return {
-                title: "",
                 data: {
                     'title': "",
                     items: []
@@ -98,7 +96,7 @@
                 const sanitized = this.validateString(this.data.title);
                 if (!sanitized) {
                     VueEventListener.fire('error', "Title is not valid: " + this.data.title);
-                    return;
+                    return false;
                 }
 
                 this.data.title = sanitized;
@@ -106,21 +104,38 @@
                 for (let item of this.data.items) {
                     item.default = this.validateString(item.default);
                     item.description = this.validateString(item.description);
-                    item.hidden = (!!item.hidden);
+                    item.required = (!!item.required);
                     item.name = this.validateString(item.name);
+                    if (!this.checkUniqueName(item.name)) return false;
                     item.type = this.validateString(item.type);
-                    if (item.type in this.types) {
+                    if (item.type in Object.keys(this.types)) {
                         VueEventListener.fire('error', "Type is not valid: " + item.type);
-                        return;
+                        return false;
                     }
                 }
 
                 return true;
             },
             submitForm() {
-                this.validateForm();
+                if (!this.validateForm()) return;
 
-                console.log(this.data);
+                axios.post('http://localhost:8000/schema/create', {
+                    title: this.data.title,
+                    items: this.data.items
+                }).then(
+                    (response) => {
+                        VueEventListener.fire('success', "Schema created");
+                        // window[this.schema.title] = response.data;
+                        // this.$router.push({
+                        //     name: 'AdminIndex',
+                        //     params: {
+                        //         'name': this.name
+                        //     }
+                        // });
+                    }
+                ).catch(
+                    (error) => VueEventListener.fire('error', error.response.data)
+                );
             },
             addColumn() {
                 this.data.items.push({
@@ -128,7 +143,7 @@
                     type: "",
                     description: "",
                     default: "",
-                    hidden: false
+                    required: false
                 });
             },
             removeRow(index) {
@@ -137,7 +152,14 @@
             validateString(str) {
                 const sanitized = this.$options.filters.sanitizeString(str);
                 return (!!sanitized && typeof str === 'string') ? sanitized : '';
-            }
+            },
+            checkUniqueName(str) {
+                if (this.data.items.filter((item) => item.name === str).length > 1) {
+                    VueEventListener.fire('error', "Name is not unique: " + str);
+                    return false;
+                }
+                return true;
+            },
         },
         computed: {
             itemsExists() {
@@ -146,9 +168,3 @@
         }
     }
 </script>
-
-<style>
-    .ck-editor__editable {
-        min-height: 200px;
-    }
-</style>

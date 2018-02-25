@@ -84,6 +84,19 @@ for (let route of routes) {
 	});
 }
 
+app.post('/schema/create', (req, res) => {
+    const title = req.title,
+        items = req.items
+    try {
+        functions.createSchema(title, items, res);
+        // res.status(200).send('Object deleted');
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
+
+
 const server = app.listen(port, function () {
 	console.log('Listening on port ' + port);
 });

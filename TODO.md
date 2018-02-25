@@ -1,5 +1,6 @@
 ##Todo list
 **Bugs**
+Hidden label when name is not unique
 
 **Small**
 

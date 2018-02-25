@@ -14,6 +14,7 @@ module.exports = {
             return (!!number) ? number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 'NaN';
         },
         sanitizeString: (str) => {
+            if (typeof str !== 'string' && str.length === 0) return '';
             str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim, "");
             return str.trim();
         }
