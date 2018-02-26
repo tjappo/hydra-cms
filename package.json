@@ -29,7 +29,9 @@
     "toastr": "^2.1.4",
     "vue": "^2.5.13",
     "vue-headful": "^1.0.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "webpack": "^3.11.0",
+    "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^1.0.0-alpha.2",

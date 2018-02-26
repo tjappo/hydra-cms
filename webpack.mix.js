@@ -2,6 +2,7 @@ const mix = require('laravel-mix');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const config = require('./config.js');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,8 +14,6 @@ const config = require('./config.js');
  | file for your application, as well as bundling up your JS files.
  |
  */
-
-mix.browserSync('shift-2.0.dev');
 
 mix.setPublicPath('./').js([
 	'resources/assets/js/dependencies.js',
@@ -33,6 +32,11 @@ mix.styles([
 
 mix.copyDirectory(config.dataPath, config.exportPath + 'data');
 
+// Check the env status to enable nodemon
+let nodemon;
+if (process.env.NODE_ENV !== 'production') {
+    nodemon = new WebpackShellPlugin({onBuildEnd: ['nodemon --watch export app.js']});
+}
 
 // Resolve the webpack bug, where fs is not a function
 mix.webpackConfig({
@@ -65,7 +69,8 @@ mix.webpackConfig({
 			Tab: 'exports-loader?Tab!bootstrap/js/dist/tab',
 			Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
 			Util: 'exports-loader?Util!bootstrap/js/dist/util'
-		})
+		}),
+		nodemon
 	],
 	node: {
 		fs: 'empty'
