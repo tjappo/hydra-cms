@@ -73,6 +73,7 @@ module.exports = {
                 return baseObject;
             case "html":
                 stringObject = module.exports.getStringObject(item);
+                stringObject.properties.en.type = "string";
                 stringObject.properties.en.format = "html";
                 stringObject.properties.en.options = {
                     "wysiwyg": true
