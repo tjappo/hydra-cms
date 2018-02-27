@@ -96,6 +96,18 @@ app.post('/schema/create', (req, res) => {
     }
 });
 
+app.put('/schema/update', (req, res) => {
+    try {
+    	console.log(req.body);
+        // functions.createSchema(title, items, res);
+        // functions.updateData(oldData, url, varName, data, res);
+        // res.status(200).send('Object updated');
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
+
 
 const server = app.listen(port, function () {
 	console.log('Listening on port ' + port);

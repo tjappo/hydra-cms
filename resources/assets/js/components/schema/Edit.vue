@@ -8,7 +8,7 @@
             <div class="col">
                 <div class="card w-100">
                     <div class="card-header">
-                        Create new schema: <strong>{{data.title}}</strong>
+                        Edit schema: <strong>{{data.title}}</strong>
                     </div>
                     <form>
                         <div class="card-body">
@@ -36,7 +36,7 @@
                                     <td>
                                         <select class="form-control" required v-model="item.type">
                                             <option v-for="(value, key) in types" :value="key"
-                                                    :selected="value === 'string'">{{value}}
+                                                    :selected="value === item.type">{{value}}
                                             </option>
                                         </select>
                                     </td>
@@ -80,6 +80,39 @@
     import SchemaFilter from '../filters/schemaFilters';
 
     export default {
-        mixins: [TextFilter, SchemaFilter]
+        mixins: [TextFilter, SchemaFilter],
+        props: {
+            'name': [String]
+        },
+        methods: {
+            validateName() {
+                if (!window[this.name + 'Data'] && !window[this.name + 'Schema']) {
+                    VueEventListener.fire('error', 'Given name could not be verified: ' + this.name);
+                    this.$router.push('/');
+                }
+            },
+            prepareData() {
+                const properties = window[this.name + 'Schema'].properties;
+                for (let item in properties) {
+                    console.log(properties[item].default);
+                    this.data.items.push({
+                        name: item || "",
+                        type: properties[item].type || "",
+                        description: properties[item].description || "",
+                        default: properties[item].default || "",
+                        required: properties[item].required || false
+                    });
+                }
+            }
+        },
+        mounted() {
+            this.validateName();
+            this.prepareData();
+        },
+        watch: {
+            '$route.params.name'() {
+                this.validateName();
+            }
+        }
     }
 </script>
