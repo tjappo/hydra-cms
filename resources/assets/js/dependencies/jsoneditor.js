@@ -2173,8 +2173,7 @@
 					ClassicEditor
 						.create(self.input)
 						.then((result) => {
-							result.on('blur', () => {
-								// Get editor's value
+							$(result._elementReplacer._replacedElements[0].newElement).focusout(() => {
 								const val = window.jQuery("<div>" + result.getData() + "</div>");
 								// Set the value and update
 								self.input.value = val.html();

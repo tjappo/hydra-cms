@@ -27,7 +27,8 @@ module.exports = {
 				id: this.deleteData[1]
 			}).then(
 				(response) => {
-					VueListener.fire('success', "Object deleted");
+					VueEventListener.fire('success', "Object deleted");
+					console.log(response);
 					window[schema.title] = response.data;
 					this.$router.push({
 						name: 'AdminIndex',
@@ -37,7 +38,7 @@ module.exports = {
 					});
 				}
 			).catch(
-				(error) => VueEventListener.fire('error', error.response.data)
+				(error) => VueEventListener.fire('error', error)
 			);
 			$("#popover" + this.deleteData[1]).popover('hide');
 		},

@@ -84,7 +84,7 @@
                 },
                 types: {
                     "string": "String",
-                    "integer": "Number",
+                    "number": "Number",
                     "boolean": "Boolean",
                     "upload": "Media upload",
                     "html": "HTML"
@@ -99,7 +99,7 @@
                     return false;
                 }
 
-                this.data.title = sanitized;
+                this.data.title = sanitized.toString();
 
                 for (let item of this.data.items) {
                     item.default = this.validateString(item.default);

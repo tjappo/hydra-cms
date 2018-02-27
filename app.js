@@ -49,7 +49,7 @@ for (let route of routes) {
 			url = req.body.url;
 
 		try {
-			functions.create(url, varName, data, res);
+			functions.createData(url, varName, data, res);
 			// res.status(201).send('Object created');
 
 		} catch (err) {
@@ -63,7 +63,7 @@ for (let route of routes) {
 			varName = req.body.varName,
 			url = req.body.url;
 		try {
-			functions.update(oldData, url, varName, data, res);
+			functions.updateData(oldData, url, varName, data, res);
 			// res.status(200).send('Object updated');
 		} catch (err) {
 			console.log(err.stack);
@@ -75,7 +75,7 @@ for (let route of routes) {
 			id = req.body.id,
 			url = req.body.url;
 		try {
-			functions.delete(url, varName, id, res);
+			functions.deleteData(url, varName, id, res);
 			// res.status(200).send('Object deleted');
 		} catch (err) {
 			console.log(err.stack);
