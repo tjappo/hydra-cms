@@ -149,18 +149,27 @@ let exports = module.exports = {
     addContent(content, newData, varName, schema, callback) {
         schema = exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
         newData = exports.validateContent(newData, varName, schema);
-        if (tempVariables.processingImage.length > 0) {
-            Promise.all(tempVariables.processingImage).then((values) => {
-                values = exports.setData(schema.properties, values[values.length - 1], undefined);
-                values = Object.assign({"id": content.length + 1}, values);
-                content.push(values);
-                callback(content);
-            });
-        } else {
+        exports.checkProcessingImage((values) => {
+            newData = (!!values) ? values : newData;
+
             newData = exports.setData(schema.properties, newData, undefined);
             newData = Object.assign({"id": content.length + 1}, newData);
             content.push(newData);
             callback(content);
+        });
+    },
+
+    /**
+     * Checks whether the system is still processing images and execute the belonging callback function
+     * @param callback callback function to execute
+     */
+    checkProcessingImage(callback) {
+        if (tempVariables.processingImage.length > 0) {
+            Promise.all(tempVariables.processingImage).then((values) => {
+                callback(values[values.length -1]);
+            });
+        } else {
+            callback();
         }
     },
 
@@ -177,17 +186,14 @@ let exports = module.exports = {
         schema = exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
         newData = exports.validateContent(newData, varName, schema);
         const index = content.findIndex(x => x.id === oldData.id);
-        if (tempVariables.processingImage.length > 0) {
-            Promise.all(tempVariables.processingImage).then((values) => {
-                content[index] = exports.setData(schema.properties, values[values.length - 1], oldData);
-                content[index] = Object.assign({"id": oldData.id}, content[index]);
-                callback(content);
-            });
-        } else {
+
+        exports.checkProcessingImage((values) => {
+            newData = (!!values) ? values : newData;
+
             content[index] = exports.setData(schema.properties, newData, oldData);
             content[index] = Object.assign({"id": oldData.id}, content[index]);
             callback(content);
-        }
+        });
     },
 
     /**
