@@ -1,7 +1,11 @@
 ##Todo list
 **Bugs**
-Hidden label when name is not unique
-Reload node folders when schema is created
+* Hidden label when name is not unique
+* If type is number, default value cannot be a number 
+* Reload node folders when schema is created
+* Reduce amount of data folders to one
+* Multi-language support
+    * Second layer type-checking
 
 **Small**
 

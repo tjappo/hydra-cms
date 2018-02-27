@@ -57,7 +57,7 @@ module.exports = {
         switch (item.type) {
             case "string":
                 return module.exports.getStringObject(item);
-            case "integer":
+            case "number":
                 return module.exports.getBaseObject(item);
             case "boolean":
                 baseObject = module.exports.getBaseObject(item);
@@ -66,9 +66,10 @@ module.exports = {
                 return baseObject;
             case "upload":
                 baseObject = module.exports.getBaseObject(item);
-                baseObject.media = {
-                    "binaryEncoding": "base64"
-                };
+                baseObject.type = "string",
+                    baseObject.media = {
+                        "binaryEncoding": "base64"
+                    };
                 delete baseObject.default;
                 return baseObject;
             case "html":
@@ -81,6 +82,7 @@ module.exports = {
                 return stringObject;
             default:
                 res.status(500).send("Error, invalid type: " + item.type);
+                return;
         }
 
     },
@@ -89,12 +91,14 @@ module.exports = {
      * Returns the generated schema, belonging to the given items
      * @param items given items
      * @param res response object
-     * @returns {Object} Schema belonging to the given items
+     * @returns {undefined | Object} Schema belonging to the given items
      */
     getSchema(items, res) {
         let result = {};
         for (let item of items) {
-            result[item.name] = module.exports.getSchemaObject(item, res);
+            let temp = module.exports.getSchemaObject(item, res);
+            if (!temp) return;
+            result[item.name] = temp;
         }
         return result;
     },
@@ -107,26 +111,29 @@ module.exports = {
      * @param res response object
      */
     createSchema(title, items, res) {
+        const schemaValues = module.exports.getSchema(items, res);
+        if (!schemaValues) return;
+
         const dataName = title + "Data",
             dataOffset = "window['" + dataName + "'] = ",
             schemaOffset = "\n\nwindow['" + title + "Schema'] = ",
-            url = config.dataPath + title + "/data.json.js",
+            url = title + "/data.json.js",
             schema = {
                 "title": title + 'Data',
                 "url": url,
                 "type": "object",
-                "properties": module.exports.getSchema(items, res)
+                "properties": schemaValues
             };
 
-        if (!fs.existsSync(config.dataPath + title)){
+        if (!fs.existsSync(config.dataPath + title)) {
             fs.mkdirSync(config.dataPath + title);
+            module.exports.writeToFile(config.dataPath + url, dataOffset, [], schemaOffset + JSON.stringify(schema, null, "\t") + ';');
+            Promise.all(tempVariables.writing).then((values) => {
+                res.status(200).send(values[values.length - 1]);
+            });
         } else {
             res.status(500).send("Error, path already exists: " + url);
         }
-        module.exports.writeToFile(url, dataOffset, [], schemaOffset + JSON.stringify(schema, null, "\t") + ';');
-        Promise.all(tempVariables.writing).then((values) => {
-            res.status(200).send(values[values.length - 1]);
-        });
     },
 
     /**
@@ -219,7 +226,7 @@ module.exports = {
             const offset = "window['" + varName + "'] = ",
                 string = data.toString(),
                 start = string.indexOf(offset),
-                end = string.indexOf(';'),
+                end = string.indexOf(';\n'),
                 dataString = string.substring(start + offset.length, end),
                 schema = string.substring(end + 1, string.length),
                 content = JSON.parse(dataString);
@@ -269,8 +276,9 @@ module.exports = {
      */
     validateContent(newData, varName, schema) {
         for (key of Object.keys(newData)) {
-            if (typeof newData[key] !== schema.properties[key].type)
-                throw new Error("Type mismatch error, expected: " + schema.properties[key].type + ", but got: " + newData[key]);
+            if (typeof newData[key] !== schema.properties[key].type &&
+                (schema.properties[key] === 'integer' && typeof newData[key] !== 'number'))
+                throw new Error("Type mismatch error, expected: " + schema.properties[key].type + ", but got: " + typeof newData[key]);
         }
         module.exports.processImages(newData, varName, schema);
         return newData;
@@ -353,12 +361,19 @@ module.exports = {
     addContent(content, newData, varName, schema, callback) {
         schema = module.exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
         newData = module.exports.validateContent(newData, varName, schema);
-        Promise.all(tempVariables.processingImage).then((values) => {
-            values = module.exports.setData(schema.properties, values[values.length - 1], undefined);
-            values = Object.assign({"id": content.length + 1}, values);
-            content.push(values);
+        if (tempVariables.processingImage.length > 0) {
+            Promise.all(tempVariables.processingImage).then((values) => {
+                values = module.exports.setData(schema.properties, values[values.length - 1], undefined);
+                values = Object.assign({"id": content.length + 1}, values);
+                content.push(values);
+                callback(content);
+            });
+        } else {
+            newData = module.exports.setData(schema.properties, newData, undefined);
+            newData = Object.assign({"id": content.length + 1}, newData);
+            content.push(newData);
             callback(content);
-        });
+        }
     },
 
     /**
@@ -374,11 +389,17 @@ module.exports = {
         schema = module.exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
         newData = module.exports.validateContent(newData, varName, schema);
         const index = content.findIndex(x => x.id === oldData.id);
-        Promise.all(tempVariables.processingImage).then((values) => {
-            content[index] = module.exports.setData(schema.properties, values[values.length - 1], oldData);
+        if (tempVariables.processingImage.length > 0) {
+            Promise.all(tempVariables.processingImage).then((values) => {
+                content[index] = module.exports.setData(schema.properties, values[values.length - 1], oldData);
+                content[index] = Object.assign({"id": oldData.id}, content[index]);
+                callback(content);
+            });
+        } else {
+            content[index] = module.exports.setData(schema.properties, newData, oldData);
             content[index] = Object.assign({"id": oldData.id}, content[index]);
             callback(content);
-        });
+        }
     },
 
     /**
