@@ -1,4 +1,6 @@
 const hash = require('object-hash');
+const fs = require('fs');
+const config = require('../../../../../../../config');
 
 /**
  * Temporary variables
@@ -7,7 +9,7 @@ let tempVariables = {
     processingImage: [],
 };
 
-let exports = module.exports = {
+let dataExports = module.exports = {
 
     /**
      * Splits the data into offset, content and schema
@@ -55,7 +57,7 @@ let exports = module.exports = {
                 (schema.properties[key] === 'integer' && typeof newData[key] !== 'number'))
                 throw new Error("Type mismatch error, expected: " + schema.properties[key].type + ", but got: " + typeof newData[key]);
         }
-        exports.processImages(newData, varName, schema);
+        dataExports.processImages(newData, varName, schema);
         return newData;
     },
 
@@ -74,7 +76,7 @@ let exports = module.exports = {
                     path = 'img/' + varName.substring(0, varName.length - 4),
                     fileName = hash(newData) + '.' + extension,
                     tempKey = key;
-                exports.processImage(imageData, path, fileName, varName, newData, tempKey);
+                dataExports.processImage(imageData, path, fileName, varName, newData, tempKey);
             }
         }
     },
@@ -90,7 +92,7 @@ let exports = module.exports = {
      */
     processImage(imageData, path, fileName, varName, newData, tempKey) {
         tempVariables.processingImage.push(
-            exports.writeImage(imageData, fileName, varName, newData, tempKey)
+            dataExports.writeImage(imageData, fileName, varName, newData, tempKey)
         );
     },
 
@@ -147,12 +149,12 @@ let exports = module.exports = {
      * @param {function} callback function
      */
     addContent(content, newData, varName, schema, callback) {
-        schema = exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
-        newData = exports.validateContent(newData, varName, schema);
-        exports.checkProcessingImage((values) => {
+        schema = dataExports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
+        newData = dataExports.validateContent(newData, varName, schema);
+        dataExports.checkProcessingImage((values) => {
             newData = (!!values) ? values : newData;
 
-            newData = exports.setData(schema.properties, newData, undefined);
+            newData = dataExports.setData(schema.properties, newData, undefined);
             newData = Object.assign({"id": content.length + 1}, newData);
             content.push(newData);
             callback(content);
@@ -183,14 +185,14 @@ let exports = module.exports = {
      * @param {function} callback function
      */
     updateContent(oldData, content, newData, varName, schema, callback) {
-        schema = exports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
-        newData = exports.validateContent(newData, varName, schema);
+        schema = dataExports.extractSchemaObject(schema, varName.substring(0, varName.length - 4));
+        newData = dataExports.validateContent(newData, varName, schema);
         const index = content.findIndex(x => x.id === oldData.id);
 
-        exports.checkProcessingImage((values) => {
+        dataExports.checkProcessingImage((values) => {
             newData = (!!values) ? values : newData;
 
-            content[index] = exports.setData(schema.properties, newData, oldData);
+            content[index] = dataExports.setData(schema.properties, newData, oldData);
             content[index] = Object.assign({"id": oldData.id}, content[index]);
             callback(content);
         });

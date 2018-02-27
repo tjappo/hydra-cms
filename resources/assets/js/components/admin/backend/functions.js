@@ -1,5 +1,3 @@
-const {join} = require('path');
-const config = require('../../../../../../config');
 const dataFunctions = require('./data/dataFunctions');
 const schemaFunctions = require('./schema/schemaFunctions');
 const ioFunctions = require('./general/ioFunctions');
@@ -16,7 +14,7 @@ module.exports = {
     createData(url, varName, newData, res) {
         ioFunctions.processFile(url, varName, newData, (content, newData, schema, callback) => {
             return dataFunctions.addContent(content, newData, varName, schema, callback);
-        }, res);
+        }, dataFunctions.extractDataString, res);
     },
 
     /**
@@ -30,7 +28,7 @@ module.exports = {
     updateData(oldData, url, varName, newData, res) {
         ioFunctions.processFile(url, varName, newData, (content, newData, schema, callback) => {
             return dataFunctions.updateContent(oldData, content, newData, varName, schema, callback);
-        }, res);
+        }, dataFunctions.extractDataString, res);
     },
 
     /**
@@ -44,7 +42,7 @@ module.exports = {
         const newData = "";
         ioFunctions.processFile(url, varName, newData, (content, newData, undefined, callback) => {
             return dataFunctions.deleteContent(id, content, callback);
-        }, res);
+        }, dataFunctions.extractDataString, res);
     },
 
     /**
@@ -62,10 +60,7 @@ module.exports = {
      * @param source given source
      */
     getDirectories(source) {
-        const isDirectory = source => {
-            return fs.lstatSync(source).isDirectory()
-        };
-        return fs.readdirSync(source).map(name => join(source, name)).filter(isDirectory).map(source => source.replace(config.dataPath, ''));
+        return ioFunctions.getDirectories(source);
     },
 
 };
