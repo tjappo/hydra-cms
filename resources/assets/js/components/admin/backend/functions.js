@@ -1,8 +1,6 @@
-const {join} = require('path');
-const config = require('../../../../../../config');
-const dataFunctions = require('./data/dataFunctions');
-const schemaFunctions = require('./schema/schemaFunctions');
-const ioFunctions = require('./general/ioFunctions');
+const dataFunctions = require('./modules/dataFunctions');
+const schemaFunctions = require('./modules/schemaFunctions');
+const ioFunctions = require('./modules/ioFunctions');
 
 module.exports = {
 
@@ -16,7 +14,7 @@ module.exports = {
     createData(url, varName, newData, res) {
         ioFunctions.processFile(url, varName, newData, (content, newData, schema, callback) => {
             return dataFunctions.addContent(content, newData, varName, schema, callback);
-        }, res);
+        }, dataFunctions.extractDataString, res);
     },
 
     /**
@@ -30,7 +28,7 @@ module.exports = {
     updateData(oldData, url, varName, newData, res) {
         ioFunctions.processFile(url, varName, newData, (content, newData, schema, callback) => {
             return dataFunctions.updateContent(oldData, content, newData, varName, schema, callback);
-        }, res);
+        }, dataFunctions.extractDataString, res);
     },
 
     /**
@@ -44,7 +42,7 @@ module.exports = {
         const newData = "";
         ioFunctions.processFile(url, varName, newData, (content, newData, undefined, callback) => {
             return dataFunctions.deleteContent(id, content, callback);
-        }, res);
+        }, dataFunctions.extractDataString, res);
     },
 
     /**
@@ -58,14 +56,32 @@ module.exports = {
     },
 
     /**
+     * Creates the new schema and persists it
+     * @param {string} title the title of the new schema
+     * @param {Object[]} items columns of the schema
+     * @param {Object} oldData the old data
+     * @param res response object
+     */
+    updateSchema(title, items, oldData, res) {
+        ioFunctions.removeData(title, oldData.url, res);
+        schemaFunctions.updateSchema(title, items, oldData, res, dataFunctions.extractDataString, ioFunctions.writeSchema);
+    },
+
+    /**
+     * Deletes the given schema
+     * @param {string} title the title of the new schema
+     * @param res response object
+     */
+    deleteSchema(title, res) {
+        ioFunctions.removeData(title, title + '/data.json.js', res);
+    },
+
+    /**
      * Gets all the directories within a given source
      * @param source given source
      */
     getDirectories(source) {
-        const isDirectory = source => {
-            return fs.lstatSync(source).isDirectory()
-        };
-        return fs.readdirSync(source).map(name => join(source, name)).filter(isDirectory).map(source => source.replace(config.dataPath, ''));
+        return ioFunctions.getDirectories(source);
     },
 
 };

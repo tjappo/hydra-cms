@@ -1,4 +1,4 @@
-let exports = module.exports = {
+let schemaExports = module.exports = {
     /**
      * Returns the base string object of a schema
      * @param item given item
@@ -42,16 +42,22 @@ let exports = module.exports = {
         let baseObject, stringObject;
         switch (item.type) {
             case "string":
-                return exports.getStringObject(item);
+                return schemaExports.getStringObject(item);
             case "number":
-                return exports.getBaseObject(item);
-            case "boolean":
-                baseObject = exports.getBaseObject(item);
-                baseObject.default = !!item.default;
-                baseObject.format = "checkbox";
+                return schemaExports.getBaseObject(item);
+            case "date":
+                baseObject = schemaExports.getBaseObject(item);
+                baseObject.type = 'string';
+                baseObject.format = item.type;
+                delete baseObject.default;
                 return baseObject;
-            case "upload":
-                baseObject = exports.getBaseObject(item);
+            case "checkbox":
+                baseObject = schemaExports.getBaseObject(item);
+                baseObject.default = !!item.default;
+                baseObject.format = item.type;
+                return baseObject;
+            case "media":
+                baseObject = schemaExports.getBaseObject(item);
                 baseObject.type = "string",
                     baseObject.media = {
                         "binaryEncoding": "base64"
@@ -59,9 +65,9 @@ let exports = module.exports = {
                 delete baseObject.default;
                 return baseObject;
             case "html":
-                stringObject = exports.getStringObject(item);
+                stringObject = schemaExports.getStringObject(item);
                 stringObject.properties.en.type = "string";
-                stringObject.properties.en.format = "html";
+                stringObject.properties.en.format = item.type;
                 stringObject.properties.en.options = {
                     "wysiwyg": true
                 };
@@ -81,7 +87,7 @@ let exports = module.exports = {
     getSchema(items, res) {
         let result = {};
         for (let item of items) {
-            let temp = exports.getSchemaObject(item, res);
+            let temp = schemaExports.getSchemaObject(item, res);
             if (!temp) return;
             result[item.name] = temp;
         }
@@ -93,10 +99,10 @@ let exports = module.exports = {
      * @param {string} title given title of the schema
      * @param {Object[]} items columns of the schema
      * @param res response object
-     * @returns {undefined | *[]} Array containing empty data and schema
+     * @returns {undefined | *[]} Array containing url, empty data and schema
      */
     initializeSchema(title, items, res) {
-        const schemaValues = exports.getSchema(items, res);
+        const schemaValues = schemaExports.getSchema(items, res);
         if (!schemaValues) return;
 
         const dataName = title + "Data",
@@ -109,7 +115,7 @@ let exports = module.exports = {
                 "type": "object",
                 "properties": schemaValues
             };
-        return [dataOffset, schemaOffset + JSON.stringify(schema, null, "\t") + ';'];
+        return [url, dataOffset, schemaOffset + JSON.stringify(schema, null, "\t") + ';'];
     },
 
     /**
@@ -120,8 +126,29 @@ let exports = module.exports = {
      * @param {function} callback writing function
      */
     createSchema(title, items, res, callback) {
-        let [dataOffset, schema] = exports.initializeSchema(title, items, res);
+        let [url, dataOffset, schema] = schemaExports.initializeSchema(title, items, res);
 
-        callback(title, dataOffset, schema, res);
+        callback(title, url, dataOffset, [], schema, res, true);
+    },
+
+    /**
+     * Updates the schema and persists it
+     * @param {string} title the title of the new schema
+     * @param {Object[]} items columns of the schema
+     * @param {Object} oldData the old data
+     * @param res response object
+     * @param {function} extractDataString the function that extracts the data string
+     * @param {function} callback writing function
+     */
+    updateSchema(title, items, oldData, res, extractDataString, callback) {
+        const schemaValues = schemaExports.getSchema(items, res),
+            url = config.dataPath + oldData.url,
+            schemaOffset = "\n\nwindow['" + title + "Schema'] = ";
+
+        oldData.properties = schemaValues;
+
+        extractDataString(url, title + 'Data', (dataOffset, content) => {
+            callback(title, url, dataOffset, content, schemaOffset + JSON.stringify(oldData, null, "\t") + ';', res);
+        });
     }
 };

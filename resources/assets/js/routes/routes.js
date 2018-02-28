@@ -5,6 +5,7 @@ import AdminCreate from "../components/data/Create.vue";
 import AdminEdit from "../components/data/Edit.vue";
 
 import SchemaCreate from "../components/schema/Create.vue";
+import SchemaEdit from "../components/schema/Edit.vue";
 // Views
 import Dashboard from '../components/index/Dashboard.vue';
 
@@ -40,6 +41,12 @@ const routes = [
         path: '/schema/create',
         name: 'SchemaCreate',
         component: SchemaCreate,
+    },
+    {
+        path: '/schema/:name/edit',
+        name: 'SchemaEdit',
+        component: SchemaEdit,
+        props: true
     },
     {
         path: '*',

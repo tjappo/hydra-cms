@@ -8,7 +8,7 @@
             <div class="col">
                 <div class="card w-100">
                     <div class="card-header">
-                        Create new schema: <strong>{{data.title}}</strong>
+                        Edit schema: <strong>{{data.title}}</strong>
                     </div>
                     <form>
                         <div class="card-body">
@@ -36,7 +36,7 @@
                                     <td>
                                         <select class="form-control" required v-model="item.type">
                                             <option v-for="(value, key) in types" :value="key"
-                                                    :selected="value === 'string'">{{value}}
+                                                    :selected="value === item.type">{{value}}
                                             </option>
                                         </select>
                                     </td>
@@ -81,17 +81,45 @@
 
     export default {
         mixins: [TextFilter, SchemaFilter],
+        props: {
+            'name': [String]
+        },
         methods: {
+            validateName() {
+                if (!window[this.name + 'Data'] && !window[this.name + 'Schema']) {
+                    VueEventListener.fire('error', 'Given name could not be verified: ' + this.name);
+                    this.$router.push('/');
+                }
+                this.data.title = this.name;
+            },
+            prepareData() {
+                let properties = window[this.name + 'Schema'].properties;
+                for (let item in properties) {
+                    let values = properties[item];
+                    let type = values.type;
+                    if (!!values.media) {
+                        type = 'media';
+                    } else if (!!values.format) {
+                        type = values.format;
+                    }
+                    if (!!values.properties) {
+                        values = values.properties.en;
+                        type = (!!values.format && values.format === 'html') ? 'html' : values.type;
+                    }
+                    this.addColumn(item, type, values.description, values.default, values.required);
+                }
+            },
             submitForm() {
                 if (!this.validateForm()) return;
 
-                axios.post('http://localhost:8000/schema/create', {
+                axios.put('http://localhost:8000/schema/update', {
+                    oldData: window[this.name + 'Schema'],
                     title: this.data.title,
                     items: this.data.items
                 }).then(
                     () => {
-                        VueEventListener.fire('success', "Schema Created");
-                        setTimeout(function(){
+                        VueEventListener.fire('success', "Schema Edited");
+                        setTimeout(function () {
                             window.location.reload(1);
                         }, 5000);
                         this.$router.push({
@@ -104,6 +132,15 @@
                         (!!error.response) ? error.response.data : '')
                 );
             },
+        },
+        mounted() {
+            this.validateName();
+            this.prepareData();
+        },
+        watch: {
+            '$route.params.name'() {
+                this.validateName();
+            }
         }
     }
 </script>
