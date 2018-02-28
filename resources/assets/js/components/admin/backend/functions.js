@@ -1,6 +1,6 @@
-const dataFunctions = require('./data/dataFunctions');
-const schemaFunctions = require('./schema/schemaFunctions');
-const ioFunctions = require('./general/ioFunctions');
+const dataFunctions = require('./modules/dataFunctions');
+const schemaFunctions = require('./modules/schemaFunctions');
+const ioFunctions = require('./modules/ioFunctions');
 
 module.exports = {
 
@@ -63,7 +63,17 @@ module.exports = {
      * @param res response object
      */
     updateSchema(title, items, oldData, res) {
-        schemaFunctions.updateSchema(title, items, oldData, res, ioFunctions.writeSchema);
+        ioFunctions.removeData(title, oldData.url, res);
+        schemaFunctions.updateSchema(title, items, oldData, res, dataFunctions.extractDataString, ioFunctions.writeSchema);
+    },
+
+    /**
+     * Deletes the given schema
+     * @param {string} title the title of the new schema
+     * @param res response object
+     */
+    deleteSchema(title, res) {
+        ioFunctions.removeData(title, title + '/data.json.js', res);
     },
 
     /**

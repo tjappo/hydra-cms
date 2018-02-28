@@ -33,7 +33,7 @@ let IOExports = module.exports = {
     processFile(url, varName, newData, callback, extractDataString, res) {
         url = config.dataPath + url;
         IOExports.checkFile(url, extractDataString(url, varName,
-            (err, offset, content, schema) => {
+            (offset, content, schema) => {
                 callback(content, newData, schema, (content) => {
                     IOExports.writeToFile(url, offset, content, schema);
                     Promise.all(IOExports.writing).then((values) => {
@@ -67,19 +67,38 @@ let IOExports = module.exports = {
      * Writes the given schema to the file
      * @param title given title of file
      * @param url given url to write the file to
-     * @param dataOffset the data to write
+     * @param dataOffset the data offset to write
+     * @param data the data to write
      * @param schema the schema to write
      * @param res response object
+     * @param checkDir variable to check the dir
      */
-    writeSchema(title, url, dataOffset, schema, res) {
-        if (!fs.existsSync(config.dataPath + title)) {
+    writeSchema(title, url, dataOffset, data, schema, res, checkDir) {
+        if (checkDir && !fs.existsSync(config.dataPath + title)) {
             fs.mkdirSync(config.dataPath + title);
-            IOExports.writeToFile(config.dataPath + url, dataOffset, [], schema);
-            Promise.all(IOExports.writing).then((values) => {
-                res.status(200).send(values[values.length - 1]);
-            });
         } else {
             res.status(500).send("Error, path already exists: " + url);
+        }
+        IOExports.writeToFile(config.dataPath + url, dataOffset, data, schema);
+        Promise.all(IOExports.writing).then((values) => {
+            res.status(200).send(values[values.length - 1]);
+        });
+    },
+
+    /**
+     * Removes the given directory and title
+     * @param title given title of the file
+     * @param url given url of the directory
+     * @param res response object
+     */
+    removeData(title, url, res) {
+        url = config.dataPath + url;
+        title = config.dataPath + title;
+        if (fs.existsSync(url)) {
+            fs.unlinkSync(url);
+            fs.rmdirSync(title);
+        } else {
+            res.status(500).send("Error, reading file: " + url);
         }
     },
 

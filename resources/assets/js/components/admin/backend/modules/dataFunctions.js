@@ -27,7 +27,7 @@ let dataExports = module.exports = {
                 schema = string.substring(end + 1, string.length),
                 content = JSON.parse(dataString);
 
-            (err) ? callback(null, content) : callback(err, offset, content, schema); // Clean error handler
+            (err) ? callback(null, content) : callback(offset, content, schema); // Clean error handler
         });
     },
 

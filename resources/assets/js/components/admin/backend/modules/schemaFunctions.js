@@ -45,10 +45,16 @@ let schemaExports = module.exports = {
                 return schemaExports.getStringObject(item);
             case "number":
                 return schemaExports.getBaseObject(item);
-            case "boolean":
+            case "date":
+                baseObject = schemaExports.getBaseObject(item);
+                baseObject.type = 'string';
+                baseObject.format = item.type;
+                delete baseObject.default;
+                return baseObject;
+            case "checkbox":
                 baseObject = schemaExports.getBaseObject(item);
                 baseObject.default = !!item.default;
-                baseObject.format = "checkbox";
+                baseObject.format = item.type;
                 return baseObject;
             case "media":
                 baseObject = schemaExports.getBaseObject(item);
@@ -61,7 +67,7 @@ let schemaExports = module.exports = {
             case "html":
                 stringObject = schemaExports.getStringObject(item);
                 stringObject.properties.en.type = "string";
-                stringObject.properties.en.format = "html";
+                stringObject.properties.en.format = item.type;
                 stringObject.properties.en.options = {
                     "wysiwyg": true
                 };
@@ -122,7 +128,7 @@ let schemaExports = module.exports = {
     createSchema(title, items, res, callback) {
         let [url, dataOffset, schema] = schemaExports.initializeSchema(title, items, res);
 
-        callback(title, url, dataOffset, schema, res);
+        callback(title, url, dataOffset, [], schema, res, true);
     },
 
     /**
@@ -131,9 +137,18 @@ let schemaExports = module.exports = {
      * @param {Object[]} items columns of the schema
      * @param {Object} oldData the old data
      * @param res response object
+     * @param {function} extractDataString the function that extracts the data string
      * @param {function} callback writing function
      */
-    updateSchema(title, items, oldData, res, callback) {
-        console.log(oldData);
+    updateSchema(title, items, oldData, res, extractDataString, callback) {
+        const schemaValues = schemaExports.getSchema(items, res),
+            url = config.dataPath + oldData.url,
+            schemaOffset = "\n\nwindow['" + title + "Schema'] = ";
+
+        oldData.properties = schemaValues;
+
+        extractDataString(url, title + 'Data', (dataOffset, content) => {
+            callback(title, url, dataOffset, content, schemaOffset + JSON.stringify(oldData, null, "\t") + ';', res);
+        });
     }
 };

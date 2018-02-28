@@ -8,7 +8,8 @@ module.exports = {
             types: {
                 "string": "String",
                 "number": "Number",
-                "boolean": "Boolean",
+                "date": "Date",
+                "checkbox": "Boolean",
                 "media": "Media upload",
                 "html": "HTML"
             }

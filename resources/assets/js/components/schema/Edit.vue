@@ -96,7 +96,12 @@
                 let properties = window[this.name + 'Schema'].properties;
                 for (let item in properties) {
                     let values = properties[item];
-                    let type = (!!values.media) ? 'media' : values.type;
+                    let type = values.type;
+                    if (!!values.media) {
+                        type = 'media';
+                    } else if (!!values.format) {
+                        type = values.format;
+                    }
                     if (!!values.properties) {
                         values = values.properties.en;
                         type = (!!values.format && values.format === 'html') ? 'html' : values.type;
@@ -114,12 +119,12 @@
                 }).then(
                     () => {
                         VueEventListener.fire('success', "Schema Edited");
-                        // setTimeout(function () {
-                        //     window.location.reload(1);
-                        // }, 5000);
-                        // this.$router.push({
-                        //     name: 'Index'
-                        // });
+                        setTimeout(function () {
+                            window.location.reload(1);
+                        }, 5000);
+                        this.$router.push({
+                            name: 'Index'
+                        });
                     }
                 ).catch(
                     (error) => VueEventListener.fire(
