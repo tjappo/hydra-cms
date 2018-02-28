@@ -123,5 +123,17 @@ let schemaExports = module.exports = {
         let [url, dataOffset, schema] = schemaExports.initializeSchema(title, items, res);
 
         callback(title, url, dataOffset, schema, res);
+    },
+
+    /**
+     * Updates the schema and persists it
+     * @param {string} title the title of the new schema
+     * @param {Object[]} items columns of the schema
+     * @param {Object} oldData the old data
+     * @param res response object
+     * @param {function} callback writing function
+     */
+    updateSchema(title, items, oldData, res, callback) {
+        console.log(oldData);
     }
 };

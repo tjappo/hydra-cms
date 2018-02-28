@@ -90,19 +90,43 @@
                     VueEventListener.fire('error', 'Given name could not be verified: ' + this.name);
                     this.$router.push('/');
                 }
+                this.data.title = this.name;
             },
             prepareData() {
                 let properties = window[this.name + 'Schema'].properties;
                 for (let item in properties) {
                     let values = properties[item];
-                    let type = (!!values.media) ? 'media': values.type;
+                    let type = (!!values.media) ? 'media' : values.type;
                     if (!!values.properties) {
                         values = values.properties.en;
                         type = (!!values.format && values.format === 'html') ? 'html' : values.type;
                     }
                     this.addColumn(item, type, values.description, values.default, values.required);
                 }
-            }
+            },
+            submitForm() {
+                if (!this.validateForm()) return;
+
+                axios.put('http://localhost:8000/schema/update', {
+                    oldData: window[this.name + 'Schema'],
+                    title: this.data.title,
+                    items: this.data.items
+                }).then(
+                    () => {
+                        VueEventListener.fire('success', "Schema Edited");
+                        // setTimeout(function () {
+                        //     window.location.reload(1);
+                        // }, 5000);
+                        // this.$router.push({
+                        //     name: 'Index'
+                        // });
+                    }
+                ).catch(
+                    (error) => VueEventListener.fire(
+                        'An unexpected error has occured: ',
+                        (!!error.response) ? error.response.data : '')
+                );
+            },
         },
         mounted() {
             this.validateName();

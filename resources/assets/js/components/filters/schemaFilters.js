@@ -25,7 +25,7 @@ module.exports = {
             this.data.title = sanitized.toString();
 
             for (let item of this.data.items) {
-                item.default = this.validateString(item.default);
+                item.default = (item.type === 'html') ? item.default : this.validateString(item.default);
                 item.description = this.validateString(item.description);
                 item.required = (!!item.required);
                 item.name = this.validateString(item.name);
@@ -38,26 +38,6 @@ module.exports = {
             }
 
             return true;
-        },
-        submitForm() {
-            if (!this.validateForm()) return;
-
-            axios.post('http://localhost:8000/schema/create', {
-                title: this.data.title,
-                items: this.data.items
-            }).then(
-                () => {
-                    VueEventListener.fire('success', "Schema Edited");
-                    setTimeout(function(){
-                        window.location.reload(1);
-                    }, 5000);
-                    this.$router.push({
-                        name: 'Index'
-                    });
-                }
-            ).catch(
-                (error) => VueEventListener.fire('error', error.response.data)
-            );
         },
         addColumn(name, type, description, defaultVal, requiredVal) {
             this.data.items.push({

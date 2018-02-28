@@ -50,7 +50,6 @@ for (let route of routes) {
 
 		try {
 			functions.createData(url, varName, data, res);
-			// res.status(201).send('Object created');
 
 		} catch (err) {
 			console.log(err.stack);
@@ -64,7 +63,6 @@ for (let route of routes) {
 			url = req.body.url;
 		try {
 			functions.updateData(oldData, url, varName, data, res);
-			// res.status(200).send('Object updated');
 		} catch (err) {
 			console.log(err.stack);
 			res.status(500).send('An unexpected error has occurred');
@@ -76,7 +74,6 @@ for (let route of routes) {
 			url = req.body.url;
 		try {
 			functions.deleteData(url, varName, id, res);
-			// res.status(200).send('Object deleted');
 		} catch (err) {
 			console.log(err.stack);
 			res.status(500).send('An unexpected error has occurred');
@@ -97,11 +94,11 @@ app.post('/schema/create', (req, res) => {
 });
 
 app.put('/schema/update', (req, res) => {
-    try {
-    	console.log(req.body);
-        // functions.createSchema(title, items, res);
-        // functions.updateData(oldData, url, varName, data, res);
-        // res.status(200).send('Object updated');
+    const title = req.body.title,
+		items = req.body.items,
+		oldData = req.body.oldData;
+	try {
+    	functions.updateSchema(title, items, oldData, res);
     } catch (err) {
         console.log(err.stack);
         res.status(500).send('An unexpected error has occurred');

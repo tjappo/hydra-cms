@@ -80,6 +80,30 @@
     import SchemaFilter from '../filters/schemaFilters';
 
     export default {
-        mixins: [TextFilter, SchemaFilter]
+        mixins: [TextFilter, SchemaFilter],
+        methods: {
+            submitForm() {
+                if (!this.validateForm()) return;
+
+                axios.post('http://localhost:8000/schema/create', {
+                    title: this.data.title,
+                    items: this.data.items
+                }).then(
+                    () => {
+                        VueEventListener.fire('success', "Schema Created");
+                        setTimeout(function(){
+                            window.location.reload(1);
+                        }, 5000);
+                        this.$router.push({
+                            name: 'Index'
+                        });
+                    }
+                ).catch(
+                    (error) => VueEventListener.fire(
+                        'An unexpected error has occured: ',
+                        (!!error.response) ? error.response.data : '')
+                );
+            },
+        }
     }
 </script>

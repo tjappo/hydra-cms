@@ -56,6 +56,17 @@ module.exports = {
     },
 
     /**
+     * Creates the new schema and persists it
+     * @param {string} title the title of the new schema
+     * @param {Object[]} items columns of the schema
+     * @param {Object} oldData the old data
+     * @param res response object
+     */
+    updateSchema(title, items, oldData, res) {
+        schemaFunctions.updateSchema(title, items, oldData, res, ioFunctions.writeSchema);
+    },
+
+    /**
      * Gets all the directories within a given source
      * @param source given source
      */
