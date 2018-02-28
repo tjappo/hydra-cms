@@ -14,6 +14,7 @@
                         <router-link :to="{ name: 'AdminCreate', params: {'name': name}}" exact>
                             <a href="#" class="btn btn-primary">Create new {{name | capitalize}} item</a>
                         </router-link>
+                        <delete-schema class="float-right" :title="name"></delete-schema>
                         <div id="items-wrapper" class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -67,9 +68,11 @@
 	import DeleteMixin from '../admin/frontend/delete';
 	import TextFilter from '../filters/textFilters';
 	import Config from '../../../../../config.js';
+    import DeleteSchema from "../schema/Delete";
 
 	export default {
-		mixins: [DeleteMixin, TextFilter],
+        components: {DeleteSchema},
+        mixins: [DeleteMixin, TextFilter],
 		props: {
 			'name': String
 		},
