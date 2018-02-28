@@ -105,6 +105,16 @@ app.put('/schema/update', (req, res) => {
     }
 });
 
+app.put('/schema/delete', (req, res) => {
+    const title = req.body.title;
+    try {
+        functions.deleteSchema(title, res);
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
+
 
 const server = app.listen(port, function () {
 	console.log('Listening on port ' + port);
