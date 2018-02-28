@@ -92,16 +92,15 @@
                 }
             },
             prepareData() {
-                const properties = window[this.name + 'Schema'].properties;
+                let properties = window[this.name + 'Schema'].properties;
                 for (let item in properties) {
-                    console.log(properties[item].default);
-                    this.data.items.push({
-                        name: item || "",
-                        type: properties[item].type || "",
-                        description: properties[item].description || "",
-                        default: properties[item].default || "",
-                        required: properties[item].required || false
-                    });
+                    let values = properties[item];
+                    let type = (!!values.media) ? 'media': values.type;
+                    if (!!values.properties) {
+                        values = values.properties.en;
+                        type = (!!values.format && values.format === 'html') ? 'html' : values.type;
+                    }
+                    this.addColumn(item, type, values.description, values.default, values.required);
                 }
             }
         },

@@ -9,7 +9,7 @@ module.exports = {
                 "string": "String",
                 "number": "Number",
                 "boolean": "Boolean",
-                "upload": "Media upload",
+                "media": "Media upload",
                 "html": "HTML"
             }
         }

@@ -50,7 +50,7 @@ let schemaExports = module.exports = {
                 baseObject.default = !!item.default;
                 baseObject.format = "checkbox";
                 return baseObject;
-            case "upload":
+            case "media":
                 baseObject = schemaExports.getBaseObject(item);
                 baseObject.type = "string",
                     baseObject.media = {
