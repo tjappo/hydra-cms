@@ -13,7 +13,6 @@
 
 **Large**
 * Improve error handling
-* Add Create New Schema functionality
 
 * Extra:
     * Add menu editor
