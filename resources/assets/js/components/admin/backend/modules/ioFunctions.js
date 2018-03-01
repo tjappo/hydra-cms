@@ -31,7 +31,7 @@ let IOExports = module.exports = {
      * @param res response object
      */
     processFile(url, varName, newData, callback, extractDataString, res) {
-        url = config.dataPath + url;
+        url = config.exportPath + url;
         IOExports.checkFile(url, extractDataString(url, varName,
             (offset, content, schema) => {
                 callback(content, newData, schema, (content) => {
@@ -74,12 +74,12 @@ let IOExports = module.exports = {
      * @param checkDir variable to check the dir
      */
     writeSchema(title, url, dataOffset, data, schema, res, checkDir) {
-        if (checkDir && !fs.existsSync(config.dataPath + title)) {
-            fs.mkdirSync(config.dataPath + title);
+        if (checkDir && !fs.existsSync(config.exportPath + title)) {
+            fs.mkdirSync(config.exportPath + title);
         } else {
             res.status(500).send("Error, path already exists: " + url);
         }
-        IOExports.writeToFile(config.dataPath + url, dataOffset, data, schema);
+        IOExports.writeToFile(config.exportPath + url, dataOffset, data, schema);
         Promise.all(IOExports.writing).then((values) => {
             res.status(200).send(values[values.length - 1]);
         });
@@ -92,8 +92,8 @@ let IOExports = module.exports = {
      * @param res response object
      */
     removeData(title, url, res) {
-        url = config.dataPath + url;
-        title = config.dataPath + title;
+        url = config.exportPath + url;
+        title = config.exportPath + title;
         if (fs.existsSync(url)) {
             fs.unlinkSync(url);
             fs.rmdirSync(title);
@@ -110,6 +110,6 @@ let IOExports = module.exports = {
         const isDirectory = source => {
             return fs.lstatSync(source).isDirectory()
         };
-        return fs.readdirSync(source).map(name => join(source, name)).filter(isDirectory).map(source => source.replace(config.dataPath, ''));
+        return fs.readdirSync(source).map(name => join(source, name)).filter(isDirectory).map(source => source.replace(config.exportPath, ''));
     },
 };

@@ -29,7 +29,7 @@ app.use(function (req, res, next) {
 /**
  * Routes for adding items
  */
-const routes = functions.getDirectories(config.dataPath)
+const routes = functions.getDirectories(config.exportPath)
 	.filter((source) => !config.ignoreFolders.includes(source));
 
 app.use(express.static(__dirname));

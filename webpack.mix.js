@@ -30,8 +30,6 @@ mix.styles([
 	// End of custom css
 ], 'css/style.css');
 
-mix.copyDirectory(config.dataPath, config.exportPath + 'data');
-
 // Check the env status to enable nodemon
 let nodemon;
 if (process.env.NODE_ENV !== 'production') {

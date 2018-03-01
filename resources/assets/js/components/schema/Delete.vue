@@ -34,10 +34,12 @@
                     title: this.title,
                 }).then(
                     () => {
-                        window[this.title + 'Data'] = window[this.title + 'Schema'] = undefined;
                         VueEventListener.fire('success', "Schema deleted");
+                        setTimeout(function(){
+                            window.location.reload(1);
+                        }, 5000);
                         this.$router.push({
-                            name: 'Index',
+                            name: 'Index'
                         });
                     }
                 ).catch(

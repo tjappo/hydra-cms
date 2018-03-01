@@ -108,7 +108,7 @@ let dataExports = module.exports = {
     writeImage(imageData, fileName, varName, newData, tempKey) {
         return new Promise((resolve, reject) => {
             if (!!imageData) {
-                fs.writeFile(config.dataPath + path + '/' + fileName, new Buffer(imageData, "base64"), (err) => {
+                fs.writeFile(config.exportPath + path + '/' + fileName, new Buffer(imageData, "base64"), (err) => {
                     if (err) reject(new Error("Image upload error, at: " + varName));
 
                     newData[tempKey] = path + '/' + fileName;
