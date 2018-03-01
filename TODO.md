@@ -1,6 +1,5 @@
 ##Todo list
 **Bugs**
-* Hidden label when name is not unique
 * If type is number, default value cannot be a number
 * Multi-language support
     * Second layer type-checking

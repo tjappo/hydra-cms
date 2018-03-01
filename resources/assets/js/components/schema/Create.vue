@@ -50,9 +50,9 @@
                                     </td>
                                     <td>
                                         <div class="switch-wrapper">
-                                            <input :id="'required-' + item.name" type="checkbox" class="switch-checkbox"
+                                            <input :id="'required-' + index" type="checkbox" class="switch-checkbox"
                                                    v-model="item.required">
-                                            <label class="switch-label" :for="'required-' + item.name">required</label>
+                                            <label class="switch-label" :for="'required-' + index">required</label>
                                         </div>
                                     </td>
                                     <td>
