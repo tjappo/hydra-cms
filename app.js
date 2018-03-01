@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const functions = require('./resources/assets/js/components/admin/backend/functions.js');
+const functions = require('./resources/assets/js/components/main/backend/functions.js');
 const config = require('./config');
 
 app.use(bodyParser.json({limit: '5mb'}));       // to support JSON-encoded bodies

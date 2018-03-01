@@ -77,7 +77,7 @@
 
 <script>
     import TextFilter from '../filters/textFilters.js';
-    import SchemaFilter from '../filters/schemaFilters';
+    import SchemaFilter from './components/schemaFilters';
 
     export default {
         mixins: [TextFilter, SchemaFilter],

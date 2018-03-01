@@ -26,7 +26,7 @@
 </template>
 
 <script>
-	import AdminMixin from '../admin/frontend/functions';
+	import AdminMixin from '../main/frontend/functions';
 	import TextFilter from '../filters/textFilters.js';
 
 	export default {

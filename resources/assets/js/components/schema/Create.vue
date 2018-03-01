@@ -45,8 +45,8 @@
                                                v-model="item.description">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control" placeholder="Default value"
-                                               v-model="item.default">
+                                        <input :type="checkType(item.type)" class="form-control"
+                                               placeholder="Default value" v-model="item.default">
                                     </td>
                                     <td>
                                         <div class="switch-wrapper">
@@ -77,7 +77,7 @@
 
 <script>
     import TextFilter from '../filters/textFilters.js';
-    import SchemaFilter from '../filters/schemaFilters';
+    import SchemaFilter from './components/schemaFilters';
 
     export default {
         mixins: [TextFilter, SchemaFilter],
@@ -91,7 +91,7 @@
                 }).then(
                     () => {
                         VueEventListener.fire('success', "Schema Created");
-                        setTimeout(function(){
+                        setTimeout(function () {
                             window.location.reload(1);
                         }, 5000);
                         this.$router.push({
