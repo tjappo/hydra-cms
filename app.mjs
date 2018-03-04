@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import * as functions from './resources/assets/js/components/main/backend/functions.mjs';
+import config from './config';
 const app = express();
-const bodyParser = require('body-parser');
-const functions = require('./resources/assets/js/components/main/backend/functions.js');
-const config = require('./config');
 
 app.use(bodyParser.json({limit: '5mb'}));       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -32,7 +32,7 @@ app.use(function (req, res, next) {
 const routes = functions.getDirectories(config.exportPath)
 	.filter((source) => !config.ignoreFolders.includes(source));
 
-app.use(express.static(__dirname));
+app.use(express.static(process.env.PWD));
 app.get('/', (req, res) => {
 
 	res.render('index', {
@@ -108,7 +108,7 @@ app.put('/schema/update', (req, res) => {
 app.put('/schema/delete', (req, res) => {
     const title = req.body.title;
     try {
-        functions.deleteSchema(title, res);
+        functions.removeSchema(title, res);
     } catch (err) {
         console.log(err.stack);
         res.status(500).send('An unexpected error has occurred');

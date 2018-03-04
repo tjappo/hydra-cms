@@ -1,6 +1,6 @@
-const fs = require('fs');
-const {join} = require('path');
-const config = require('../../../../../../../config');
+import config from '../../../../../../../config';
+import fs from 'fs';
+import path from 'path';
 import {checkFileError} from './errorHandler';
 
 let writing = [];
@@ -112,11 +112,11 @@ export function removeData(title, url, res) {
  * Gets all the directories within a given source
  * @param source given source
  */
-export function getDirectories(source) {
+export function getDirectoriesFromSource(source) {
     const isDirectory = source => {
         return fs.lstatSync(source).isDirectory()
     };
-    return fs.readdirSync(source).map(name => join(source, name)).filter(isDirectory).map(source => source.replace(config.exportPath, ''));
+    return fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory).map(source => source.replace(config.exportPath, ''));
 }
 
 /**

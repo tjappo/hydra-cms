@@ -35,7 +35,7 @@ export function updateContent(oldData, url, varName, newData, res) {
  * @param {string} id new data to process
  * @param res response object
  */
-export function deleteContent(url, varName, id, res) {
+export function removeContent(url, varName, id, res) {
     processFile(url, varName, "", (content, newData, undefined, callback) => {
         return deleteContent(id, content, callback);
     }, res);

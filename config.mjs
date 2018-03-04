@@ -1,4 +1,4 @@
-const config = require('./config.global');
+import config from './config.global.mjs';
 
 /**
  * CONFIGURATION
@@ -6,4 +6,4 @@ const config = require('./config.global');
 config.exportPath = 'export/';
 config.ignoreFolders = ['img'];
 
-module.exports = config;
+export default config;

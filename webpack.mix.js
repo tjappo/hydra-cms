@@ -1,7 +1,6 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const config = require('./config.js');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
 /*
@@ -19,9 +18,7 @@ mix.setPublicPath('./').js([
 	'resources/assets/js/dependencies.js',
 	'resources/assets/js/init.js',
 	'resources/assets/js/app.js',
-], 'js/app.js');
-
-mix.styles([
+], 'js/app.js').styles([
 	// Start of dependencies
 	'node_modules/bootstrap/dist/css/bootstrap.min.css',
 	'resources/assets/css/dependencies/fontawesome-all.css',

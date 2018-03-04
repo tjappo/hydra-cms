@@ -1,4 +1,5 @@
-const hash = require('object-hash');
+// const hash = require('object-hash');
+import hash from 'object-hash';
 import {writeImage} from "../ioFunctions.mjs";
 
 /**

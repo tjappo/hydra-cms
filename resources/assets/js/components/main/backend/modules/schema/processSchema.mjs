@@ -1,4 +1,6 @@
-const config = require('../../../../../../../../config');
+// const config = require('../../../../../../../../config');
+
+import config from '../../../../../../../../config';
 import {getSchemaObject} from "./schemaFactory.mjs";
 import {extractDataString} from "../ioFunctions.mjs";
 
