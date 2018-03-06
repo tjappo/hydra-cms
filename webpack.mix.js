@@ -30,7 +30,7 @@ mix.setPublicPath('./').js([
 // Check the env status to enable nodemon
 let nodemon;
 if (process.env.NODE_ENV !== 'production') {
-    nodemon = new WebpackShellPlugin({onBuildEnd: ['nodemon --watch export app.js']});
+    nodemon = new WebpackShellPlugin({onBuildEnd: ['nodemon --watch export -r @std/esm app.mjs']});
 }
 
 // Resolve the webpack bug, where fs is not a function
