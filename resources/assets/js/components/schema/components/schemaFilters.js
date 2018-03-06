@@ -63,6 +63,10 @@ module.exports = {
             }
             return true;
         },
+        checkType(type) {
+            const convertToString = ["media", "html", "string"];
+            return (!(type in this.types) || convertToString.contains(type)) ? "text" : type;
+        }
     },
     computed: {
         itemsExists() {

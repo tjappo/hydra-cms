@@ -58,7 +58,7 @@ window['metaData'] = [
 		"title": "Shift - Decentralize the web",
 		"description": "Description of AdminEdit page",
 		"hidden": false
-	},
+	}
 ];
 
 // IMPORTANT:
@@ -86,7 +86,7 @@ window['metaSchema'] = {
 				"Team"
 			],
 			"default": "Index",
-			"required": true,
+			"required": true
 		},
 		"title": {
 			"type": "string",

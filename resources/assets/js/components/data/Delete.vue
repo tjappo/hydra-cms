@@ -5,7 +5,7 @@
            @click="popoverToggle"></i>
         <b-popover :target="'popoverData-' + id" title="Delete Data" :show.sync="showPopover">
             <p>Are you sure you want to delete this data?</p>
-            <button class="btn btn-xs btn-primary" @click.prevent.stop="deleteData">Yes</button>
+            <button class="btn btn-xs btn-primary" @click.prevent.stop="deleteObject">Yes</button>
             <button class="btn btn-xs btn-default" @click.prevent.stop="popoverToggle">No</button>
         </b-popover>
     </div>
@@ -28,9 +28,9 @@
                 this.showPopover = !this.showPopover;
             },
             deleteObject() {
-                const schema = window[this.title + 'Schema']
-                if (!window[this.title + 'Data'] && !schema) {
-                    VueEventListener.fire('error', 'Invalid schema: ' + this.title);
+                const schema = window[this.name + 'Schema'];
+                if (!window[this.name + 'Data'] && !schema) {
+                    VueEventListener.fire('error', 'Invalid schema: ' + this.name);
                     return;
                 }
                 // WRITE TO FILE

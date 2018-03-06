@@ -1,11 +1,11 @@
-require('./components/admin/frontend/event-notification');
+require('./components/main/frontend/event-notification');
 import vueHeadful from 'vue-headful';
 import BootstrapVue from 'bootstrap-vue'
 
 import router from './routes/routes.js';
 import App from './components/main/App.vue';
 
-import EventNotificationListener from './components/admin/frontend/vue-event-notification-mixin';
+import EventNotificationListener from './components/main/frontend/vue-event-notification-mixin';
 import MetaHandler from './components/filters/metaHandler';
 import DataHandler from './components/filters/dataHandler';
 

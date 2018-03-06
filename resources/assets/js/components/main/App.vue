@@ -15,7 +15,7 @@
 </template>
 
 <script>
-	import nav from './components/_nav';
+	import nav from './frontend/components/_nav';
 	import {Header as AppHeader, Sidebar, Footer as AppFooter, Breadcrumb} from './index.js';
 	import TextFilter from '../filters/textFilters.js';
 
