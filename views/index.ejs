@@ -49,7 +49,7 @@
 </div>
 <!-- Data -->
 <% routes.forEach((route) => { %>
-    <script type="text/javascript" src="<%= exportPath %>data/<%= route %>/data.json.js"></script>
+    <script type="text/javascript" src="<%= exportPath %><%= route %>/data.json.js"></script>
 <% }); %>
 
 <!-- Custom js -->

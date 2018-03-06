@@ -63,7 +63,7 @@ export function extractDataString(url, varName, callback) {
 export function processFile(url, varName, newData, callback, res) {
     url = config.exportPath + url;
     checkFile(url, extractDataString(url, varName, (offset, content, schema) => {
-            processContent(offset, content, newData, schema, res);
+            processContent(offset, content, newData, schema, url, callback, res);
         })
     );
 }
@@ -138,9 +138,11 @@ function checkFile(url, callback) {
  * @param {Object[]} content data itself
  * @param {Object} newData new updated data
  * @param {string} schema schema of the json editor
+ * @param {string} url path to data file
+ * @param {function} callback function, representing the action
  * @param res response object
  */
-function processContent(offset, content, newData, schema, res) {
+function processContent(offset, content, newData, schema, url, callback, res) {
     callback(content, newData, schema, writeContent(url, offset, content, schema, res));
 }
 

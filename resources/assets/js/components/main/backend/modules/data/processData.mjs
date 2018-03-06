@@ -101,7 +101,7 @@ function extractSchemaObject(schema, name) {
  * @returns {Object} validated new data
  */
 function validateContent(newData, varName, schema) {
-    for (key of Object.keys(newData)) {
+    for (let key of Object.keys(newData)) {
         if (typeof newData[key] !== schema.properties[key].type &&
             (schema.properties[key] === 'integer' && typeof newData[key] !== 'number'))
             throw new Error("Type mismatch error, expected: " + schema.properties[key].type + ", but got: " + typeof newData[key]);
@@ -117,7 +117,7 @@ function validateContent(newData, varName, schema) {
  * @param {string} schema schema of the json editor
  */
 function processImages(newData, varName, schema) {
-    for (key of Object.keys(newData)) {
+    for (let key of Object.keys(newData)) {
         if (schema.properties[key].media && schema.properties[key].media.binaryEncoding === "base64") {
             const data = newData[key].split(';base64,'),
                 extension = data[0].split('/').pop(),
