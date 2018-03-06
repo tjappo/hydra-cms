@@ -37,6 +37,10 @@
                                                 </div>
                                             </li>
                                         </ul>
+                                        <span v-else-if="checkBoolean(value)">
+                                            <span v-if="value">&#10004;</span>
+                                            <span v-else>&#10006;</span>
+                                        </span>
                                         <span v-else>{{value | truncate(50)}}</span>
                                     </td>
                                     <td>
@@ -91,7 +95,10 @@
 			},
 			getScope(key) {
 				if (key === "id") return 'row';
-			}
+			},
+            checkBoolean(input) {
+			    return (typeof input === 'boolean');
+            }
 		},
 		mounted() {
 			this.loadData();
