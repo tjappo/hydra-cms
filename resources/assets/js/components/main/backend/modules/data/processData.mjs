@@ -1,4 +1,3 @@
-// const hash = require('object-hash');
 import hash from 'object-hash';
 import {writeImage} from "../ioFunctions.mjs";
 
@@ -26,6 +25,7 @@ export function addContent(content, newData, varName, schema, callback) {
         newData = setData(schema.properties, newData, undefined);
         newData = Object.assign({"id": content.length + 1}, newData);
         content.push(newData);
+
         callback(content);
     });
 }

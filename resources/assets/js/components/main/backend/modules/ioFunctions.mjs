@@ -143,7 +143,8 @@ function checkFile(url, callback) {
  * @param res response object
  */
 function processContent(offset, content, newData, schema, url, callback, res) {
-    callback(content, newData, schema, writeContent(url, offset, content, schema, res));
+    callback(content, newData, schema, (content) =>
+        writeContent(url, offset, content, schema, res));
 }
 
 /**

@@ -9,8 +9,8 @@ import {addContent, editContent, deleteContent} from "./processData.mjs";
  * @param res response object
  */
 export function createContent(url, varName, newData, res) {
-    processFile(url, varName, newData, (content, newData, schema, callback) => {
-        return addContent(content, newData, varName, schema, callback);
+    processFile(url, varName, newData, (content, newData, schema, offset, callback) => {
+        return addContent(content, newData, varName, schema, offset, callback);
     }, res);
 }
 
@@ -23,9 +23,10 @@ export function createContent(url, varName, newData, res) {
  * @param res response object
  */
 export function updateContent(oldData, url, varName, newData, res) {
-    processFile(url, varName, newData, (content, newData, schema, callback) => {
-        return editContent(oldData, content, newData, varName, schema, callback);
+    processFile(url, varName, newData, (content, newData, schema, offset, callback) => {
+        return editContent(oldData, content, newData, varName, schema, offset, callback);
     }, res);
+//    (url, offset, content, schema, res)
 }
 
 /**
@@ -36,7 +37,7 @@ export function updateContent(oldData, url, varName, newData, res) {
  * @param res response object
  */
 export function removeContent(url, varName, id, res) {
-    processFile(url, varName, "", (content, newData, undefined, callback) => {
-        return deleteContent(id, content, callback);
+    processFile(url, varName, "", (content, newData, undefined, offset, callback) => {
+        return deleteContent(id, content, offset, callback);
     }, res);
 }
