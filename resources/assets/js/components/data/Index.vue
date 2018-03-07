@@ -11,10 +11,12 @@
                         Overview items of <strong>{{name | capitalize}}</strong> page
                     </div>
                     <div class="card-body">
+                        <div class="button-wrapper mb-3">
                         <router-link :to="{ name: 'AdminCreate', params: {'name': name}}" exact>
                             <a href="#" class="btn btn-primary">Create new {{name | capitalize}} item</a>
                         </router-link>
                         <delete-schema class="float-right" :title="name"></delete-schema>
+                        </div>
                         <div id="items-wrapper" class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -26,7 +28,7 @@
                                 <tbody>
                                 <tr v-for="item in data">
                                     <td :scope="getScope(key)" v-for="(value, key) in item">
-                                        <img :src="config.exportPath + value" alt="image" v-if="key === 'image' && !!value"
+                                        <img :src="exportPath + value" alt="image" v-if="key === 'image' && !!value"
                                              height="100px" width="100px">
                                         <ul class="list-group"
                                             v-else-if="Array.isArray(value) || typeof value === 'object' && !!value">
@@ -65,6 +67,7 @@
 	import TextFilter from '../filters/textFilters';
     import DeleteSchema from "../schema/Delete";
     import DeleteData from "./Delete";
+    import Config from "../../../../../config.mjs";
 
 	export default {
         components: {
@@ -76,7 +79,8 @@
 		},
 		data() {
 			return {
-				data: undefined
+				data: undefined,
+                exportPath: Config.exportPath
 			}
 		},
 		methods: {
@@ -114,5 +118,9 @@
 <style>
     .popover-button {
         cursor: pointer;
+    }
+
+    .card-body .table-responsive {
+        border-top: none;
     }
 </style>
