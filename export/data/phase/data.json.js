@@ -34,7 +34,7 @@ window['phaseData'] = [
 //  Url to this file relatively to the root folder
 window['phaseSchema'] = {
 	"title": "phaseData",
-	"url": "roadmap/phase.data.json.js",
+	"url": "phase/phase.data.json.js",
 	"type": "object",
 	"properties": {
 		"startRoadmap_id": {
