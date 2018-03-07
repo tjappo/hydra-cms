@@ -68,13 +68,6 @@ window['metaData'] = [
 		"title": "Shift - Decentralize the web",
 		"description": "Description of AdminEdit page",
 		"hidden": false
-	},
-	{
-		"id": 11,
-		"page": "Index",
-		"title": "Shift - Decentralize the web",
-		"description": "description2",
-		"hidden": false
 	}
 ];
 
