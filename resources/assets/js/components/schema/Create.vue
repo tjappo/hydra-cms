@@ -8,7 +8,7 @@
             <div class="col">
                 <div class="card w-100">
                     <div class="card-header">
-                        Create new schema: <strong>{{data.title}}</strong>
+                        Create new schema: <strong>{{data.title | lowerCase}}</strong>
                     </div>
                     <form>
                         <div class="card-body">
@@ -89,11 +89,11 @@
                     title: this.data.title,
                     items: this.data.items
                 }).then(
-                    () => {
+                    (response) => {
                         VueEventListener.fire('success', "Schema Created");
-                        setTimeout(function () {
-                            window.location.reload(1);
-                        }, 5000);
+                        window[this.data.title + 'Data'] = [];
+                        window[this.data.title + 'Schema'] = response.data;
+                        VueEventListener.fire('addDataChild', this.data.title);
                         this.$router.push({
                             name: 'Index'
                         });

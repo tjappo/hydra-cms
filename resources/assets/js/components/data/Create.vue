@@ -43,7 +43,6 @@
 				}).then(
 					(response) => {
 						VueEventListener.fire('success', "Object created");
-						window[this.schema.title] = response.data;
 						this.$router.push({
 							name: 'AdminIndex',
 							params: {

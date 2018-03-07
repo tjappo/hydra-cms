@@ -74,16 +74,17 @@ export function processFile(url, varName, newData, callback, res) {
  * @param url given url to write the file to
  * @param dataOffset the data offset to write
  * @param data the data to write
+ * @param schemaOffset the schema offset to write
  * @param schema the schema to write
  * @param res response object
  * @param checkDir variable to check the dir
  */
-export function writeSchema(title, url, dataOffset, data, schema, res, checkDir) {
+export function writeSchema(title, url, dataOffset, data, schemaOffset, schema, res, checkDir) {
     if (checkDir && !fs.existsSync(config.exportPath + title)) {
         fs.mkdir(config.exportPath + title, (err) => {
             checkFileError(err);
 
-            writeContent(config.exportPath + url, dataOffset, data, schema, res);
+            writeContent(config.exportPath + url, dataOffset, data, schema, res, schemaOffset);
         });
 
     } else {
@@ -116,7 +117,8 @@ export function getDirectoriesFromSource(source) {
     const isDirectory = source => {
         return fs.lstatSync(source).isDirectory()
     };
-    return fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory).map(source => source.replace(config.exportPath, ''));
+    return fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory)
+        .map(source => source.replace(config.exportPath, ''));
 }
 
 /**
@@ -153,10 +155,11 @@ function processContent(offset, content, newData, schema, url, callback, res) {
  * @param {string} offset content before the data starts
  * @param {Object[]} content data itself
  * @param {string} schema schema of the json editor
+ * @param schemaOffset the schema offset to write
  * @param res response object
  */
-function writeContent(url, offset, content, schema, res) {
-    writeToFile(url, offset, content, schema);
+function writeContent(url, offset, content, schema, res, schemaOffset) {
+    (!!schemaOffset) ? writeSchemaToFile(url, offset, content, schema, schemaOffset, res) : writeToFile(url, offset, content, schema, res);
     Promise.all(writing).then((values) => {
         res.status(200).send(values[values.length - 1]);
     });
@@ -168,14 +171,36 @@ function writeContent(url, offset, content, schema, res) {
  * @param {string} offset content before the data starts
  * @param {Object[]} content data itself
  * @param {string} schema schema of the json editor
+ * @param res response object
  */
-function writeToFile(url, offset, content, schema) {
+function writeToFile(url, offset, content, schema, res) {
     const toWrite = offset + JSON.stringify(content, null, "\t") + ';' + schema;
     writing.push(
         new Promise((resolve, reject) => {
             fs.writeFile(url, toWrite, (err) => {
-                if (err) reject(checkFileError(err));
+                if (err) reject(checkFileError(err, res));
                 resolve(content);
+            });
+        })
+    );
+}
+
+/**
+ * Writes the schema to the file
+ * @param {string} url path to data file
+ * @param {string} offset content before the data starts
+ * @param {Object[]} content data itself
+ * @param {string} schema schema of the json editor
+ * @param schemaOffset the schema offset to write
+ * @param res response object
+ */
+function writeSchemaToFile(url, offset, content, schema, schemaOffset, res) {
+    const toWrite = offset + JSON.stringify(content, null, "\t") + ';' + schemaOffset + JSON.stringify(schema, null, "\t") + ';';
+    writing.push(
+        new Promise((resolve, reject) => {
+            fs.writeFile(url, toWrite, (err) => {
+                if (err) reject(checkFileError(err, res));
+                resolve(schema);
             });
         })
     );

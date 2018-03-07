@@ -9,9 +9,9 @@
                 @click.prevent="sidebarToggle">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" @click.prevent="asideToggle">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <!--<button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" @click.prevent="asideToggle">-->
+            <!--<span class="navbar-toggler-icon"></span>-->
+        <!--</button>-->
     </header>
 </template>
 <script>
