@@ -35,16 +35,15 @@
 		},
 		methods: {
 			addDynamicRoutes() {
-				let children = [];
-				for (let route of this.allRoutes) {
-					this.addDataChild(route);
-				}
 				this.nav.push({
 					name: 'Data',
 					url: '/',
 					icon: 'icon-puzzle',
-					children: children
+                    children: []
 				});
+                for (let route of this.allRoutes) {
+                    this.addDataChild(route);
+                }
 			},
             addDataChild(route) {
                 const dataIndex = 1;
