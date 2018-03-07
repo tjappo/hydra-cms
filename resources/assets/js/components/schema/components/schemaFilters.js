@@ -66,7 +66,7 @@ module.exports = {
         },
         checkType(type) {
             const convertToString = ["media", "html", "string"];
-            return (!(type in this.types) || convertToString.contains(type)) ? "text" : type;
+            return (!(type in this.types) || convertToString.includes(type)) ? "text" : type;
         }
     },
     computed: {

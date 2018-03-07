@@ -26,7 +26,6 @@ export function updateContent(oldData, url, varName, newData, res) {
     processFile(url, varName, newData, (content, newData, schema, offset, callback) => {
         return editContent(oldData, content, newData, varName, schema, offset, callback);
     }, res);
-//    (url, offset, content, schema, res)
 }
 
 /**
