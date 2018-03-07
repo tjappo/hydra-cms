@@ -53,7 +53,8 @@ module.exports = {
             this.data.items.splice(index, 1);
         },
         validateString(str) {
-            const sanitized = this.$options.filters.sanitizeString(str);
+            const filters = this.$options.filters;
+            const sanitized = filters.lowerCase(filters.sanitizeString(str));
             return (!!sanitized && typeof str === 'string') ? sanitized : '';
         },
         checkUniqueName(str) {

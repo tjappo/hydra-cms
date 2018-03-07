@@ -17,6 +17,10 @@ module.exports = {
             if (typeof str !== 'string' && str.length === 0) return '';
             str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim, "");
             return str.trim();
+        },
+        lowerCase: (str) => {
+            if (!str) return '';
+            return str.toLowerCase();
         }
     }
 };

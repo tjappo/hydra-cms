@@ -8,7 +8,7 @@
             <div class="col">
                 <div class="card w-100">
                     <div class="card-header">
-                        Create new schema: <strong>{{data.title}}</strong>
+                        Create new schema: <strong>{{data.title | lowerCase}}</strong>
                     </div>
                     <form>
                         <div class="card-body">
