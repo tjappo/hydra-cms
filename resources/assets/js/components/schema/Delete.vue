@@ -35,9 +35,7 @@
                 }).then(
                     () => {
                         VueEventListener.fire('success', "Schema deleted");
-                        setTimeout(function(){
-                            window.location.reload(1);
-                        }, 5000);
+                        window[this.title + 'Data'] = window[this.title + 'Schema'] = undefined;
                         this.$router.push({
                             name: 'Index'
                         });

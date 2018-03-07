@@ -1,5 +1,3 @@
-// const config = require('../../../../../../../../config');
-
 import config from '../../../../../../../../config';
 import {getSchemaObject} from "./schemaFactory.mjs";
 import {extractDataString} from "../ioFunctions.mjs";
@@ -25,7 +23,7 @@ export function initializeSchema(title, items, res) {
             "type": "object",
             "properties": schemaValues
         };
-    return [url, dataOffset, schemaOffset + JSON.stringify(schema, null, "\t") + ';'];
+    return [url, dataOffset, schemaOffset, schema];
 }
 
 /**
@@ -43,7 +41,7 @@ export function updateSchema(title, items, oldData, res, callback) {
     oldData.properties = getSchema(items, res);
 
     extractDataString(url, title + 'Data', (dataOffset, content) => {
-        callback(title, url, dataOffset, content, schemaOffset + JSON.stringify(oldData, null, "\t") + ';', res);
+        callback(title, url, dataOffset, content, schemaOffset, oldData, res);
     });
 }
 

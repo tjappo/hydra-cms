@@ -9,12 +9,12 @@ import {initializeSchema, updateSchema} from "./processSchema.mjs";
  * @param {function} callback writing function
  */
 export function addSchema(title, items, res) {
-    let [url, dataOffset, schema] = initializeSchema(title, items, res);
-    writeSchema(title, url, dataOffset, [], schema, res, true);
+    let [url, dataOffset, schemaOffset, schema] = initializeSchema(title, items, res);
+    writeSchema(title, url, dataOffset, [], schemaOffset, schema, res, true);
 }
 
 /**
- * Creates the new schema and persists it
+ * Updates the schema and persists it
  * @param {string} title the title of the new schema
  * @param {Object[]} items columns of the schema
  * @param {Object} oldData the old data

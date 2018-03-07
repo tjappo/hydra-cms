@@ -89,11 +89,10 @@
                     title: this.data.title,
                     items: this.data.items
                 }).then(
-                    () => {
+                    (response) => {
                         VueEventListener.fire('success', "Schema Created");
-                        setTimeout(function () {
-                            window.location.reload(1);
-                        }, 5000);
+                        window[this.data.title + 'Data'] = [];
+                        window[this.data.title + 'Schema'] = response.data;
                         this.$router.push({
                             name: 'Index'
                         });
