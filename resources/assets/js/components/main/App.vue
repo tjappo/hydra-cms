@@ -37,11 +37,7 @@
 			addDynamicRoutes() {
 				let children = [];
 				for (let route of this.allRoutes) {
-					children.push({
-						name: this.$options.filters.capitalize(route),
-						url: '/admin/' + route,
-						icon: 'fas fa-puzzle-piece'
-					});
+					this.addDataChild(route);
 				}
 				this.nav.push({
 					name: 'Data',
@@ -49,10 +45,25 @@
 					icon: 'icon-puzzle',
 					children: children
 				});
-			}
+			},
+            addDataChild(route) {
+                const dataIndex = 1;
+                this.nav[dataIndex].children.push({
+                    name: this.$options.filters.capitalize(route),
+                    url: '/admin/' + route,
+                    icon: 'fas fa-puzzle-piece'
+                });
+            },
+            removeDataChild(route) {
+			    this.nav.children.filter((item) => {
+			        return item.name !== this.$options.filters.capitalize(route);
+                });
+            }
 		},
 		mounted() {
 			this.addDynamicRoutes();
+            VueEventListener.listen('addDataChild', (route) => this.addDataChild(route));
+            VueEventListener.listen('removeDataChild', (route) => this.removeDataChild(route));
 		},
 		computed: {
 			name() {

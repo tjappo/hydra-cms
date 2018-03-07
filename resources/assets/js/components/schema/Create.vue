@@ -93,6 +93,7 @@
                         VueEventListener.fire('success', "Schema Created");
                         window[this.data.title + 'Data'] = [];
                         window[this.data.title + 'Schema'] = response.data;
+                        VueEventListener.fire('addDataChild', this.data.title);
                         this.$router.push({
                             name: 'Index'
                         });
