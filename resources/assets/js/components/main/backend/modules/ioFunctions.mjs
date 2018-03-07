@@ -159,7 +159,7 @@ function processContent(offset, content, newData, schema, url, callback, res) {
  * @param res response object
  */
 function writeContent(url, offset, content, schema, res, schemaOffset) {
-    (!!schemaOffset) ? writeSchemaToFile(url, offset, content, schema, schemaOffset) : writeToFile(url, offset, content, schema);
+    (!!schemaOffset) ? writeSchemaToFile(url, offset, content, schema, schemaOffset, res) : writeToFile(url, offset, content, schema, res);
     Promise.all(writing).then((values) => {
         res.status(200).send(values[values.length - 1]);
     });
@@ -171,13 +171,14 @@ function writeContent(url, offset, content, schema, res, schemaOffset) {
  * @param {string} offset content before the data starts
  * @param {Object[]} content data itself
  * @param {string} schema schema of the json editor
+ * @param res response object
  */
-function writeToFile(url, offset, content, schema) {
+function writeToFile(url, offset, content, schema, res) {
     const toWrite = offset + JSON.stringify(content, null, "\t") + ';' + schema;
     writing.push(
         new Promise((resolve, reject) => {
             fs.writeFile(url, toWrite, (err) => {
-                if (err) reject(checkFileError(err));
+                if (err) reject(checkFileError(err, res));
                 resolve(content);
             });
         })
@@ -191,13 +192,14 @@ function writeToFile(url, offset, content, schema) {
  * @param {Object[]} content data itself
  * @param {string} schema schema of the json editor
  * @param schemaOffset the schema offset to write
+ * @param res response object
  */
-function writeSchemaToFile(url, offset, content, schema, schemaOffset) {
+function writeSchemaToFile(url, offset, content, schema, schemaOffset, res) {
     const toWrite = offset + JSON.stringify(content, null, "\t") + ';' + schemaOffset + JSON.stringify(schema, null, "\t") + ';';
     writing.push(
         new Promise((resolve, reject) => {
             fs.writeFile(url, toWrite, (err) => {
-                if (err) reject(checkFileError(err));
+                if (err) reject(checkFileError(err, res));
                 resolve(schema);
             });
         })
