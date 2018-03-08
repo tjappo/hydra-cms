@@ -34,7 +34,7 @@
                     return;
                 }
                 // WRITE TO FILE
-                axios.post('http://localhost:8000/' + this.name + '/delete', {
+                axios.post('http://localhost:8000/data/' + this.name + '/delete', {
                     varName: schema.title,
                     url: schema.url,
                     id: this.id

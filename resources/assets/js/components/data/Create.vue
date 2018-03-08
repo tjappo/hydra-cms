@@ -36,7 +36,7 @@
 				const values = this.editor.getValue();
 
 				// WRITE TO FILE
-				axios.post('http://localhost:8000/' + this.name + '/add', {
+				axios.post('http://localhost:8000/data/' + this.name + '/add', {
 					data: values,
 					varName: this.schema.title,
 					url: this.schema.url
