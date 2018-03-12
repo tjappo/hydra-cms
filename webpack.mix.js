@@ -27,12 +27,6 @@ mix.setPublicPath('./').js([
 	// End of custom css
 ], 'css/style.css');
 
-// Check the env status to enable nodemon
-let nodemon;
-if (process.env.NODE_ENV !== 'production') {
-    nodemon = new WebpackShellPlugin({onBuildEnd: ['nodemon --watch export -r @std/esm app.mjs']});
-}
-
 // Resolve the webpack bug, where fs is not a function
 mix.webpackConfig({
 	module: {
@@ -64,8 +58,7 @@ mix.webpackConfig({
 			Tab: 'exports-loader?Tab!bootstrap/js/dist/tab',
 			Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
 			Util: 'exports-loader?Util!bootstrap/js/dist/util'
-		}),
-		nodemon
+		})
 	],
 	node: {
 		fs: 'empty'

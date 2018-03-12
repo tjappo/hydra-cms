@@ -2,8 +2,11 @@ import config from '../../../../../../../config';
 import fs from 'fs';
 import path from 'path';
 import {checkFileError} from './errorHandler';
+import {updateRoutes} from "../controllers/routes.mjs";
 
 let writing = [];
+
+let wait = ms => new Promise((r, j)=>setTimeout(r, ms));
 
 /**
  * Writes one image and returns it as a promise
@@ -84,7 +87,7 @@ export function writeSchema(title, url, dataOffset, data, schemaOffset, schema, 
         fs.mkdir(config.exportPath + title, (err) => {
             checkFileError(err);
 
-            writeContent(config.exportPath + url, dataOffset, data, schema, res, schemaOffset);
+            writeContent(config.exportPath + url, dataOffset, data, schema, res, schemaOffset, title);
         });
 
     } else {
@@ -156,12 +159,14 @@ function processContent(offset, content, newData, schema, url, callback, res) {
  * @param {Object[]} content data itself
  * @param {string} schema schema of the json editor
  * @param schemaOffset the schema offset to write
+ * @param title given title of file
  * @param res response object
  */
-function writeContent(url, offset, content, schema, res, schemaOffset) {
+function writeContent(url, offset, content, schema, res, schemaOffset, title) {
     (!!schemaOffset) ? writeSchemaToFile(url, offset, content, schema, schemaOffset, res) : writeToFile(url, offset, content, schema, res);
     Promise.all(writing).then((values) => {
         res.status(200).send(values[values.length - 1]);
+        updateRoutes(title);
     });
 }
 
