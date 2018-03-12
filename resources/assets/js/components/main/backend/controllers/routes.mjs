@@ -9,7 +9,12 @@ import * as functions from "../functions.mjs";
 const routes = functions.getDirectories(config.exportPath)
     .filter((source) => !config.ignoreFolders.includes(source));
 
+export function updateRoutes(route) {
+    routes.push(route);
+}
+
 for (let route of routes) {
+
     // noinspection JSCheckFunctionSignatures, gets warning of the .put function of axios
     router.post('/data/' + route + '/add', (req, res) => {
         const data = req.body.data,
@@ -51,7 +56,7 @@ for (let route of routes) {
 
 router.post('/schema/create', (req, res) => {
     const title = req.body.title,
-        items = req.body.items
+        items = req.body.items;
     try {
         functions.createSchema(title, items, res);
 
