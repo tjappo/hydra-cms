@@ -1,4 +1,5 @@
 import express from 'express';
+
 const router = express.Router();
 import config from "../../../../../../../config.mjs";
 import * as functions from "../functions.mjs";
@@ -9,50 +10,69 @@ import * as functions from "../functions.mjs";
 const routes = functions.getDirectories(config.exportPath)
     .filter((source) => !config.ignoreFolders.includes(source));
 
+/**
+ * Function to update the routes
+ * @param route given route to add
+ */
 export function updateRoutes(route) {
     routes.push(route);
 }
 
-for (let route of routes) {
-
-    // noinspection JSCheckFunctionSignatures, gets warning of the .put function of axios
-    router.post('/data/' + route + '/add', (req, res) => {
-        const data = req.body.data,
-            varName = req.body.varName,
-            url = req.body.url;
-
-        try {
-            functions.createData(url, varName, data, res);
-
-        } catch (err) {
-            console.log(err.stack);
-            res.status(500).send('An unexpected error has occurred');
-        }
-    });
-    router.put('/data/' + route + '/update', (req, res) => {
-        const oldData = req.body.oldData,
-            data = req.body.data,
-            varName = req.body.varName,
-            url = req.body.url;
-        try {
-            functions.updateData(oldData, url, varName, data, res);
-        } catch (err) {
-            console.log(err.stack);
-            res.status(500).send('An unexpected error has occurred');
-        }
-    });
-    router.post('/data/' + route + '/delete', (req, res) => {
-        const varName = req.body.varName,
-            id = req.body.id,
-            url = req.body.url;
-        try {
-            functions.deleteData(url, varName, id, res);
-        } catch (err) {
-            console.log(err.stack);
-            res.status(500).send('An unexpected error has occurred');
-        }
-    });
+/**
+ * Checks whether the given route is in the routes array
+ * @param route given route to check
+ * @param res response object
+ * @returns {boolean} whether the given route is in the routes array
+ */
+function checkRoutes(route, res) {
+    if (!routes.includes(route)) {
+        res.status(500).send("Invalid route: " + route);
+        return false;
+    }
+    return true;
 }
+
+router.post('/data/:route/add', (req, res) => {
+    if (!checkRoutes(req.params.route, res)) return;
+    const data = req.body.data,
+        varName = req.body.varName,
+        url = req.body.url;
+    try {
+        functions.createData(url, varName, data, res);
+
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
+
+// noinspection JSCheckFunctionSignatures, gets warning of the .put function of axios
+router.put('/data/:route/update', (req, res) => {
+    if (!checkRoutes(req.params.route, res)) return;
+    const oldData = req.body.oldData,
+        data = req.body.data,
+        varName = req.body.varName,
+        url = req.body.url;
+    try {
+        functions.updateData(oldData, url, varName, data, res);
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
+
+router.post('/data/:route/delete', (req, res) => {
+    if (!checkRoutes(req.params.route, res)) return;
+    const varName = req.body.varName,
+        id = req.body.id,
+        url = req.body.url;
+    try {
+        functions.deleteData(url, varName, id, res);
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
 
 router.post('/schema/create', (req, res) => {
     const title = req.body.title,
