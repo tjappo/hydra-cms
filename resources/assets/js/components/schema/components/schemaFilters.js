@@ -67,6 +67,9 @@ module.exports = {
         checkType(type) {
             const convertToString = ["media", "html", "string"];
             return (!(type in this.types) || convertToString.includes(type)) ? "text" : type;
+        },
+        checkBoolean(type) {
+            return (type === 'checkbox');
         }
     },
     computed: {

@@ -45,8 +45,14 @@
                                                v-model="item.description">
                                     </td>
                                     <td>
-                                        <input :type="checkType(item.type)" class="form-control"
-                                               placeholder="Default value" v-model="item.default">
+                                        <div class="switch-wrapper" v-if="checkBoolean(checkType(item.type))">
+                                            <input :type="checkType(item.type)" class="form-control switch-checkbox"
+                                                   placeholder="Default value" v-model="item.default"
+                                                   :id="'default' + index">
+                                            <label class="switch-label" :for="'default' + index">&nbsp;</label>
+                                        </div>
+                                        <input v-else :type="checkType(item.type)" class="form-control"
+                                               v-model="item.default">
                                     </td>
                                     <td>
                                         <div class="switch-wrapper">
