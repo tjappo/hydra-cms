@@ -52,15 +52,16 @@ export function getSchemaObject(item, res) {
             return baseObject;
         case "checkbox":
             baseObject = getBaseObject(item);
+            baseObject.type = 'boolean';
             baseObject.default = !!item.default;
             baseObject.format = item.type;
             return baseObject;
         case "media":
             baseObject = getBaseObject(item);
-            baseObject.type = "string",
-                baseObject.media = {
-                    "binaryEncoding": "base64"
-                };
+            baseObject.type = "string";
+            baseObject.media = {
+                "binaryEncoding": "base64"
+            };
             delete baseObject.default;
             return baseObject;
         case "html":

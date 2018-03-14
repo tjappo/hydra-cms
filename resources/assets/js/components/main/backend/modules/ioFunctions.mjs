@@ -6,26 +6,26 @@ import {updateRoutes} from "../controllers/routes.mjs";
 
 let writing = [];
 
-let wait = ms => new Promise((r, j)=>setTimeout(r, ms));
-
 /**
  * Writes one image and returns it as a promise
  * @param imageData the base 64 encoded image
+ * @param path name of the path
  * @param fileName name of the file
- * @param varName name of the variable
  * @param newData the new data
  * @param tempKey the key of the given data
  * @retunrs Promise object containing the writing buffer
  */
-export function writeImage(imageData, fileName, varName, newData, tempKey) {
+export function writeImage(imageData, path, fileName, newData, tempKey) {
     return new Promise((resolve, reject) => {
         if (!!imageData) {
-            fs.writeFile(config.exportPath + path + '/' + fileName, new Buffer(imageData, "base64"), (err) => {
-                if (err) reject(new Error("Image upload error, at: " + varName));
+            const imageDirectory = config.exportPath + path;
+            createDirectory(imageDirectory,
+                fs.writeFile(imageDirectory + '/' + fileName, new Buffer(imageData, "base64"), (err) => {
+                    if (err) reject(new Error("Image upload error, at: " + path + "; " + err));
 
-                newData[tempKey] = path + '/' + fileName;
-                resolve(newData);
-            });
+                    newData[tempKey] = path + '/' + fileName;
+                    resolve(newData);
+                }));
         } else {
             newData[tempKey] = "";
             resolve(newData);
@@ -83,15 +83,19 @@ export function processFile(url, varName, newData, callback, res) {
  * @param checkDir variable to check the dir
  */
 export function writeSchema(title, url, dataOffset, data, schemaOffset, schema, res, checkDir) {
-    if (checkDir && !fs.existsSync(config.exportPath + title)) {
+    const callback = () => {
         fs.mkdir(config.exportPath + title, (err) => {
             checkFileError(err);
 
             writeContent(config.exportPath + url, dataOffset, data, schema, res, schemaOffset, title);
         });
-
+    };
+    if (checkDir) {
+        createDirectory(config.exportPath + title,
+            callback(),
+            res.status(500).send("Error, path already exists: " + url));
     } else {
-        res.status(500).send("Error, path already exists: " + url);
+        callback();
     }
 }
 
@@ -122,6 +126,23 @@ export function getDirectoriesFromSource(source) {
     };
     return fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory)
         .map(source => source.replace(config.exportPath, ''));
+}
+
+/**
+ * Checks if the given path exists, and otherwise creates it
+ * @param path given path
+ * @param callback function to execute if not exists
+ * @param callbackExists optional function to execute if exists
+ */
+function createDirectory(path, callback, callbackExists) {
+    if (!fs.existsSync(path)) {
+        fs.mkdir(path, (err) => {
+            checkFileError(err);
+            callback();
+        })
+    } else {
+        (!!callbackExists) ? callbackExists() : callback();
+    }
 }
 
 /**
