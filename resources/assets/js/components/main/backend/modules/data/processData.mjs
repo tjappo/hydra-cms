@@ -1,5 +1,6 @@
 import hash from 'object-hash';
 import {writeImage} from "../ioFunctions.mjs";
+import {checkFileError} from "../errorHandler.mjs";
 
 /**
  * Temporary variables
@@ -74,6 +75,8 @@ function checkProcessingImage(callback) {
     if (tempVariables.processingImage.length > 0) {
         Promise.all(tempVariables.processingImage).then((values) => {
             callback(values[values.length - 1]);
+        }).catch((error) => {
+            checkFileError(error);
         });
     } else {
         callback();
@@ -141,7 +144,7 @@ function processImages(newData, varName, schema) {
  */
 function processImage(imageData, path, fileName, varName, newData, tempKey) {
     tempVariables.processingImage.push(
-        writeImage(imageData, fileName, varName, newData, tempKey)
+        writeImage(imageData, path, fileName, newData, tempKey)
     );
 }
 

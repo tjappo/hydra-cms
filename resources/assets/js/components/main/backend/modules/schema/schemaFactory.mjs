@@ -8,12 +8,12 @@ function getStringObject(item) {
         "type": "object",
         "properties": {
             "en": {
-                "type": item.type,
-                "description": item.description,
-                "default": item.default,
+                "type": item.type || "string",
+                "description": item.description || "",
+                "default": item.default || "",
             }
         },
-        "required": item.required
+        "required": item.required || false
     };
 }
 
@@ -24,10 +24,10 @@ function getStringObject(item) {
  */
 function getBaseObject(item) {
     return {
-        "type": item.type,
-        "description": item.description,
-        "default": item.default,
-        "required": item.required
+        "type": item.type || "string",
+        "description": item.description || "",
+        "default": item.default || "",
+        "required": item.required || false
     };
 }
 
@@ -52,15 +52,16 @@ export function getSchemaObject(item, res) {
             return baseObject;
         case "checkbox":
             baseObject = getBaseObject(item);
+            baseObject.type = 'boolean';
             baseObject.default = !!item.default;
             baseObject.format = item.type;
             return baseObject;
         case "media":
             baseObject = getBaseObject(item);
-            baseObject.type = "string",
-                baseObject.media = {
-                    "binaryEncoding": "base64"
-                };
+            baseObject.type = "string";
+            baseObject.media = {
+                "binaryEncoding": "base64"
+            };
             delete baseObject.default;
             return baseObject;
         case "html":

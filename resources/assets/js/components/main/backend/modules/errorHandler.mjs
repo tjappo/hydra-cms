@@ -5,6 +5,6 @@
  */
 export function checkFileError(error, res) {
     if (!error) return;
-    res.status(500).send(error);
+    if (!!res) res.status(500).send(error);
     throw error;
 }
