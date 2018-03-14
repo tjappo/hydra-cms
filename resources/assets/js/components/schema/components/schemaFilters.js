@@ -26,6 +26,14 @@ module.exports = {
             this.data.title = sanitized.toString();
 
             for (let item of this.data.items) {
+                if (!item.type) {
+                    VueEventListener.fire('error', "Item type is not valid: " + item.type);
+                    return false;
+                } else if (!item.name) {
+                    VueEventListener.fire('error', "Item name is not valid" + item.name);
+                    return false;
+                }
+
                 item.default = (item.type === 'html') ? item.default : this.validateString(item.default);
                 item.description = this.validateString(item.description);
                 item.required = (!!item.required);

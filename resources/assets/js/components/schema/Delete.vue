@@ -37,9 +37,7 @@
                         VueEventListener.fire('success', "Schema deleted");
                         window[this.title + 'Data'] = window[this.title + 'Schema'] = undefined;
                         VueEventListener.fire('removeDataChild', this.title);
-                        this.$router.push({
-                            name: 'Index'
-                        });
+                        this.$router.push('/');
                     }
                 ).catch(
                     (error) => VueEventListener.fire('Error: ', (!!error.response) ? error.response.data : '')

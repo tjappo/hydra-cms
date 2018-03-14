@@ -42,6 +42,7 @@
                     (response) => {
                         VueEventListener.fire('success', "Data deleted");
                         window[schema.title] = response.data;
+                        VueEventListener.fire('updateData', schema.title);
                         this.$router.push({
                             name: 'AdminIndex',
                             params: {

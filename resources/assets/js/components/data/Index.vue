@@ -106,6 +106,7 @@
 		},
 		mounted() {
 			this.loadData();
+			VueEventListener.listen('updateData', (title) => this.data = window[title]);
 		},
 		watch: {
 			'$route.params.name'() {

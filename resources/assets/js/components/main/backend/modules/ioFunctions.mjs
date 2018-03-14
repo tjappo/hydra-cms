@@ -84,11 +84,7 @@ export function processFile(url, varName, newData, callback, res) {
  */
 export function writeSchema(title, url, dataOffset, data, schemaOffset, schema, res, checkDir) {
     const callback = () => {
-        fs.mkdir(config.exportPath + title, (err) => {
-            checkFileError(err);
-
-            writeContent(config.exportPath + url, dataOffset, data, schema, res, schemaOffset, title);
-        });
+        writeContent(config.exportPath + url, dataOffset, data, schema, res, schemaOffset, title);
     };
     if (checkDir) {
         createDirectory(config.exportPath + title,
