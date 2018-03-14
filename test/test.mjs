@@ -6,7 +6,45 @@ import {
     addContent, deleteContent,
     editContent
 } from '../resources/assets/js/components/main/backend/modules/data/processData.mjs';
+
 import {data, schema} from './schema/testDataSchema.mjs';
+import {
+    initializeSchema,
+    updateSchema
+} from "../resources/assets/js/components/main/backend/modules/schema/processSchema.mjs";
+import {removeData} from "../resources/assets/js/components/main/backend/modules/ioFunctions.mjs";
+
+const mockWriteFs = () => {
+    fs.readFile = (path) => {
+        return data + schema;
+    };
+    fs.mkdir = (pathName, cb) => {
+        cb(null, {});
+    };
+    fs.writeFile = (filename, content, cb) => {
+        cb(null);
+    };
+    fs.existsSync = (path) => {
+        return false;
+    }
+};
+
+const initializeResponseObject = () => {
+    return {
+        send: (message) => {
+            // console.log(message);
+        },
+        json: (err) => {
+            console.log("\n : " + err);
+        },
+        status: (responseStatus) => {
+            assert.notEqual(responseStatus, 404);
+            assert.notEqual(responseStatus, 500);
+            // This next line makes it chainable
+            return this;
+        }
+    }
+};
 
 describe('Data', () => {
     const initializeDataObject = (_string, _number, _date, _boolean, _media, _html) => {
@@ -22,15 +60,6 @@ describe('Data', () => {
                 "en": _html
             }
         }
-    };
-
-    const mockWriteFs = () => {
-        fs.mkdir = function (pathName, cb) {
-            cb(null, {});
-        };
-        fs.writeFile = function (filename, content, cb) {
-            cb(null);
-        };
     };
 
     before(() => {
@@ -98,6 +127,86 @@ describe('Data', () => {
                     done();
                 });
             });
+        });
+    });
+});
+
+describe('Schema', () => {
+    let res, schemaObject;
+
+    const title = "test",
+        items = [
+            {
+                "name": "string",
+                "type": "string"
+            },
+            {
+                "name": "number",
+                "type": "number"
+            },
+            {
+                "name": "date",
+                "type": "date"
+            },
+            {
+                "name": "number",
+                "type": "number"
+            },
+            {
+                "name": "boolean",
+                "type": "checkbox"
+            },
+            {
+                "name": "media upload",
+                "type": "media"
+            },
+            {
+                "name": "html",
+                "type": "html"
+            }
+        ];
+
+    before(() => {
+        mockWriteFs();
+        const offsetLength = "window['testSchema'] =".length;
+        schemaObject = JSON.parse(schema.substring(offsetLength + 2, schema.length - 1));
+    });
+
+    beforeEach(() => {
+        res = initializeResponseObject();
+    });
+
+    describe('Add Schema', () => {
+        it('should create a schema', (done) => {
+            let [_url, _dataOffset, _schemaOffset, newSchema] = initializeSchema(title, items, res);
+            assert.deepStrictEqual(newSchema, schemaObject);
+            done();
+        });
+    });
+
+    describe('Edit Schema', () => {
+        it('should edit a schema', (done) => {
+            updateSchema(title, items, {}, res, (title, url, dataOffset, newSchema, schemaOffset, oldData, res) => {
+                assert.deepStrictEqual(newSchema, schemaObject);
+            });
+            done();
+        });
+    });
+
+    describe('Delete Schema', () => {
+        it('should delete a schema', (done) => {
+            const url = title + '/data.json.js';
+            fs.existsSync = () => {
+                return true;
+            };
+            fs.unlinkSync = (url2) => {
+                assert.ok(url2 === config.exportPath + url);
+            };
+            fs.rmdirSync = (title2) => {
+                assert.ok(title2 === config.exportPath + title);
+                done();
+            };
+            removeData(title, url, res);
         });
     });
 });

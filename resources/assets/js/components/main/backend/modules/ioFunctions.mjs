@@ -92,8 +92,8 @@ export function writeSchema(title, url, dataOffset, data, schemaOffset, schema, 
     };
     if (checkDir) {
         createDirectory(config.exportPath + title,
-            callback(),
-            res.status(500).send("Error, path already exists: " + url));
+            callback,
+            () => res.status(500).send("Error, path already exists: " + url));
     } else {
         callback();
     }
@@ -188,6 +188,8 @@ function writeContent(url, offset, content, schema, res, schemaOffset, title) {
     Promise.all(writing).then((values) => {
         res.status(200).send(values[values.length - 1]);
         updateRoutes(title);
+    }).catch((err) => {
+        checkFileError(err);
     });
 }
 

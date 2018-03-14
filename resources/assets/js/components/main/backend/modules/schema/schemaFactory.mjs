@@ -8,12 +8,12 @@ function getStringObject(item) {
         "type": "object",
         "properties": {
             "en": {
-                "type": item.type,
-                "description": item.description,
-                "default": item.default,
+                "type": item.type || "string",
+                "description": item.description || "",
+                "default": item.default || "",
             }
         },
-        "required": item.required
+        "required": item.required || false
     };
 }
 
@@ -24,10 +24,10 @@ function getStringObject(item) {
  */
 function getBaseObject(item) {
     return {
-        "type": item.type,
-        "description": item.description,
-        "default": item.default,
-        "required": item.required
+        "type": item.type || "string",
+        "description": item.description || "",
+        "default": item.default || "",
+        "required": item.required || false
     };
 }
 
