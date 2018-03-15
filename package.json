@@ -10,7 +10,7 @@
     "watch-poll": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --watch-poll --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "start": "node -r @std/esm app"
+    "start": "node -r esm app"
   },
   "author": "Jasper Hu",
   "license": "ISC",
@@ -37,9 +37,9 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^1.0.0-alpha.2",
-    "@std/esm": "^0.24.0",
     "bootstrap-vue": "^1.4.1",
     "chart.js": "^2.7.1",
+    "esm": "^3.0.5",
     "laravel-mix": "^1.7.2",
     "simple-line-icons": "^2.4.1",
     "vue-chartjs": "^3.1.0"
