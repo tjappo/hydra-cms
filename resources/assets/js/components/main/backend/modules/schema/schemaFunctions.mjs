@@ -32,6 +32,6 @@ export function editSchema(title, items, oldData, res) {
  */
 export function deleteSchema(title, res) {
     removeData(title, title + '/data.json.js', res);
-    res.status(200);
+    res.status(200).send([]);
 }
 

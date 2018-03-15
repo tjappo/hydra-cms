@@ -40,7 +40,9 @@
                         this.$router.push('/');
                     }
                 ).catch(
-                    (error) => VueEventListener.fire('Error: ', (!!error.response) ? error.response.data : '')
+                    (error) => {
+                        VueEventListener.fire('Error: ', (!!error.response) ? error.response.data : '');
+                    }
                 );
 
                 this.popoverToggle();

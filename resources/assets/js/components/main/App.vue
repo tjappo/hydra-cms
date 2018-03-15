@@ -15,64 +15,72 @@
 </template>
 
 <script>
-	import nav from './frontend/components/_nav';
-	import {Header as AppHeader, Sidebar, Footer as AppFooter, Breadcrumb} from './index.js';
-	import TextFilter from '../filters/textFilters.js';
+    import nav from './frontend/components/_nav';
+    import {Header as AppHeader, Sidebar, Footer as AppFooter, Breadcrumb} from './index.js';
+    import TextFilter from '../filters/textFilters.js';
 
-	export default {
-		name: 'app',
-		mixins: [TextFilter],
-		components: {
-			AppHeader,
-			Sidebar,
-			AppFooter,
-			Breadcrumb
-		},
-		data() {
-			return {
-				nav: nav.items
-			}
-		},
-		methods: {
-			addDynamicRoutes() {
-				this.nav.push({
-					name: 'Data',
-					url: '/',
-					icon: 'icon-puzzle',
+    export default {
+        name: 'app',
+        mixins: [TextFilter],
+        components: {
+            AppHeader,
+            Sidebar,
+            AppFooter,
+            Breadcrumb
+        },
+        data() {
+            return {
+                nav: nav.items,
+                dataIndex: 1,
+            }
+        },
+        methods: {
+            addDynamicRoutes() {
+                this.nav.push({
+                    name: 'Data',
+                    url: '/',
+                    icon: 'icon-puzzle',
                     children: []
-				});
+                });
                 for (let route of this.allRoutes) {
                     this.addDataChild(route);
                 }
-			},
+            },
             addDataChild(route) {
-                const dataIndex = 1;
-                this.nav[dataIndex].children.push({
-                    name: this.$options.filters.capitalize(route),
-                    url: '/admin/' + route,
-                    icon: 'fas fa-puzzle-piece'
-                });
+                if (route === 'meta') {
+                    this.nav.push({
+                        name: this.$options.filters.capitalize(route),
+                        url: '/admin/' + route,
+                        icon: 'fas fa-chart-line'
+                    });
+                } else {
+                    this.nav[this.dataIndex].children.push({
+                        name: this.$options.filters.capitalize(route),
+                        url: '/admin/' + route,
+                        icon: 'fas fa-puzzle-piece'
+                    });
+                }
             },
             removeDataChild(route) {
-			    this.nav.children.filter((item) => {
-			        return item.name !== this.$options.filters.capitalize(route);
+                this.nav[this.dataIndex].children.filter((item) => {
+                    return item.name !== this.$options.filters.capitalize(route);
                 });
             }
-		},
-		mounted() {
-			this.addDynamicRoutes();
+        },
+        mounted() {
+            this.addDynamicRoutes();
             VueEventListener.listen('addDataChild', (route) => this.addDataChild(route));
             VueEventListener.listen('removeDataChild', (route) => this.removeDataChild(route));
-		},
-		computed: {
-			name() {
-				return this.$route.name
-			},
-			list() {
-				return this.$route.matched
-			}
-		}
-	}
+        },
+        computed: {
+            name() {
+                return this.$route.name
+            },
+            list() {
+                return this.$route.matched
+            }
+        }
+    }
 </script>
 
 <style>
