@@ -86,15 +86,6 @@ window['metaSchema'] = {
 	"properties": {
 		"page": {
 			"type": "string",
-			"enum": [
-				"Index",
-				"Faq",
-				"Countdown",
-				"News",
-				"NewsItem",
-				"Roadmap",
-				"Team"
-			],
 			"default": "Index",
 			"required": true
 		},
