@@ -1,6 +1,6 @@
 {
   "name": "hydra-cms",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha",
   "description": "Database solution for IPFS",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "start": "node -r esm app"
   },
   "author": "Jasper Hu",
-  "license": "ISC",
+  "license": "GNU GPLv3",
   "devDependencies": {
     "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
