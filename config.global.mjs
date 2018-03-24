@@ -1,6 +1,6 @@
 const config = {};
-config.dataPath = '';
 config.exportPath = '';
 config.ignoreFolders = [];
+config.port = 8000;
 
-module.exports = config;
+export default config;

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-	import AdminMixin from '../admin/frontend/functions';
+	import AdminMixin from '../main/frontend/functions';
 	import TextFilter from '../filters/textFilters.js';
 
 	export default {
@@ -36,14 +36,14 @@
 				const values = this.editor.getValue();
 
 				// WRITE TO FILE
-				axios.post('http://localhost:8000/' + this.name + '/add', {
+				axios.post('http://localhost:8000/data/' + this.name + '/add', {
 					data: values,
 					varName: this.schema.title,
 					url: this.schema.url
 				}).then(
 					(response) => {
 						VueEventListener.fire('success', "Object created");
-						window[this.schema.title] = response.data;
+                        window[this.schema.title] = response.data;
 						this.$router.push({
 							name: 'AdminIndex',
 							params: {

@@ -11,9 +11,12 @@
                         Overview items of <strong>{{name | capitalize}}</strong> page
                     </div>
                     <div class="card-body">
+                        <div class="button-wrapper mb-3">
                         <router-link :to="{ name: 'AdminCreate', params: {'name': name}}" exact>
                             <a href="#" class="btn btn-primary">Create new {{name | capitalize}} item</a>
                         </router-link>
+                        <delete-schema class="float-right" :title="name"></delete-schema>
+                        </div>
                         <div id="items-wrapper" class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -25,7 +28,7 @@
                                 <tbody>
                                 <tr v-for="item in data">
                                     <td :scope="getScope(key)" v-for="(value, key) in item">
-                                        <img :src="config.exportPath + value" alt="image" v-if="key === 'image' && !!value"
+                                        <img :src="exportPath + value" alt="image" v-if="key === 'image' && !!value"
                                              height="100px" width="100px">
                                         <ul class="list-group"
                                             v-else-if="Array.isArray(value) || typeof value === 'object' && !!value">
@@ -36,6 +39,10 @@
                                                 </div>
                                             </li>
                                         </ul>
+                                        <span v-else-if="checkBoolean(value)">
+                                            <span v-if="value">&#10004;</span>
+                                            <span v-else>&#10006;</span>
+                                        </span>
                                         <span v-else>{{value | truncate(50)}}</span>
                                     </td>
                                     <td>
@@ -43,9 +50,7 @@
                                                      exact>
                                             <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                                         </router-link>
-                                        <i :id="'popover'+item.id" class="popover-button fas fa-trash-alt"
-                                           aria-hidden="true"
-                                           @click="confirmDelete(name, item.id, $event)"></i>
+                                        <delete-data :name="name" :id="item.id"></delete-data>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -55,28 +60,27 @@
                 </div>
             </div>
         </div>
-        <div id="popper-content" class="collapse">
-            <p>Are you sure you want to delete this object?</p>
-            <button class="btn btn-xs btn-primary" @click.prevent.stop="deleteObject()">Yes</button>
-            <button class="btn btn-xs btn-default" @click.prevent.stop="hidePopover()">No</button>
-        </div>
     </div>
 </template>
 
 <script>
-	import DeleteMixin from '../admin/frontend/delete';
 	import TextFilter from '../filters/textFilters';
-	import Config from '../../../../../config.js';
+    import DeleteSchema from "../schema/Delete";
+    import DeleteData from "./Delete";
+    import Config from "../../../../../config.mjs";
 
 	export default {
-		mixins: [DeleteMixin, TextFilter],
+        components: {
+            DeleteData,
+            DeleteSchema},
+        mixins: [TextFilter],
 		props: {
 			'name': String
 		},
 		data() {
 			return {
 				data: undefined,
-                config: Config,
+                exportPath: Config.exportPath
 			}
 		},
 		methods: {
@@ -95,10 +99,14 @@
 			},
 			getScope(key) {
 				if (key === "id") return 'row';
-			}
+			},
+            checkBoolean(input) {
+			    return (typeof input === 'boolean');
+            }
 		},
 		mounted() {
 			this.loadData();
+			VueEventListener.listen('updateData', (title) => this.data = window[title]);
 		},
 		watch: {
 			'$route.params.name'() {
@@ -111,5 +119,9 @@
 <style>
     .popover-button {
         cursor: pointer;
+    }
+
+    .card-body .table-responsive {
+        border-top: none;
     }
 </style>

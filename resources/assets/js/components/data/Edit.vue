@@ -26,7 +26,7 @@
 </template>
 
 <script>
-	import AdminMixin from '../admin/frontend/functions';
+	import AdminMixin from '../main/frontend/functions';
 	import TextFilter from '../filters/textFilters.js';
 
 	export default {
@@ -44,7 +44,7 @@
 				const values = this.editor.getValue();
 
 				// WRITE TO FILE
-				axios.put('http://localhost:8000/' + this.name + '/update', {
+				axios.put('http://localhost:8000/data/' + this.name + '/update', {
 					oldData: this.oldData,
 					data: values,
 					varName: this.schema.title,

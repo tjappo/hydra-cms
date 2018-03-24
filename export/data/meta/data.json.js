@@ -1,64 +1,74 @@
 window['metaData'] = [
 	{
+		"id": 1,
 		"page": "Index",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of Index page",
 		"hidden": false
 	},
 	{
+		"id": 2,
 		"page": "Faq",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of Faq page",
 		"hidden": false
 	},
 	{
+		"id": 3,
 		"page": "Countdown",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of Countdown page",
 		"hidden": false
 	},
 	{
+		"id": 4,
 		"page": "News",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of News page",
 		"hidden": false
 	},
 	{
+		"id": 5,
 		"page": "NewsItem",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of News Item page",
 		"hidden": false
 	},
 	{
+		"id": 6,
 		"page": "Roadmap",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of Roadmap page",
 		"hidden": false
 	},
 	{
+		"id": 7,
 		"page": "Team",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of Team page",
 		"hidden": false
 	},
 	{
+		"id": 8,
 		"page": "AdminIndex",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of AdminIndex page",
 		"hidden": false
 	},
 	{
+		"id": 9,
 		"page": "AdminCreate",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of AdminCreate page",
 		"hidden": false
 	},
 	{
+		"id": 10,
 		"page": "AdminEdit",
 		"title": "Shift - Decentralize the web",
 		"description": "Description of AdminEdit page",
 		"hidden": false
-	},
+	}
 ];
 
 // IMPORTANT:
@@ -76,17 +86,8 @@ window['metaSchema'] = {
 	"properties": {
 		"page": {
 			"type": "string",
-			"enum": [
-				"Index",
-				"Faq",
-				"Countdown",
-				"News",
-				"NewsItem",
-				"Roadmap",
-				"Team"
-			],
 			"default": "Index",
-			"required": true,
+			"required": true
 		},
 		"title": {
 			"type": "string",

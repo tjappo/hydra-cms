@@ -1,8 +1,6 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const config = require('./config.js');
-const WebpackShellPlugin = require('webpack-shell-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -19,9 +17,7 @@ mix.setPublicPath('./').js([
 	'resources/assets/js/dependencies.js',
 	'resources/assets/js/init.js',
 	'resources/assets/js/app.js',
-], 'js/app.js');
-
-mix.styles([
+], 'js/app.js').styles([
 	// Start of dependencies
 	'node_modules/bootstrap/dist/css/bootstrap.min.css',
 	'resources/assets/css/dependencies/fontawesome-all.css',
@@ -29,14 +25,6 @@ mix.styles([
 	// Start of custom css
 	// End of custom css
 ], 'css/style.css');
-
-mix.copyDirectory(config.dataPath, config.exportPath + 'data');
-
-// Check the env status to enable nodemon
-let nodemon;
-if (process.env.NODE_ENV !== 'production') {
-    nodemon = new WebpackShellPlugin({onBuildEnd: ['nodemon --watch export app.js']});
-}
 
 // Resolve the webpack bug, where fs is not a function
 mix.webpackConfig({
@@ -69,8 +57,7 @@ mix.webpackConfig({
 			Tab: 'exports-loader?Tab!bootstrap/js/dist/tab',
 			Tooltip: "exports-loader?Tooltip!bootstrap/js/dist/tooltip",
 			Util: 'exports-loader?Util!bootstrap/js/dist/util'
-		}),
-		nodemon
+		})
 	],
 	node: {
 		fs: 'empty'

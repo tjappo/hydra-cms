@@ -15,54 +15,72 @@
 </template>
 
 <script>
-	import nav from './components/_nav';
-	import {Header as AppHeader, Sidebar, Footer as AppFooter, Breadcrumb} from './index.js';
-	import TextFilter from '../filters/textFilters.js';
+    import nav from './frontend/components/_nav';
+    import {Header as AppHeader, Sidebar, Footer as AppFooter, Breadcrumb} from './index.js';
+    import TextFilter from '../filters/textFilters.js';
 
-	export default {
-		name: 'app',
-		mixins: [TextFilter],
-		components: {
-			AppHeader,
-			Sidebar,
-			AppFooter,
-			Breadcrumb
-		},
-		data() {
-			return {
-				nav: nav.items
-			}
-		},
-		methods: {
-			addDynamicRoutes() {
-				let children = [];
-				for (let route of this.allRoutes) {
-					children.push({
-						name: this.$options.filters.capitalize(route),
-						url: '/admin/' + route,
-						icon: 'fas fa-puzzle-piece'
-					});
-				}
-				this.nav.push({
-					name: 'Data',
-					url: '/',
-					icon: 'icon-puzzle',
-					children: children
-				});
-			}
-		},
-		mounted() {
-			this.addDynamicRoutes();
-		},
-		computed: {
-			name() {
-				return this.$route.name
-			},
-			list() {
-				return this.$route.matched
-			}
-		}
-	}
+    export default {
+        name: 'app',
+        mixins: [TextFilter],
+        components: {
+            AppHeader,
+            Sidebar,
+            AppFooter,
+            Breadcrumb
+        },
+        data() {
+            return {
+                nav: nav.items,
+                dataIndex: 1,
+            }
+        },
+        methods: {
+            addDynamicRoutes() {
+                this.nav.push({
+                    name: 'Data',
+                    url: '/',
+                    icon: 'icon-puzzle',
+                    children: []
+                });
+                for (let route of this.allRoutes) {
+                    this.addDataChild(route);
+                }
+            },
+            addDataChild(route) {
+                if (route === 'meta') {
+                    this.nav.push({
+                        name: this.$options.filters.capitalize(route),
+                        url: '/admin/' + route,
+                        icon: 'fas fa-chart-line'
+                    });
+                } else {
+                    this.nav[this.dataIndex].children.push({
+                        name: this.$options.filters.capitalize(route),
+                        url: '/admin/' + route,
+                        icon: 'fas fa-puzzle-piece'
+                    });
+                }
+            },
+            removeDataChild(route) {
+                this.nav[this.dataIndex].children.filter((item) => {
+                    return item.name !== this.$options.filters.capitalize(route);
+                });
+            }
+        },
+        mounted() {
+            this.addDynamicRoutes();
+            VueEventListener.listen('addDataChild', (route) => this.addDataChild(route));
+            VueEventListener.listen('removeDataChild', (route) => this.removeDataChild(route));
+        },
+        computed: {
+            name() {
+                return this.$route.name
+            },
+            list() {
+                return this.$route.matched
+            }
+        }
+    }
 </script>
 
 <style>

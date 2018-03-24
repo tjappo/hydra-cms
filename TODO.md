@@ -1,7 +1,5 @@
 ##Todo list
 **Bugs**
-Hidden label when name is not unique
-Reload node folders when schema is created
 
 **Small**
 
@@ -9,11 +7,12 @@ Reload node folders when schema is created
 
 **Large**
 * Improve error handling
-* Add Create New Schema functionality
 
-* Extra:
-    * Add menu editor
-    * Add relationships between data
-    * Add Importing data
-    * Add security
-        * Add user login
+**Extra**
+* Add menu editor
+* Add relationships between data
+* Add Importing data
+* Add security
+    * Add user login
+* Multi-language support
+    * Second layer type-checking
