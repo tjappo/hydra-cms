@@ -1,7 +1,6 @@
 const mix = require('laravel-mix');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const WebpackShellPlugin = require('webpack-shell-plugin');
 
 /*
  |--------------------------------------------------------------------------
