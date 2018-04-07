@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import router from './resources/assets/js/components/main/backend/controllers/routes.mjs';
+import config from './config.mjs';
 
 const app = express();
 
