@@ -1,6 +1,6 @@
 import {createContent, updateContent, removeContent} from "./modules/data/dataFunctions.mjs";
 import {addSchema, editSchema, deleteSchema} from "./modules/schema/schemaFunctions.mjs";
-import {getDirectoriesFromSource} from "./modules/ioFunctions.mjs";
+import {getDirectoriesFromSource, syncFoldersHash} from "./modules/ioFunctions.mjs";
 
 /**
  * Creates the new object and persists it
@@ -64,6 +64,10 @@ export function updateSchema(title, items, oldData, res) {
  */
 export function removeSchema(title, res) {
     deleteSchema(title, res);
+}
+
+export function syncFolders(hash, res) {
+    syncFoldersHash(hash, res);
 }
 
 /**

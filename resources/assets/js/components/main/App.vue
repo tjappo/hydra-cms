@@ -9,6 +9,7 @@
                     <router-view></router-view>
                 </div>
             </main>
+            <AppAside/>
         </div>
         <AppFooter/>
     </div>
@@ -16,7 +17,7 @@
 
 <script>
     import nav from './frontend/components/_nav';
-    import {Header as AppHeader, Sidebar, Footer as AppFooter, Breadcrumb} from './index.js';
+    import {Header as AppHeader, Sidebar, Aside as AppAside, Footer as AppFooter, Breadcrumb} from './index.js';
     import TextFilter from '../filters/textFilters.js';
 
     export default {
@@ -25,6 +26,7 @@
         components: {
             AppHeader,
             Sidebar,
+            AppAside,
             AppFooter,
             Breadcrumb
         },

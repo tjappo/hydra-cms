@@ -1,8 +1,10 @@
 import config from '../../../../../../../config';
 import fs from 'fs';
 import path from 'path';
+import axios from 'axios';
 import {checkFileError} from './errorHandler';
 import {updateRoutes} from "../controllers/routes.mjs";
+import * as functions from "../functions.mjs";
 
 let writing = [];
 
@@ -122,6 +124,49 @@ export function getDirectoriesFromSource(source) {
     };
     return fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory)
         .map(source => source.replace(config.exportPath, ''));
+}
+
+export function syncFoldersHash(hash, res) {
+    axios.get(config.getIPFSFolder + hash)
+        .then((result) => {
+            checkFolders(result.data.Objects[0].Links, res);
+        })
+        .catch((error) => {
+            res.status(500).send(error);
+            console.log(error);
+        });
+}
+
+function checkFolders(folders, res) {
+    const directories = functions.getDirectories(config.exportPath);
+    const fileNames = folders.map((item) => item.Name);
+    let result = [];
+    if (directories !== fileNames)
+        result.push(fileNames.filter((folder) => !directories.includes(folder)));
+
+    let promises = [];
+    for (let folder of folders) {
+        promises.push(checkFiles(folder));
+
+    }
+    Promise.all(promises).then((values) => {
+        result.push(values.filter((item) => !!item));
+        res.status(200).send(result);
+    }).catch((error) => res.status(500).send(error));
+}
+
+function checkFiles(folder) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(config.exportPath + folder.Name + '/data.json.js', (err, data) => {
+            axios.get(config.getIPFSFile + folder.Hash + '/data.json.js')
+                .then((result) => {
+                    (result.data !== data.toString()) ? resolve(folder) : resolve();
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    });
 }
 
 /**

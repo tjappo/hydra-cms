@@ -108,6 +108,16 @@ router.post('/schema/delete', (req, res) => {
     }
 });
 
+router.post('/sync', (req, res) => {
+    const hash = req.body.hash;
+    try {
+        functions.syncFolders(hash, res);
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
+
 router.get('/', (req, res) => {
     res.render('index', {
         exportPath: config.exportPath,
