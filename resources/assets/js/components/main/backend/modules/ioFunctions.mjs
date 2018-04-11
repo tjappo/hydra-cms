@@ -126,6 +126,11 @@ export function getDirectoriesFromSource(source) {
         .map(source => source.replace(config.exportPath, ''));
 }
 
+/**
+ * Checks the sync status of the folder corresponding to the hash
+ * @param hash given hash of the data folder
+ * @param res response object
+ */
 export function syncFoldersHash(hash, res) {
     axios.get(config.getIPFSFolder + hash)
         .then((result) => {
@@ -137,12 +142,23 @@ export function syncFoldersHash(hash, res) {
         });
 }
 
+/**
+ * Checks if the given folders are up-to-date with the export path
+ * Returns an array with the folders that differ
+ *  First item of the array is an array containing the remote directories that do not exist locally
+ *  Second item of the array is an array containing the local directories that do not exist remote
+ *  Third item of the array is an array containing the remote directories that are not up-to-date with local ones
+ * @param folders given folders to check
+ * @param res response objects
+ */
 function checkFolders(folders, res) {
     const directories = functions.getDirectories(config.exportPath);
     const fileNames = folders.map((item) => item.Name);
     let result = [];
-    if (directories !== fileNames)
+    if (directories !== fileNames) {
         result.push(fileNames.filter((folder) => !directories.includes(folder)));
+        result.push(directories.filter((folder) => !fileNames.includes(folder)));
+    }
 
     let promises = [];
     for (let folder of folders) {
@@ -155,6 +171,11 @@ function checkFolders(folders, res) {
     }).catch((error) => res.status(500).send(error));
 }
 
+/**
+ * Checks whether the local data and remote data are equal
+ * @param folder given folder to check
+ * @return {Promise<function>} promise whether the local and remote data strings are equal
+ */
 function checkFiles(folder) {
     return new Promise((resolve, reject) => {
         fs.readFile(config.exportPath + folder.Name + '/data.json.js', (err, data) => {

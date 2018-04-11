@@ -1,4 +1,5 @@
 require('./components/main/frontend/event-notification');
+
 import vueHeadful from 'vue-headful';
 import BootstrapVue from 'bootstrap-vue'
 
