@@ -6,7 +6,9 @@ import AdminEdit from "../components/data/Edit.vue";
 
 import SchemaCreate from "../components/schema/Create.vue";
 import SchemaEdit from "../components/schema/Edit.vue";
-// Views
+
+import Sync from "../components/sync/Sync.vue";
+
 import Dashboard from '../components/index/Dashboard.vue';
 
 /**
@@ -46,6 +48,12 @@ const routes = [
         path: '/schema/:name/edit',
         name: 'SchemaEdit',
         component: SchemaEdit,
+        props: true
+    },
+    {
+        path: '/sync',
+        name: 'Sync',
+        component: Sync,
         props: true
     },
     {
