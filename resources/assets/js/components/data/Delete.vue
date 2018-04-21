@@ -6,7 +6,7 @@
         <b-popover :target="'popoverData-' + id" title="Delete Data" :show.sync="showPopover">
             <p>Are you sure you want to delete this data?</p>
             <button class="btn btn-xs btn-primary" @click.prevent.stop="deleteObject">Yes</button>
-            <button class="btn btn-xs btn-default" @click.prevent.stop="popoverToggle">No</button>
+            <button class="btn btn-xs btn-danger" @click.prevent.stop="popoverToggle">No</button>
         </b-popover>
     </div>
 </template>
