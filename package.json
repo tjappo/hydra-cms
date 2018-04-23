@@ -10,7 +10,8 @@
     "watch-poll": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --watch-poll --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "start": "node -r esm app"
+    "start": "node -r esm app",
+    "startpm2": "pm2 start --node-args='--experimental-modules' app.mjs"
   },
   "author": "Jasper Hu",
   "license": "GNU GPLv3",

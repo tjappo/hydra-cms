@@ -17,7 +17,7 @@
                     <div class="col text-center"><strong>Up-to-date</strong></div>
                     <div class="col text-right"><strong>Local newer</strong></div>
                 </div>
-                <div class="item-wrapper mb-3 border p-2" v-for="(key, item) in local">
+                <div class="item-wrapper mb-3 border p-2" v-for="(item, key) in local">
                     <h6 class="text-center">{{item}}</h6>
                     <b-progress :max="2" class="mb-3">
                         <b-progress-bar variant="secondary" :value="1" class="transparent"></b-progress-bar>
@@ -28,8 +28,9 @@
                     <b-popover :target="'localPushButton' + key"
                                title="Confirm Push"
                                triggers="focus blur">
-                        <p>Are you sure you want to overwrite the remote folder?</p>
-                        <button class="btn btn-xs btn-primary" @click.prevent.stop="pushData(item)">Yes</button>
+                        <p>Are you sure about pushing the local <code>{{item}}</code> folder and, if contained within
+                            this folder, all files?</p>
+                        <button class="btn btn-xs btn-primary" @click.prevent.stop="pushData(item, key)">Yes</button>
                         <button class="btn btn-xs btn-danger" @click.prevent.stop="closePopover(key)">No</button>
                     </b-popover>
                 </div>
@@ -48,9 +49,20 @@
             closePopover(key) {
                 this.$root.$emit('bv::hide::popover', 'localPushButton' + key);
             },
-            pushData(item) {
-                console.log('local-push');
-                console.log(item);
+            pushData(item, key) {
+                this.closePopover(key);
+                axios.post('http://localhost:8000/local/pushFolder', {
+                    item: item
+                }).then(
+                    () => {
+                        VueEventListener.fire('success', "Folder Pushed");
+                        this.local.splice(key, 1);
+                    }
+                ).catch(
+                    (error) => VueEventListener.fire(
+                        'An unexpected error has occurred: ',
+                        (!!error.response) ? error.response.data : '')
+                );
             }
         }
     }

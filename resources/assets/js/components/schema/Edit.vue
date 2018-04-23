@@ -132,7 +132,7 @@
                     }
                 ).catch(
                     (error) => VueEventListener.fire(
-                        'An unexpected error has occured: ',
+                        'An unexpected error has occurred: ',
                         (!!error.response) ? error.response.data : '')
                 );
             },

@@ -118,6 +118,16 @@ router.post('/sync', (req, res) => {
     }
 });
 
+router.post('/local/pushFolder', (req, res) => {
+    const item = req.body.item;
+    try {
+        functions.pushFolder(item, res);
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
+
 router.get('/', (req, res) => {
     res.render('index', {
         exportPath: config.exportPath,

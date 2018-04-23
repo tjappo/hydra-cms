@@ -18,7 +18,7 @@
                     <div class="col text-center"><strong>Up-to-date</strong></div>
                     <div class="col text-right"><strong>Local newer</strong></div>
                 </div>
-                <div class="item-wrapper mb-3 border p-2" v-for="(key, item) in files">
+                <div class="item-wrapper mb-3 border p-2" v-for="(item, key) in files">
                     <h6 class="text-center">{{item.Name}}</h6>
                     <b-progress :max="2" class="mb-3">
                         <b-progress-bar variant="primary" :value="1"></b-progress-bar>
