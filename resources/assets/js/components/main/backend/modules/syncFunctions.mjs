@@ -2,6 +2,7 @@ import axios from "axios/index";
 import config from "../../../../../../../config.mjs";
 import fs from 'fs';
 import * as functions from "../functions.mjs";
+import {checkFileError} from "./errorHandler.mjs";
 
 /**
  * Checks the sync status of the folder corresponding to the hash
@@ -19,11 +20,11 @@ export function syncFoldersHash(syncInfo, res) {
             if (!!result.data && !!result.data.response) {
                 checkFolders(result.data.response.Objects[0].Links, res);
             } else {
-                res.status(500).send('Error: Invalid result data');
+                checkFileError('Error: Invalid result data');
             }
         })
         .catch((error) => {
-            res.status(500).send(error);
+            checkFileError(error);
             console.log(error);
         });
 }
@@ -56,7 +57,7 @@ function checkFolders(folders, res) {
         res.status(200).send(result);
     }).catch((error) => {
         console.log(error);
-        res.status(500).send(error)
+        checkFileError(error);
     });
 }
 
@@ -127,7 +128,16 @@ function pushLocalFolderRecursively(syncInfo, files, res) {
 
     if (file.Type === 1) {
         // folder
-        
+        axios.post(config.createIPFS, {
+            hash: syncInfo.hash,
+            path: syncInfo.path + item,
+            content: config.emptyFolderHash
+        }).then((result) => {
+            syncInfo.hash = result.data.hash;
+            pushLocalFolderRecursively(syncInfo, files, res);
+        }).catch((error) => {
+            checkFileError(error);
+        });
     } else {
         // file
         pushLocalFile(syncInfo, file.Name, res, (hash) => {
@@ -146,7 +156,7 @@ export function pushLocalFolder(syncInfo, name, res) {
 export function pushLocalFile(syncInfo, item, res, callback) {
     const prefixPath = config.exportPath + item;
     if (!fs.existsSync(prefixPath)) {
-        res.status(500).send('Error: File does not exist');
+        checkFileError('Error: File does not exist');
         return;
     }
 
@@ -164,10 +174,22 @@ export function pushLocalFile(syncInfo, item, res, callback) {
         }).then((result) => {
             (!!callback) ? callback(result.data.hash) : res.status(200).send(hash);
         }).catch((error) => {
-            res.status(500).send(error);
+            checkFileError(error);
         });
     });
+}
 
-
+export function pullRemoteFile(syncInfo, item, res, callback) {
+    axios.get(config.getIPFSFile, {
+        hash: syncInfo.hash,
+        path: syncInfo.path + item,
+    }).then((result) => {
+        fs.writeFile(config.exportPath + item + 'data.json.js', result.data, (err) => {
+            if (err) reject(checkFileError(err, res));
+            (!!callback) ? callback() : res.sendStatus(200);
+        });
+    }).catch((error) => {
+        checkFileError(error);
+    });
 }
 
