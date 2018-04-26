@@ -109,9 +109,12 @@ router.post('/schema/delete', (req, res) => {
 });
 
 router.post('/sync', (req, res) => {
-    const hash = req.body.hash;
+    const syncInfo = {
+        hash: req.body.hash,
+        path: req.body.path
+    };
     try {
-        functions.syncFolders(hash, res);
+        functions.syncFolders(syncInfo, res);
     } catch (err) {
         console.log(err.stack);
         res.status(500).send('An unexpected error has occurred');
@@ -119,9 +122,13 @@ router.post('/sync', (req, res) => {
 });
 
 router.post('/local/pushFolder', (req, res) => {
-    const item = req.body.item;
+    const item = req.body.item,
+        syncInfo = {
+            hash: req.body.hash,
+            path: req.body.path
+        };
     try {
-        functions.pushFolder(item, res);
+        functions.pushFolder(syncInfo, item, res);
     } catch (err) {
         console.log(err.stack);
         res.status(500).send('An unexpected error has occurred');

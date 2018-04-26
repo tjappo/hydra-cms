@@ -1,5 +1,6 @@
 import axios from "axios/index";
 import config from "../../../../../../../config.mjs";
+import fs from 'fs';
 import * as functions from "../functions.mjs";
 
 /**
@@ -7,10 +8,19 @@ import * as functions from "../functions.mjs";
  * @param hash given hash of the data folder
  * @param res response object
  */
-export function syncFoldersHash(hash, res) {
-    axios.get(config.getIPFSFolder + hash)
+export function syncFoldersHash(syncInfo, res) {
+    axios.get(config.getIPFS, {
+        params: {
+            hash: syncInfo.hash,
+            path: syncInfo.path
+        }
+    })
         .then((result) => {
-            checkFolders(result.data.Objects[0].Links, res);
+            if (!!result.data && !!result.data.response) {
+                checkFolders(result.data.response.Objects[0].Links, res);
+            } else {
+                res.status(500).send('Error: Invalid result data');
+            }
         })
         .catch((error) => {
             res.status(500).send(error);
@@ -39,12 +49,15 @@ function checkFolders(folders, res) {
     let promises = [];
     for (let folder of folders) {
         promises.push(checkFiles(folder));
-
     }
+
     Promise.all(promises).then((values) => {
         result.push(values.filter((item) => !!item));
         res.status(200).send(result);
-    }).catch((error) => res.status(500).send(error));
+    }).catch((error) => {
+        console.log(error);
+        res.status(500).send(error)
+    });
 }
 
 /**
@@ -55,9 +68,14 @@ function checkFolders(folders, res) {
 function checkFiles(folder) {
     return new Promise((resolve, reject) => {
         fs.readFile(config.exportPath + folder.Name + '/data.json.js', (err, data) => {
-            axios.get(config.getIPFSFile + folder.Hash + '/data.json.js')
+            axios.get(config.getIPFSFile, {
+                params: {
+                    hash: folder.Hash,
+                    path: 'data.json.js'
+                }
+            })
                 .then((result) => {
-                    (result.data !== data.toString()) ? resolve(folder) : resolve();
+                    (!!result && !!data && result.data !== data.toString()) ? resolve(folder) : resolve();
                 })
                 .catch((error) => {
                     reject(error);
@@ -66,21 +84,72 @@ function checkFiles(folder) {
     });
 }
 
-export function pushLocalFolder(item, res) {
-    const directories = functions.getDirectories(config.exportPath);
-    if (directories.indexOf(item) === -1) {
-        res.status(500).send('Error: Local folder: ' + item + ' does not exist');
+function getFilesRecursively(prefix, path, result) {
+    result = result || [];
+    const prefixPath = prefix + path;
+
+    // Does not exist
+    if (!fs.existsSync(prefixPath))
+        return result;
+
+    if (fs.statSync(prefixPath).isDirectory()) {
+        const pathFiles = fs.readdirSync(prefixPath);
+
+        // Directory is empty
+        if (pathFiles.length === 0) {
+            result.push({
+                'Name': path,
+                'Type': 1
+            })
+        } else {
+            pathFiles.map((name) => {
+                getFilesRecursively(prefix, path + '/' + name, result)
+            });
+        }
+    }
+    else {
+        result.push({
+            'Name': path,
+            'Type': 2
+        });
+    }
+
+    return result;
+}
+
+function pushLocalFolderRecursively(syncInfo, files, res) {
+    if (files.length === 0) {
+        res.sendStatus(200);
         return;
     }
 
-    axios.post(config.createIPFSFolder, {
-        item: item
-    }).then((result) => {
-        pushFiles();
-        res.status(200).send(result.data);
-    }).catch((error) => {
-        res.status(500).send(error);
-    });
+    const file = files.pop(),
+        content = fs.readFile(config.exportPath + file, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send(err);
+                return;
+            }
+
+            axios.post(config.createIPFS, {
+                hash: syncInfo.hash,
+                path: syncInfo.path + file.Name,
+                content: content
+            }).then((result) => {
+                // set new hash
+                // syncInfo.hash = result.data.hash;
+
+                pushLocalFolderRecursively(syncInfo, files, res);
+            }).catch((error) => {
+                res.status(500).send(error);
+            });
+        });
+}
+
+export function pushLocalFolder(syncInfo, name, res) {
+    const files = getFilesRecursively(config.exportPath, name);
+
+    pushLocalFolderRecursively(syncInfo, files, res);
 }
 
 export function pushFiles(path, result, res) {

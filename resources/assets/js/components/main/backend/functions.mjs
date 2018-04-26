@@ -67,12 +67,12 @@ export function removeSchema(title, res) {
     deleteSchema(title, res);
 }
 
-export function syncFolders(hash, res) {
-    syncFoldersHash(hash, res);
+export function syncFolders(syncInfo, res) {
+    syncFoldersHash(syncInfo, res);
 }
 
-export function pushFolder(item, res) {
-    pushLocalFolder(item, res);
+export function pushFolder(syncInfo, item, res) {
+    pushLocalFolder(syncInfo, item, res);
 }
 
 /**

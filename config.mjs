@@ -6,10 +6,10 @@ import config from './config.global.mjs';
 config.exportPath = 'export/data/';
 config.ignoreFolders = ['img'];
 config.port = 8000;
-config.getIPFS = 'http://39010.s.time4vps.cloud/api/v0/';
-config.getIPFSFolder = config.getIPFS + 'ls?headers=false&resolve-type=true&arg=';
-config.getIPFSFile = config.getIPFS + 'cat?arg=';
-config.createIPFSFolder = config.getIPFS + '/object/patch/add-link?arg=';
-config.createIPFSFile = config.getIPFS + '/add?pin=false&arg=';
+config.getIPFS = 'http://49053.s.time4vps.cloud:9405/api/dapps/918577358511643863/api/data';
+config.getIPFSFile = config.getIPFS + '/get';
+config.createIPFS = config.getIPFS + '/add';
+
+// http://49053.s.time4vps.cloud:9405/api/dapps/918577358511643863/api/data/list?hash=QmWrbqRPd7Dnesw7aU41nrbg5u9csx75bobxE1Qc3v7dpf&path=donations
 
 export default config;

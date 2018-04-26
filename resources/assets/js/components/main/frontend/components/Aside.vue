@@ -5,11 +5,21 @@
                 <h3>Synchronization</h3>
             </div>
             <div class="card-body d-flex flex-column">
-                <label for="hash">
-                    Data Folder Hash
-                </label>
-                <div class="input-group mb-3 mt-1">
-                    <input type="text" id="hash" class="form-control" v-model="hash">
+                <div class="hash-wrapper">
+                    <label for="hash">
+                        Merkle Hash
+                    </label>
+                    <div class="input-group mb-3 mt-1">
+                        <input type="text" id="hash" class="form-control" v-model="hash">
+                    </div>
+                </div>
+                <div class="path-wrapper">
+                    <label for="path">
+                        Relative path
+                    </label>
+                    <div class="input-group mb-3 mt-1">
+                        <input type="text" id="path" class="form-control" v-model="path">
+                    </div>
                 </div>
                 <button type="button" class="btn btn-primary" @click.prevent.stop='syncData' :disabled="!!loading">
                     Get Sync Info
@@ -43,7 +53,8 @@
         },
         data() {
             return {
-                hash: 'QmaVEzmwBbmahoQ5jT8RmCSzhiyzanPnpB5W5oULcUtgZH',
+                hash: 'QmWrbqRPd7Dnesw7aU41nrbg5u9csx75bobxE1Qc3v7dpf',
+                path: 'data',
                 outdated: {
                     remote: [],
                     local: [],
@@ -58,6 +69,14 @@
                 const sanitizeString = this.$options.filters.sanitizeString;
                 this.hash = sanitizeString(this.hash);
             },
+            validatePath() {
+                if (typeof this.path !== 'string' || this.path.length === 0) return '';
+                if (this.path.substr(-1) !== '/') {
+                    this.path += '/';
+                }
+                this.path = this.path.replace(/[^a-zA-Z0-9áéíóúñü \._\/-]/gim, "");
+                return this.path.trim();
+            },
             syncData() {
                 this.loading = true;
                 this.validateHash();
@@ -65,10 +84,15 @@
                     this.loading = false;
                     VueEventListener.fire('error', "Invalid Hash");
                     return;
+                } else if (!this.path) {
+                    this.loading = false;
+                    VueEventListener.fire('error', "Invalid Path");
+                    return;
                 }
 
                 axios.post('http://localhost:8000/sync', {
-                    hash: this.hash
+                    hash: this.hash,
+                    path: this.path
                 }).then((result) => {
                     const data = result.data;
                     this.outdated.remote = data[0];
@@ -77,7 +101,8 @@
                     this.outdated.timestamp = moment();
                     this.loading = false;
                 }).catch((error) => {
-                    console.log(error);
+                    this.loading = false;
+                    VueEventListener.fire('error', error);
                 })
             },
             toggleAside() {
