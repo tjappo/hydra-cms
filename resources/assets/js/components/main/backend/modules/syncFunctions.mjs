@@ -20,11 +20,11 @@ export function syncFoldersHash(syncInfo, res) {
             if (!!result.data && !!result.data.response) {
                 checkFolders(result.data.response.Objects[0].Links, res);
             } else {
-                checkFileError('Error: Invalid result data');
+                checkFileError('Error: Invalid result data', res);
             }
         })
         .catch((error) => {
-            checkFileError(error);
+            checkFileError(error, res);
             console.log(error);
         });
 }
@@ -57,7 +57,7 @@ function checkFolders(folders, res) {
         res.status(200).send(result);
     }).catch((error) => {
         console.log(error);
-        checkFileError(error);
+        checkFileError(error, res);
     });
 }
 
@@ -85,7 +85,7 @@ function checkFiles(folder) {
     });
 }
 
-function getLocalFilesRecursively(prefix, path, result) {
+function getLocalFilesRecursively(prefix, path, result, onlyFiles) {
     result = result || [];
     const prefixPath = prefix + path;
 
@@ -97,7 +97,7 @@ function getLocalFilesRecursively(prefix, path, result) {
         const pathFiles = fs.readdirSync(prefixPath);
 
         // Directory is empty
-        if (pathFiles.length === 0) {
+        if (pathFiles.length === 0 && !onlyFiles) {
             result.push({
                 'Name': path,
                 'Type': 1
@@ -136,7 +136,7 @@ function pushLocalFolderRecursively(syncInfo, files, res) {
             syncInfo.hash = result.data.hash;
             pushLocalFolderRecursively(syncInfo, files, res);
         }).catch((error) => {
-            checkFileError(error);
+            checkFileError(error, res);
         });
     } else {
         // file
@@ -156,7 +156,7 @@ export function pushLocalFolder(syncInfo, name, res) {
 export function pushLocalFile(syncInfo, item, res, callback) {
     const prefixPath = config.exportPath + item;
     if (!fs.existsSync(prefixPath)) {
-        checkFileError('Error: File does not exist');
+        checkFileError('Error: File does not exist', res);
         return;
     }
 
@@ -174,8 +174,15 @@ export function pushLocalFile(syncInfo, item, res, callback) {
         }).then((result) => {
             (!!callback) ? callback(result.data.hash) : res.status(200).send(hash);
         }).catch((error) => {
-            checkFileError(error);
+            checkFileError(error, res);
         });
+    });
+}
+
+function writeToFile(path, data, res, callback) {
+    fs.writeFile(config.exportPath + path, data, (err) => {
+        if (err) reject(checkFileError(err, res));
+        (!!callback) ? callback() : res.sendStatus(200);
     });
 }
 
@@ -184,12 +191,28 @@ export function pullRemoteFile(syncInfo, item, res, callback) {
         hash: syncInfo.hash,
         path: syncInfo.path + item,
     }).then((result) => {
-        fs.writeFile(config.exportPath + item + 'data.json.js', result.data, (err) => {
-            if (err) reject(checkFileError(err, res));
-            (!!callback) ? callback() : res.sendStatus(200);
-        });
+        writeToFile(item, result.data, res, callback);
     }).catch((error) => {
-        checkFileError(error);
+        checkFileError(error, res);
     });
 }
 
+export function pullRemoteFolders(syncInfo, path, res) {
+    axios.get(config.getIPFS, {
+        params: {
+            hash: syncInfo.hash,
+            path: syncInfo.path + '/' + path
+        }
+    })
+        .then((result) => {
+            if (!!result.data && !!result.data.response) {
+                const files = result.data.response.Objects[0].Links;
+                //@todo implement recursively pull files
+            } else {
+                checkFileError('Error: Invalid result data', res);
+            }
+        })
+        .catch((error) => {
+            checkFileError(error, res);
+        });
+}
