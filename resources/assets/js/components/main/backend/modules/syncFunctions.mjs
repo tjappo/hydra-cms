@@ -33,7 +33,7 @@ export function syncFoldersHash(syncInfo, res) {
  * Returns an array with the folders that differ
  *  First item of the array is an array containing the remote directories that do not exist locally
  *  Second item of the array is an array containing the local directories that do not exist remote
- *  Third item of the array is an array containing the remote directories that are not up-to-date with local ones
+ *  Third item of the array is an array containing the remote folders that are not up-to-date with local ones
  * @param folders given folders to check
  * @param res response objects
  */
@@ -84,7 +84,7 @@ function checkFiles(folder) {
     });
 }
 
-function getFilesRecursively(prefix, path, result) {
+function getLocalFilesRecursively(prefix, path, result) {
     result = result || [];
     const prefixPath = prefix + path;
 
@@ -103,7 +103,7 @@ function getFilesRecursively(prefix, path, result) {
             })
         } else {
             pathFiles.map((name) => {
-                getFilesRecursively(prefix, path + '/' + name, result)
+                getLocalFilesRecursively(prefix, path + '/' + name, result)
             });
         }
     }
@@ -123,36 +123,51 @@ function pushLocalFolderRecursively(syncInfo, files, res) {
         return;
     }
 
-    const file = files.pop(),
-        content = fs.readFile(config.exportPath + file, (err, data) => {
-            if (err) {
-                console.log(err);
-                res.status(500).send(err);
-                return;
-            }
+    const file = files.pop();
 
-            axios.post(config.createIPFS, {
-                hash: syncInfo.hash,
-                path: syncInfo.path + file.Name,
-                content: content
-            }).then((result) => {
-                // set new hash
-                // syncInfo.hash = result.data.hash;
-
-                pushLocalFolderRecursively(syncInfo, files, res);
-            }).catch((error) => {
-                res.status(500).send(error);
-            });
-        });
+    if (file.Type === 1) {
+        // folder
+        
+    } else {
+        // file
+        pushLocalFile(syncInfo, file.Name, res, (hash) => {
+            syncInfo.hash = hash;
+            pushLocalFolderRecursively(syncInfo, files, res);
+        })
+    }
 }
 
 export function pushLocalFolder(syncInfo, name, res) {
-    const files = getFilesRecursively(config.exportPath, name);
+    const files = getLocalFilesRecursively(config.exportPath, name);
 
     pushLocalFolderRecursively(syncInfo, files, res);
 }
 
-export function pushFiles(path, result, res) {
+export function pushLocalFile(syncInfo, item, res, callback) {
+    const prefixPath = config.exportPath + item;
+    if (!fs.existsSync(prefixPath)) {
+        res.status(500).send('Error: File does not exist');
+        return;
+    }
+
+    fs.readFile(prefixPath, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+            return;
+        }
+
+        axios.post(config.createIPFS, {
+            hash: syncInfo.hash,
+            path: syncInfo.path + item,
+            content: data
+        }).then((result) => {
+            (!!callback) ? callback(result.data.hash) : res.status(200).send(hash);
+        }).catch((error) => {
+            res.status(500).send(error);
+        });
+    });
+
 
 }
 
