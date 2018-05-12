@@ -35,11 +35,15 @@
                 </div>
             </div>
         </div>
+        <loading-overlay></loading-overlay>
     </div>
 </template>
 
 <script>
+    import LoadingOverlay from "../main/frontend/components/LoadingOverlay";
+
     export default {
+        components: {LoadingOverlay},
         name: 'RemoteSync',
         props: {
             'remote': [Array],
@@ -49,10 +53,27 @@
             closePopover(key) {
                 this.$root.$emit('bv::hide::popover', 'remotePullButton' + key);
             },
-            pullData(item) {
-                console.log('remote-pull');
-                console.log(item);
-            },
+            pullData(item, key) {
+                this.closePopover(key);
+                VueEventListener.fire('toggleLoading');
+                axios.post('http://localhost:8000/local/pullFolder', {
+                    item: item,
+                    syncInfo: this.syncInfo
+                }).then(
+                    () => {
+                        VueEventListener.fire('toggleLoading');
+                        VueEventListener.fire('success', "Folder Pulled");
+                        // this.local.splice(key, 1);
+                    }
+                ).catch(
+                    (error) => {
+                        VueEventListener.fire('toggleLoading');
+                        VueEventListener.fire(
+                            'An unexpected error has occurred: ',
+                            (!!error.response) ? error.response.data : '')
+                    }
+                );
+            }
         }
     }
 </script>

@@ -143,6 +143,17 @@ router.post('/remote/pullFolder', (req, res) => {
     }
 });
 
+router.post('/remote/pullFile', (req, res) => {
+    const item = req.body.item,
+        syncInfo = req.body.syncInfo;
+    try {
+        functions.pullFile(syncInfo, item, res);
+    } catch (err) {
+        console.log(err.stack);
+        res.status(500).send('An unexpected error has occurred');
+    }
+});
+
 router.get('/', (req, res) => {
     res.render('index', {
         exportPath: config.exportPath,

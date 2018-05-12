@@ -1,7 +1,7 @@
 import {createContent, updateContent, removeContent} from "./modules/data/dataFunctions.mjs";
 import {addSchema, editSchema, deleteSchema} from "./modules/schema/schemaFunctions.mjs";
 import {getDirectoriesFromSource} from "./modules/ioFunctions.mjs";
-import {syncFoldersHash, pushLocalFolder, pullRemoteFolders} from "./modules/syncFunctions.mjs";
+import {syncFoldersHash, pushLocalFolder, pullRemoteFolders, pullRemoteFile} from "./modules/syncFunctions.mjs";
 
 /**
  * Creates the new object and persists it
@@ -71,12 +71,16 @@ export function syncFolders(syncInfo, res) {
     syncFoldersHash(syncInfo, res);
 }
 
-export function pushFolder(syncInfo, item, res) {
-    pushLocalFolder(syncInfo, item, res);
+export function pushFolder(syncInfo, path, res) {
+    pushLocalFolder(syncInfo, path, res);
 }
 
-export function pullFolder(syncInfo, item, res) {
-    pullRemoteFolders(syncInfo, item, res);
+export function pullFolder(syncInfo, path, res) {
+    pullRemoteFolders(syncInfo, path, res);
+}
+
+export function pullFile(syncInfo, path, res) {
+    pullRemoteFile(syncInfo, path, res);
 }
 
 /**

@@ -193,7 +193,7 @@ export function pushLocalFile(syncInfo, item, res, callback) {
         }
 
         const config = {
-            headers: { 'content-type': 'multipart/form-data' }
+            headers: {'content-type': 'multipart/form-data'}
         };
 
         axios.post(createIPFSLink(syncInfo.hash, syncInfo.path + '/' + item), {
@@ -216,24 +216,29 @@ export function pushLocalFile(syncInfo, item, res, callback) {
  * @param callback function
  */
 function writeToFile(path, data, res, callback) {
-    // fs.writeFile(config.exportPath + path, data, (err) => {
-    //     if (err) reject(checkFileError(err, res));
+    fs.writeFile(config.exportPath + path, data, (err) => {
+        if (err) reject(checkFileError(err, res));
         (!!callback) ? callback() : res.sendStatus(200);
-    // });
+    });
 }
 
 export function pullRemoteFile(syncInfo, item, res, callback) {
     axios.get(config.getIPFSFile, {
-        hash: syncInfo.hash,
-        path: syncInfo.path + item,
+        params: {
+            hash: syncInfo.hash,
+            path: syncInfo.path + '/' + item + '/data.json.js',
+        }
     }).then((result) => {
-        writeToFile(item, result.data, res, callback);
+        writeToFile(item + '/data.json.js', result.data.response, res, callback);
     }).catch((error) => {
         checkFileError(error, res);
     });
 }
 
 export function pullRemoteFolders(syncInfo, path, res) {
+    pullRemoteFile(syncInfo, path, res);
+
+    return;
     axios.get(config.getIPFS, {
         params: {
             hash: syncInfo.hash,

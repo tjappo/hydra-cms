@@ -30,7 +30,7 @@
                                    title="Confirm Pull"
                                    triggers="focus blur">
                             <p>Are you sure you want to overwrite the local file?</p>
-                            <button class="btn btn-xs btn-primary" @click.prevent.stop="pullData(item)">Yes</button>
+                            <button class="btn btn-xs btn-primary" @click.prevent.stop="pullData(item, key)">Yes</button>
                             <button class="btn btn-xs btn-danger" @click.prevent.stop="closePopover('Pull', key)">No</button>
                         </b-popover>
                         <b-btn variant="secondary">View differences</b-btn>
@@ -39,7 +39,7 @@
                                    title="Confirm Push"
                                    triggers="focus blur">
                             <p>Are you sure you want to overwrite the remote file?</p>
-                            <button class="btn btn-xs btn-primary" @click.prevent.stop="pushData(item)">Yes</button>
+                            <button class="btn btn-xs btn-primary" @click.prevent.stop="pushData(item, key)">Yes</button>
                             <button class="btn btn-xs btn-danger" @click.prevent.stop="closePopover('Push', key)">No</button>
                         </b-popover>
                     </div>
@@ -58,15 +58,33 @@
         },
         methods: {
             closePopover(action, key) {
-                this.$root.$emit('bv::hide::popover', 'remote' + action + 'Button' + key);
+                this.$root.$emit('bv::hide::popover', 'files' + action + 'Button' + key);
             },
-            pushData(item) {
+            pushData(item, key) {
                 console.log('files-push');
                 console.log(item);
+                this.closePopover('Push', key);
             },
-            pullData(item) {
-                console.log('files-pull');
-                console.log(item);
+            pullData(item, key) {
+                this.closePopover('Pull', key);
+                VueEventListener.fire('toggleLoading');
+                axios.post('http://localhost:8000/remote/pullFile', {
+                    item: item.Name,
+                    syncInfo: this.syncInfo
+                }).then(
+                    () => {
+                        VueEventListener.fire('toggleLoading');
+                        VueEventListener.fire('success', "File Pulled");
+                        // this.local.splice(key, 1);
+                    }
+                ).catch(
+                    (error) => {
+                        VueEventListener.fire('toggleLoading');
+                        VueEventListener.fire(
+                            'An unexpected error has occurred: ',
+                            (!!error.response) ? error.response.data : '')
+                    }
+                );
             }
         }
     }
