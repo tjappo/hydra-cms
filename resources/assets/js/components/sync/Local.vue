@@ -36,14 +36,19 @@
                 </div>
             </div>
         </div>
+        <loading-overlay ref="loading"></loading-overlay>
     </div>
 </template>
 
 <script>
+    import LoadingOverlay from "../main/frontend/components/LoadingOverlay";
+
     export default {
+        components: {LoadingOverlay},
         name: 'LocalSync',
         props: {
-            'local': [Array]
+            'local': [Array],
+            'syncInfo': [Object]
         },
         methods: {
             closePopover(key) {
@@ -51,17 +56,23 @@
             },
             pushData(item, key) {
                 this.closePopover(key);
+                VueEventListener.fire('toggleLoading');
                 axios.post('http://localhost:8000/local/pushFolder', {
-                    item: item
+                    item: item,
+                    syncInfo: this.syncInfo
                 }).then(
                     () => {
+                        VueEventListener.fire('toggleLoading');
                         VueEventListener.fire('success', "Folder Pushed");
-                        this.local.splice(key, 1);
+                        // this.local.splice(key, 1);
                     }
                 ).catch(
-                    (error) => VueEventListener.fire(
-                        'An unexpected error has occurred: ',
-                        (!!error.response) ? error.response.data : '')
+                    (error) => {
+                        VueEventListener.fire('toggleLoading');
+                        VueEventListener.fire(
+                            'An unexpected error has occurred: ',
+                            (!!error.response) ? error.response.data : '')
+                    }
                 );
             }
         }

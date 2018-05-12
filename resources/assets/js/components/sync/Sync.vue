@@ -6,9 +6,9 @@
         />
         <div class="row justify-content-center">
             <div class="col" id="accordion">
-                <remote-sync v-if="!!checkArray(outdated.remote)" :remote="outdated.remote"></remote-sync>
-                <local-sync v-if="!!checkArray(outdated.local)" :local="outdated.local"></local-sync>
-                <files-sync v-if="!!checkArray(outdated.files)" :files="outdated.files"></files-sync>
+                <remote-sync v-if="checkArray(outdated.remote)" :remote="outdated.remote" :syncInfo="syncInfo"></remote-sync>
+                <local-sync v-if="checkArray(outdated.local)" :local="outdated.local" :syncInfo="syncInfo"></local-sync>
+                <files-sync v-if="checkArray(outdated.files)" :files="outdated.files" :syncInfo="syncInfo"></files-sync>
             </div>
         </div>
     </div>
@@ -27,7 +27,8 @@
             RemoteSync},
         mixins: [TextFilter],
         props: {
-            'outdated': [Object]
+            'outdated': [Object],
+            'syncInfo': [Object]
         },
         methods: {
             checkArray(item) {

@@ -31,7 +31,7 @@
                     <p class="text-warning mb-1"><strong>{{outdatedLocal}}</strong> Local Folders differ</p>
                     <p class="text-warning"><strong>{{outdatedFiles}}</strong> Data Files differ</p>
                     <p class="text-info">Checked on <strong>{{outdatedTimestamp}}</strong></p>
-                    <router-link class="btn btn-secondary" :to="{name: 'Sync', params: {outdated: outdated}}"
+                    <router-link class="btn btn-secondary" :to="{name: 'Sync', params: {outdated: outdated, syncInfo: {hash: hash, path: path}}}"
                                  @click.native="toggleAside">
                         View more info
                     </router-link>

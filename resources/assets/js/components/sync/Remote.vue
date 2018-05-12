@@ -42,7 +42,8 @@
     export default {
         name: 'RemoteSync',
         props: {
-            'remote': [Array]
+            'remote': [Array],
+            'syncInfo': [Object]
         },
         methods: {
             closePopover(key) {
@@ -51,7 +52,7 @@
             pullData(item) {
                 console.log('remote-pull');
                 console.log(item);
-            }
+            },
         }
     }
 </script>

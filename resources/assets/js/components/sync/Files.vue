@@ -53,7 +53,8 @@
     export default {
         name: 'FilesSync',
         props: {
-            'files': [Array]
+            'files': [Array],
+            'syncInfo': [Object]
         },
         methods: {
             closePopover(action, key) {

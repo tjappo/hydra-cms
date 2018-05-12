@@ -85,6 +85,14 @@ function checkFiles(folder) {
     });
 }
 
+/**
+ * Gets the local files recursively, given a path
+ * @param prefix of the path
+ * @param path given path from root
+ * @param result the files
+ * @param onlyFiles boolean, whether to get only files
+ * @return {Array} containing all files and/ or folders
+ */
 function getLocalFilesRecursively(prefix, path, result, onlyFiles) {
     result = result || [];
     const prefixPath = prefix + path;
@@ -118,6 +126,12 @@ function getLocalFilesRecursively(prefix, path, result, onlyFiles) {
     return result;
 }
 
+/**
+ * Pushes all files recursively
+ * @param syncInfo the information to connect to the server
+ * @param files all files to push
+ * @param res response object
+ */
 function pushLocalFolderRecursively(syncInfo, files, res) {
     if (files.length === 0) {
         res.sendStatus(200);
@@ -128,9 +142,7 @@ function pushLocalFolderRecursively(syncInfo, files, res) {
 
     if (file.Type === 1) {
         // folder
-        axios.post(config.createIPFS, {
-            hash: syncInfo.hash,
-            path: syncInfo.path + item,
+        axios.post(createIPFSLink(syncInfo.hash, syncInfo.path + '/' + item), {
             content: config.emptyFolderHash
         }).then((result) => {
             syncInfo.hash = result.data.hash;
@@ -147,12 +159,25 @@ function pushLocalFolderRecursively(syncInfo, files, res) {
     }
 }
 
-export function pushLocalFolder(syncInfo, name, res) {
-    const files = getLocalFilesRecursively(config.exportPath, name);
+/**
+ * Pushes the local folder to remote
+ * @param syncInfo the information to connect to the server
+ * @param path from root to folder
+ * @param res response object
+ */
+export function pushLocalFolder(syncInfo, path, res) {
+    const files = getLocalFilesRecursively(config.exportPath, path);
 
     pushLocalFolderRecursively(syncInfo, files, res);
 }
 
+/**
+ * Pushes the local file to remote
+ * @param syncInfo the information to connect to the server
+ * @param item item to push
+ * @param res response object
+ * @param callback function in case you need to push extra files
+ */
 export function pushLocalFile(syncInfo, item, res, callback) {
     const prefixPath = config.exportPath + item;
     if (!fs.existsSync(prefixPath)) {
@@ -167,23 +192,34 @@ export function pushLocalFile(syncInfo, item, res, callback) {
             return;
         }
 
-        axios.post(config.createIPFS, {
-            hash: syncInfo.hash,
-            path: syncInfo.path + item,
-            content: data
-        }).then((result) => {
+        const config = {
+            headers: { 'content-type': 'multipart/form-data' }
+        };
+
+        axios.post(createIPFSLink(syncInfo.hash, syncInfo.path + '/' + item), {
+            name: data
+        }, config).then((result) => {
+            console.log(result);
             (!!callback) ? callback(result.data.hash) : res.status(200).send(hash);
         }).catch((error) => {
+            console.log(error);
             checkFileError(error, res);
         });
     });
 }
 
+/**
+ * Writes the file
+ * @param path given path from the root
+ * @param data to write
+ * @param res response object
+ * @param callback function
+ */
 function writeToFile(path, data, res, callback) {
-    fs.writeFile(config.exportPath + path, data, (err) => {
-        if (err) reject(checkFileError(err, res));
+    // fs.writeFile(config.exportPath + path, data, (err) => {
+    //     if (err) reject(checkFileError(err, res));
         (!!callback) ? callback() : res.sendStatus(200);
-    });
+    // });
 }
 
 export function pullRemoteFile(syncInfo, item, res, callback) {
@@ -207,6 +243,7 @@ export function pullRemoteFolders(syncInfo, path, res) {
         .then((result) => {
             if (!!result.data && !!result.data.response) {
                 const files = result.data.response.Objects[0].Links;
+                console.log(files);
                 //@todo implement recursively pull files
             } else {
                 checkFileError('Error: Invalid result data', res);
@@ -215,4 +252,8 @@ export function pullRemoteFolders(syncInfo, path, res) {
         .catch((error) => {
             checkFileError(error, res);
         });
+}
+
+function createIPFSLink(hash, path) {
+    return config.createIPFS + '?hash=' + hash + '&path=' + path;
 }
