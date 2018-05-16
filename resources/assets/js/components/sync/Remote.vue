@@ -56,7 +56,7 @@
             pullData(item, key) {
                 this.closePopover(key);
                 VueEventListener.fire('toggleLoading');
-                axios.post('http://localhost:8000/local/pullFolder', {
+                axios.post('http://localhost:8000/remote/pullFolder', {
                     item: item,
                     syncInfo: this.syncInfo
                 }).then(

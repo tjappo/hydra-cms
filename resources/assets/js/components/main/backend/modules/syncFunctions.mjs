@@ -76,7 +76,7 @@ function checkFiles(folder) {
                 }
             })
                 .then((result) => {
-                    (!!result && !!data && result.data !== data.toString()) ? resolve(folder) : resolve();
+                    (!!result && !!data && result.data.response !== data.toString()) ? resolve(folder) : resolve();
                 })
                 .catch((error) => {
                     reject(error);
@@ -236,9 +236,7 @@ export function pullRemoteFile(syncInfo, item, res, callback) {
 }
 
 export function pullRemoteFolders(syncInfo, path, res) {
-    pullRemoteFile(syncInfo, path, res);
-
-    return;
+    // pullRemoteFile(syncInfo, path, res);
     axios.get(config.getIPFS, {
         params: {
             hash: syncInfo.hash,
@@ -247,9 +245,37 @@ export function pullRemoteFolders(syncInfo, path, res) {
     })
         .then((result) => {
             if (!!result.data && !!result.data.response) {
-                const files = result.data.response.Objects[0].Links;
-                console.log(files);
-                //@todo implement recursively pull files
+                const items = result.data.response.Objects[0].Links;
+                let promises = [];
+                for (let item in items) {
+                    if (item.Type === 1) {
+                        // @todo create folder
+                        // folder
+                        promises.push(new Promise(
+                            (resolve, reject) => {
+                                pullRemoteFolders(syncInfo, item, res, () => {
+                                })
+                                    .then(resolve())
+                                    .catch(reject());
+                            })
+                        );
+                    } else {
+                        // file
+                        promises.push(new Promise(
+                            (resolve, reject) => {
+                                pullRemoteFile(syncInfo, item, res, () => {
+                                })
+                                    .then(resolve())
+                                    .catch(reject());
+                            })
+                        );
+                    }
+                }
+                Promise.all(promises)
+                    .then(() => {
+                        res.sendStatus(200);
+                    })
+                    .catch((err) => res.status(500).send(err));
             } else {
                 checkFileError('Error: Invalid result data', res);
             }
