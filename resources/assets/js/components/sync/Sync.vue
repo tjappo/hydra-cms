@@ -11,6 +11,7 @@
                 <files-sync v-if="checkArray(outdated.files)" :files="outdated.files" :syncInfo="syncInfo"></files-sync>
             </div>
         </div>
+        <loading-overlay></loading-overlay>
     </div>
 </template>
 
@@ -19,12 +20,15 @@
     import RemoteSync from "./Remote";
     import LocalSync from "./Local";
     import FilesSync from "./Files";
+    import LoadingOverlay from "../main/frontend/components/LoadingOverlay";
 
     export default {
         components: {
             FilesSync,
             LocalSync,
-            RemoteSync},
+            RemoteSync,
+            LoadingOverlay
+        },
         mixins: [TextFilter],
         props: {
             'outdated': [Object],

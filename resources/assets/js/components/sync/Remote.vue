@@ -35,7 +35,6 @@
                 </div>
             </div>
         </div>
-        <loading-overlay></loading-overlay>
     </div>
 </template>
 
@@ -43,7 +42,6 @@
     import LoadingOverlay from "../main/frontend/components/LoadingOverlay";
 
     export default {
-        components: {LoadingOverlay},
         name: 'RemoteSync',
         props: {
             'remote': [Array],

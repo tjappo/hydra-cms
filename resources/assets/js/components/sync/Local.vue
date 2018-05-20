@@ -36,15 +36,13 @@
                 </div>
             </div>
         </div>
-        <loading-overlay ref="loading"></loading-overlay>
     </div>
 </template>
 
 <script>
-    import LoadingOverlay from "../main/frontend/components/LoadingOverlay";
+
 
     export default {
-        components: {LoadingOverlay},
         name: 'LocalSync',
         props: {
             'local': [Array],

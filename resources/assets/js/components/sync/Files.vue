@@ -1,4 +1,3 @@
-
 <template>
     <div class="card">
         <div class="card-header" id="filesHeading">
@@ -30,8 +29,10 @@
                                    title="Confirm Pull"
                                    triggers="focus blur">
                             <p>Are you sure you want to overwrite the local file?</p>
-                            <button class="btn btn-xs btn-primary" @click.prevent.stop="pullData(item, key)">Yes</button>
-                            <button class="btn btn-xs btn-danger" @click.prevent.stop="closePopover('Pull', key)">No</button>
+                            <button class="btn btn-xs btn-primary" @click.prevent.stop="pullData(item, key)">Yes
+                            </button>
+                            <button class="btn btn-xs btn-danger" @click.prevent.stop="closePopover('Pull', key)">No
+                            </button>
                         </b-popover>
                         <b-btn variant="secondary">View differences</b-btn>
                         <b-btn variant="success" class="float-right" :id="'filesPushButton' + key">Push</b-btn>
@@ -39,8 +40,10 @@
                                    title="Confirm Push"
                                    triggers="focus blur">
                             <p>Are you sure you want to overwrite the remote file?</p>
-                            <button class="btn btn-xs btn-primary" @click.prevent.stop="pushData(item, key)">Yes</button>
-                            <button class="btn btn-xs btn-danger" @click.prevent.stop="closePopover('Push', key)">No</button>
+                            <button class="btn btn-xs btn-primary" @click.prevent.stop="pushData(item, key)">Yes
+                            </button>
+                            <button class="btn btn-xs btn-danger" @click.prevent.stop="closePopover('Push', key)">No
+                            </button>
                         </b-popover>
                     </div>
                 </div>
@@ -72,7 +75,6 @@
                 this.closePopover('Pull', key);
                 VueEventListener.fire('toggleLoading');
                 this.pullFile(this.syncInfo, item);
-                VueEventListener.fire('toggleLoading');
                 // axios.post('http://localhost:8000/remote/pullFile', {
                 //     item: item.Name,
                 //     syncInfo: this.syncInfo

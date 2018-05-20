@@ -16,6 +16,7 @@ export default {
                     window[item.Name + 'Data'] = data;
                     window[item.Name + 'Schema'] = schema;
                 }
+                VueEventListener.fire("toggleLoading");
             }).catch((error) => {
                 VueEventListener.fire('error', error);
             });
