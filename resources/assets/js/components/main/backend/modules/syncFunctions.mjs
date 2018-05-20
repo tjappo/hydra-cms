@@ -5,11 +5,12 @@ import * as functions from "../functions.mjs";
 import {checkFileError} from "./errorHandler.mjs";
 
 /**
- * Checks the sync status of the folder corresponding to the hash
- * @param hash given hash of the data folder
- * @param res response object
+ * Gets the items in a given path
+ * @param syncInfo object containing root hash and path
+ * @param res reponse object
+ * @param callback callback function
  */
-export function syncFoldersHash(syncInfo, res) {
+function getItems(syncInfo, res, callback) {
     axios.get(config.getIPFS, {
         params: {
             hash: syncInfo.hash,
@@ -18,7 +19,10 @@ export function syncFoldersHash(syncInfo, res) {
     })
         .then((result) => {
             if (!!result.data && !!result.data.response) {
-                checkFolders(result.data.response.Objects[0].Links, res);
+                if (!!callback)
+                    callback(result.data.response.Objects[0].Links);
+                else
+                    return result.data.response.Objects[0].Links;
             } else {
                 checkFileError('Error: Invalid result data', res);
             }
@@ -27,6 +31,15 @@ export function syncFoldersHash(syncInfo, res) {
             checkFileError(error, res);
             console.log(error);
         });
+}
+
+/**
+ * Checks the sync status of the folder corresponding to the hash
+ * @param syncInfo object containing root hash and path
+ * @param res response object
+ */
+export function syncFoldersHash(syncInfo, res) {
+    getItems(syncInfo, res, (folders) => checkFolders(folders, res));
 }
 
 /**
