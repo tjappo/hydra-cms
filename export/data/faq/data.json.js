@@ -94,7 +94,7 @@ window['faqData'] = [
             "en": "Why is the Shift token useful?"
         },
         "content": {
-            "en": "<p>The Shift token is useful because it can be used to pay for hosting services and other services on our dApp platform. Our token can therefore be defined as a utility coin. As the total value of services rendered on the Shift network increases, the value of the Shift token also correspondingly increases since it is the medium of exchange whereby those services are rendered.</p>"
+            "en": "<p>The Shift token is useful because it can be used to pay for hosting services and other services on our dApp platform. Our token can therefore be defined as a utility coin.</p>"
         },
         "hidden": false
     },

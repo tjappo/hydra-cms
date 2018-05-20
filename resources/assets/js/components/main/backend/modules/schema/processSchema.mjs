@@ -36,7 +36,7 @@ export function initializeSchema(title, items, res) {
  */
 export function updateSchema(title, items, oldData, res, callback) {
     const url = config.dataPath + oldData.url,
-        schemaOffset = "\n\nwindow['" + title + "Schema'] = ";
+        schemaOffset = "window['" + title + "Schema'] = ";
 
     oldData.properties = getSchema(items, res);
 

@@ -50,8 +50,11 @@
 </template>
 
 <script>
+    import pullFile from './functions/pullData';
+
     export default {
         name: 'FilesSync',
+        mixins: [pullFile],
         props: {
             'files': [Array],
             'syncInfo': [Object]
@@ -67,24 +70,24 @@
             },
             pullData(item, key) {
                 this.closePopover('Pull', key);
-                VueEventListener.fire('toggleLoading');
-                axios.post('http://localhost:8000/remote/pullFile', {
-                    item: item.Name,
-                    syncInfo: this.syncInfo
-                }).then(
-                    () => {
-                        VueEventListener.fire('toggleLoading');
-                        VueEventListener.fire('success', "File Pulled");
-                        // this.local.splice(key, 1);
-                    }
-                ).catch(
-                    (error) => {
-                        VueEventListener.fire('toggleLoading');
-                        VueEventListener.fire(
-                            'An unexpected error has occurred: ',
-                            (!!error.response) ? error.response.data : '')
-                    }
-                );
+                this.pullFile(this.syncInfo, item);
+                // axios.post('http://localhost:8000/remote/pullFile', {
+                //     item: item.Name,
+                //     syncInfo: this.syncInfo
+                // }).then(
+                //     () => {
+                //         VueEventListener.fire('toggleLoading');
+                //         VueEventListener.fire('success', "File Pulled");
+                //         // this.local.splice(key, 1);
+                //     }
+                // ).catch(
+                //     (error) => {
+                //         VueEventListener.fire('toggleLoading');
+                //         VueEventListener.fire(
+                //             'An unexpected error has occurred: ',
+                //             (!!error.response) ? error.response.data : '')
+                //     }
+                // );
             }
         }
     }
