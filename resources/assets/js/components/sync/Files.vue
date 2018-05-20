@@ -70,7 +70,9 @@
             },
             pullData(item, key) {
                 this.closePopover('Pull', key);
+                VueEventListener.fire('toggleLoading');
                 this.pullFile(this.syncInfo, item);
+                VueEventListener.fire('toggleLoading');
                 // axios.post('http://localhost:8000/remote/pullFile', {
                 //     item: item.Name,
                 //     syncInfo: this.syncInfo
