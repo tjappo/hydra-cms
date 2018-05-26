@@ -6,14 +6,18 @@ export default {
     mixins: [helpers],
     methods: {
         pushFile(syncInfo, item) {
-            axios.post(this.createIPFSLink(syncInfo.hash, syncInfo.path + "/" + item.Name), {
-                file: new File([this.constructFile(item)], 'data.json.js', {
-                    type: "text/plain"
-                })
+            let params = new FormData();
+            params.append('file', new File([this.constructFile(item)], 'data.json.js', {
+                type: "text/plain"
+            }));
+            axios.post(this.createIPFSLink(syncInfo.hash, syncInfo.path + "/" + (item.Name || item)), params, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
             }).then((result) => {
-                console.log(result);
+                // console.log(result.data.response);
+                // @todo handle hash
                 VueEventListener.fire('toggleLoading');
-                // (!!callback) ? callback(result.data.hash) : res.status(200).send(hash);
             }).catch((error) => {
                 VueEventListener.fire('error', error);
                 VueEventListener.fire('toggleLoading');

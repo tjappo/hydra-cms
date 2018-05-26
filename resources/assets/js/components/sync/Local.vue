@@ -40,10 +40,11 @@
 </template>
 
 <script>
-
+    import pushFile from './functions/pushData';
 
     export default {
         name: 'LocalSync',
+        mixins: [pushFile],
         props: {
             'local': [Array],
             'syncInfo': [Object]
@@ -55,23 +56,26 @@
             pushData(item, key) {
                 this.closePopover(key);
                 VueEventListener.fire('toggleLoading');
-                axios.post('http://localhost:8000/local/pushFolder', {
-                    item: item,
-                    syncInfo: this.syncInfo
-                }).then(
-                    () => {
-                        VueEventListener.fire('toggleLoading');
-                        VueEventListener.fire('success', "Folder Pushed");
-                        // this.local.splice(key, 1);
-                    }
-                ).catch(
-                    (error) => {
-                        VueEventListener.fire('toggleLoading');
-                        VueEventListener.fire(
-                            'An unexpected error has occurred: ',
-                            (!!error.response) ? error.response.data : '')
-                    }
-                );
+
+                this.pushFile(this.syncInfo, item);
+                this.local.splice(key, 1);
+                // axios.post('http://localhost:8000/local/pushFolder', {
+                //     item: item,
+                //     syncInfo: this.syncInfo
+                // }).then(
+                //     () => {
+                //         VueEventListener.fire('toggleLoading');
+                //         VueEventListener.fire('success', "Folder Pushed");
+                //         // this.local.splice(key, 1);
+                //     }
+                // ).catch(
+                //     (error) => {
+                //         VueEventListener.fire('toggleLoading');
+                //         VueEventListener.fire(
+                //             'An unexpected error has occurred: ',
+                //             (!!error.response) ? error.response.data : '')
+                //     }
+                // );
             }
         }
     }

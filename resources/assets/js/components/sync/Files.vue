@@ -71,11 +71,13 @@
                 this.closePopover('Push', key);
                 VueEventListener.fire('toggleLoading');
                 this.pushFile(this.syncInfo, item);
+                this.files.splice(key, 1);
             },
             pullData(item, key) {
                 this.closePopover('Pull', key);
                 VueEventListener.fire('toggleLoading');
                 this.pullFile(this.syncInfo, item);
+                this.files.splice(key, 1);
             }
         }
     }

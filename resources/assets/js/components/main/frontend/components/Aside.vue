@@ -54,7 +54,7 @@
         },
         data() {
             return {
-                hash: 'QmSBPm82o2qKQcGGfGuzdhfryC9wLuQouQPAYW7FMbwMfS',
+                hash: 'QmWJcCR1v9HvjJ4yUQZFYYNoSbE6y9ZhHveUxcSKdm9tsV',
                 path: 'data',
                 outdated: {
                     remote: [],
@@ -95,20 +95,6 @@
                     hash: this.hash,
                     path: this.path
                 })
-                // axios.post('http://localhost:8000/sync', {
-                //     hash: this.hash,
-                //     path: this.path
-                // }).then((result) => {
-                //     const data = result.data;
-                //     this.outdated.remote = data[0];
-                //     this.outdated.local = data[1];
-                //     this.outdated.files = data[2];
-                //     this.outdated.timestamp = moment();
-                //     this.loading = false;
-                // }).catch((error) => {
-                //     this.loading = false;
-                //     VueEventListener.fire('error', error);
-                // })
             },
             toggleAside() {
                 document.body.classList.toggle('aside-menu-hidden');
