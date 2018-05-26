@@ -76,6 +76,9 @@
                 //             (!!error.response) ? error.response.data : '')
                 //     }
                 // );
+            },
+            mounted() {
+                VueEventListener.listen('hashChanged', (hash) => this.syncInfo.hash = hash);
             }
         }
     }

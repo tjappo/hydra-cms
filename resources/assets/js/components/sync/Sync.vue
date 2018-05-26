@@ -45,6 +45,7 @@
                     name: 'Index'
                 });
             }
+            VueEventListener.listen('hashChanged', (hash) => this.syncInfo.hash = hash);
         }
     }
 </script>

@@ -98,6 +98,21 @@
             },
             toggleAside() {
                 document.body.classList.toggle('aside-menu-hidden');
+            },
+            setMerkleHash(new_hash) {
+                if (typeof(Storage) !== "undefined") {
+                    // Code for localStorage/sessionStorage.
+                    localStorage.setItem("merkle_hash", new_hash);
+                }
+                this.hash = new_hash;
+            },
+            getMerkleHash(fallback) {
+                if (typeof(Storage) !== "undefined") {
+                    // Code for localStorage/sessionStorage.
+                    return localStorage.getItem("merkle_hash") || fallback;
+                } else {
+                    return fallback;
+                }
             }
         },
         computed: {
@@ -113,6 +128,10 @@
             outdatedTimestamp() {
                 return (!!this.outdated.timestamp) ? this.outdated.timestamp.format("dddd, MMMM Do YYYY, HH:mm:ss") : '';
             }
+        },
+        mounted() {
+            VueEventListener.listen('hashChanged', this.setMerkleHash);
+            this.hash = this.getMerkleHash(this.hash);
         }
     }
 </script>

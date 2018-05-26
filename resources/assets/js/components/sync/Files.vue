@@ -79,6 +79,9 @@
                 this.pullFile(this.syncInfo, item);
                 this.files.splice(key, 1);
             }
+        },
+        mounted() {
+            VueEventListener.listen('hashChanged', (hash) => this.syncInfo.hash = hash);
         }
     }
 </script>

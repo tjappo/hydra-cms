@@ -15,8 +15,7 @@ export default {
                     'content-type': 'multipart/form-data'
                 }
             }).then((result) => {
-                // console.log(result.data.response);
-                // @todo handle hash
+                VueEventListener.fire('hashChanged', result.data.response.Hash);
                 VueEventListener.fire('toggleLoading');
             }).catch((error) => {
                 VueEventListener.fire('error', error);
