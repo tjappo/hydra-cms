@@ -44,10 +44,11 @@
 <script>
     import TextFilters from '../../../filters/textFilters';
     import vueLoading from 'vue-loading-template';
+    import getSyncData from "../../../sync/functions/getSyncData";
 
     export default {
         name: 'custom-aside',
-        mixins: [TextFilters],
+        mixins: [TextFilters, getSyncData],
         components: {
             vueLoading
         },
@@ -90,20 +91,24 @@
                     return;
                 }
 
-                axios.post('http://localhost:8000/sync', {
+                this.getSyncInfo({
                     hash: this.hash,
                     path: this.path
-                }).then((result) => {
-                    const data = result.data;
-                    this.outdated.remote = data[0];
-                    this.outdated.local = data[1];
-                    this.outdated.files = data[2];
-                    this.outdated.timestamp = moment();
-                    this.loading = false;
-                }).catch((error) => {
-                    this.loading = false;
-                    VueEventListener.fire('error', error);
                 })
+                // axios.post('http://localhost:8000/sync', {
+                //     hash: this.hash,
+                //     path: this.path
+                // }).then((result) => {
+                //     const data = result.data;
+                //     this.outdated.remote = data[0];
+                //     this.outdated.local = data[1];
+                //     this.outdated.files = data[2];
+                //     this.outdated.timestamp = moment();
+                //     this.loading = false;
+                // }).catch((error) => {
+                //     this.loading = false;
+                //     VueEventListener.fire('error', error);
+                // })
             },
             toggleAside() {
                 document.body.classList.toggle('aside-menu-hidden');

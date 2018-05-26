@@ -212,7 +212,7 @@ window['faqData'] = [
 
 // IMPORTANT:
 //  title has to be the same as the name of the data variable
-//  Url to this file relatively to the root folder
+//  url to this file relatively to the root folder
 window['faqSchema'] = {
     "title": "faqData",
     "url": "faq/data.json.js",
