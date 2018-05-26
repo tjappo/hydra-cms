@@ -53,7 +53,7 @@
         },
         data() {
             return {
-                hash: 'QmWrbqRPd7Dnesw7aU41nrbg5u9csx75bobxE1Qc3v7dpf',
+                hash: 'QmSBPm82o2qKQcGGfGuzdhfryC9wLuQouQPAYW7FMbwMfS',
                 path: 'data',
                 outdated: {
                     remote: [],

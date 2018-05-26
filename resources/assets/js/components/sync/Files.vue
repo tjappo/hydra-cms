@@ -54,10 +54,11 @@
 
 <script>
     import pullFile from './functions/pullData';
+    import pushFile from './functions/pushData';
 
     export default {
         name: 'FilesSync',
-        mixins: [pullFile],
+        mixins: [pullFile, pushFile],
         props: {
             'files': [Array],
             'syncInfo': [Object]
@@ -67,31 +68,14 @@
                 this.$root.$emit('bv::hide::popover', 'files' + action + 'Button' + key);
             },
             pushData(item, key) {
-                console.log('files-push');
-                console.log(item);
                 this.closePopover('Push', key);
+                VueEventListener.fire('toggleLoading');
+                this.pushFile(this.syncInfo, item);
             },
             pullData(item, key) {
                 this.closePopover('Pull', key);
                 VueEventListener.fire('toggleLoading');
                 this.pullFile(this.syncInfo, item);
-                // axios.post('http://localhost:8000/remote/pullFile', {
-                //     item: item.Name,
-                //     syncInfo: this.syncInfo
-                // }).then(
-                //     () => {
-                //         VueEventListener.fire('toggleLoading');
-                //         VueEventListener.fire('success', "File Pulled");
-                //         // this.local.splice(key, 1);
-                //     }
-                // ).catch(
-                //     (error) => {
-                //         VueEventListener.fire('toggleLoading');
-                //         VueEventListener.fire(
-                //             'An unexpected error has occurred: ',
-                //             (!!error.response) ? error.response.data : '')
-                //     }
-                // );
             }
         }
     }
