@@ -18,7 +18,7 @@ export default {
                     'content-type': 'multipart/form-data'
                 }
             }).then((result) => {
-                that.$store.dispatch('setHash'. result.data.response.Hash);
+                that.$store.dispatch('setHash', result.data.response.Hash);
                 VueEventListener.fire('toggleLoading');
             }).catch((error) => {
                 VueEventListener.fire('error', error);
@@ -33,6 +33,7 @@ export default {
                 VueEventListener.fire('error', "Sync info is not valid");
                 return false;
             }
+            return true;
         },
         pushImage(syncInfo, file, callback) {
             if (!this.validateSyncInfo(syncInfo)) return;
@@ -40,12 +41,12 @@ export default {
             const that = this;
             let params = new FormData();
             params.append('file', file);
-            axios.post(this.createIPFSLink(syncInfo.hash, syncInfo.path + "/" + (file.name)), params, {
+            axios.post(this.createIPFSLink(syncInfo.hash, syncInfo.path), params, {
                 headers: {
                     'content-type': 'multipart/form-data'
                 }
             }).then((result) => {
-                that.$store.dispatch('setHash'. result.data.response.Hash);
+                that.$store.dispatch('setHash', result.data.response.Hash);
                 VueEventListener.fire('toggleLoading');
                 callback();
             }).catch((error) => {

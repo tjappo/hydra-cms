@@ -1525,7 +1525,8 @@
 				this.container.appendChild(this.link_holder);
 				if (this.schema.links) {
 					for (var i = 0; i < this.schema.links.length; i++) {
-						this.addLink(this.getLink(this.schema.links[i]));
+						let link = this.getLink(this.schema.links[i]);
+						if (!!link) this.addLink();
 					}
 				}
 			}
@@ -1616,18 +1617,18 @@
 				});
 			}
 			// Text links
-			else {
-				link = holder = this.theme.getBlockLink();
-				holder.setAttribute('target', '_blank');
-				holder.textContent = data.rel;
-
-				// When a watched field changes, update the url
-				this.link_watchers.push(function (vars) {
-					var url = href(vars);
-					holder.setAttribute('href', url);
-					holder.textContent = data.rel || url;
-				});
-			}
+			// else {
+				// link_holder = holder = this.theme.getBlockLink();
+				// holder.setAttribute('target', '_blank');
+				// holder.textContent = data.rel;
+                //
+				// // When a watched field changes, update the url
+				// this.link_watchers.push(function (vars) {
+				// 	var url = href(vars);
+				// 	holder.setAttribute('href', url);
+				// 	holder.textContent = data.rel || url;
+				// });
+			// }
 
 			if (download && link) {
 				if (download === true) {

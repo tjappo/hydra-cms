@@ -73,9 +73,12 @@
                 that.pushImage(that.syncInfo, file, (error) => {
                     if (!!error) cbs.failure('Upload failed: ' + error);
                     cbs.updateProgress(100);
-                    cbs.success(config.getIPFSFile + '?hash=' + that.syncInfo.hash + '&path=' + that.syncInfo.path + '/' + file.name);
+                    cbs.success('/' + that.syncInfo.path + '/' + file.name);
                 });
             };
+        },
+        mounted() {
+            this.loadData();
         },
         computed: {
             title() {
