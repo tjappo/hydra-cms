@@ -64,9 +64,16 @@ window['newsSchema'] = {
 		},
 		"image": {
 			"type": "string",
-			"media": {
-				"binaryEncoding": "base64"
-			},
+            "format": "url",
+            "options": {
+                "upload": true
+            },
+            "links": [
+                {
+                    "href": "{{self}}",
+                    "rel": "view"
+                }
+            ],
 			"description": "Image of news item",
 			"required": false
 		},

@@ -60,8 +60,7 @@
         name: 'FilesSync',
         mixins: [pullFile, pushFile],
         props: {
-            'files': [Array],
-            'syncInfo': [Object]
+            'files': [Array]
         },
         methods: {
             closePopover(action, key) {
@@ -80,8 +79,10 @@
                 this.files.splice(key, 1);
             }
         },
-        mounted() {
-            VueEventListener.listen('hashChanged', (hash) => this.syncInfo.hash = hash);
+        computed: {
+            syncInfo() {
+                return this.$store.getters.syncInfo;
+            }
         }
     }
 </script>

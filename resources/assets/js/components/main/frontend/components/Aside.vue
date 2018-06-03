@@ -31,7 +31,7 @@
                     <p class="text-warning mb-1"><strong>{{outdatedLocal}}</strong> Local Folders differ</p>
                     <p class="text-warning"><strong>{{outdatedFiles}}</strong> Data Files differ</p>
                     <p class="text-info">Checked on <strong>{{outdatedTimestamp}}</strong></p>
-                    <router-link class="btn btn-secondary" :to="{name: 'Sync', params: {outdated: outdated, syncInfo: {hash: hash, path: path}}}"
+                    <router-link class="btn btn-secondary" :to="{name: 'Sync', params: {outdated: outdated}}"
                                  @click.native="toggleAside">
                         View more info
                     </router-link>
@@ -54,8 +54,6 @@
         },
         data() {
             return {
-                hash: 'QmWJcCR1v9HvjJ4yUQZFYYNoSbE6y9ZhHveUxcSKdm9tsV',
-                path: 'data',
                 outdated: {
                     remote: [],
                     local: [],
@@ -104,7 +102,7 @@
                     // Code for localStorage/sessionStorage.
                     localStorage.setItem("merkle_hash", new_hash);
                 }
-                this.hash = new_hash;
+                this.$store.dispatch('setHash', new_hash);
             },
             getMerkleHash(fallback) {
                 if (typeof(Storage) !== "undefined") {
@@ -127,11 +125,26 @@
             },
             outdatedTimestamp() {
                 return (!!this.outdated.timestamp) ? this.outdated.timestamp.format("dddd, MMMM Do YYYY, HH:mm:ss") : '';
+            },
+            hash: {
+                get() {
+                    return this.$store.getters.hash;
+                },
+                set(value) {
+                    this.$store.dispatch('setHash', value);
+                }
+            },
+            path: {
+                get() {
+                    return this.$store.getters.path;
+                },
+                set(value) {
+                    this.$store.dispatch('setPath', value);
+                }
             }
         },
         mounted() {
-            VueEventListener.listen('hashChanged', this.setMerkleHash);
-            this.hash = this.getMerkleHash(this.hash);
+            this.$store.dispatch('setHash', this.getMerkleHash(this.hash));
         }
     }
 </script>

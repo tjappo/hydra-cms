@@ -26,50 +26,71 @@
 </template>
 
 <script>
-	import AdminMixin from '../main/frontend/functions';
-	import TextFilter from '../filters/textFilters.js';
+    import AdminMixin from '../main/frontend/functions';
+    import TextFilter from '../filters/textFilters';
+    import pushData from '../sync/functions/pushData';
+    import config from '../../../../../config.mjs';
 
-	export default {
-		mixins: [AdminMixin, TextFilter],
-		methods: {
-			submitForm() {
-				const values = this.editor.getValue();
+    export default {
+        mixins: [AdminMixin, TextFilter, pushData],
+        methods: {
+            submitForm() {
+                const values = this.editor.getValue();
 
-				// WRITE TO FILE
-				axios.post('http://localhost:8000/data/' + this.name + '/add', {
-					data: values,
-					varName: this.schema.title,
-					url: this.schema.url
-				}).then(
-					(response) => {
-						VueEventListener.fire('success', "Object created");
-                        window[this.schema.title] = response.data;
-						this.$router.push({
-							name: 'AdminIndex',
-							params: {
-								'name': this.name
-							}
-						});
-					}
-				).catch(
-					(error) => VueEventListener.fire('error', error.response.data)
-				);
-			},
-		},
-		mounted() {
-			this.loadData();
-		},
-		computed: {
-			title() {
-				return (this.schema) ? this.schema.title.substring(0, this.schema.title.length - 4) : '';
-			}
-		},
-		watch: {
-			'$route.params.name'() {
-				this.loadData();
-			}
-		}
-	}
+                console.log(values);
+
+                // WRITE TO FILE
+                // axios.post('http://localhost:8000/data/' + this.name + '/add', {
+                // 	data: values,
+                // 	varName: this.schema.title,
+                // 	url: this.schema.url
+                // }).then(
+                // 	(response) => {
+                // 		VueEventListener.fire('success', "Object created");
+                //        window[this.schema.title] = response.data;
+                // 		this.$router.push({
+                // 			name: 'AdminIndex',
+                // 			params: {
+                // 				'name': this.name
+                // 			}
+                // 		});
+                // 	}
+                // ).catch(
+                // 	(error) => VueEventListener.fire('error', error.response.data)
+                // );
+            },
+        },
+        created() {
+            const that = this;
+            // Specify upload handler
+            JSONEditor.defaults.options.upload = function (type, file, cbs) {
+                VueEventListener.fire('toggleLoading');
+                if (!that.validateSyncInfo(that.syncInfo)) {
+                    VueEventListener.fire('toggleLoading');
+                    return;
+                }
+                that.syncInfo.path += '/img/' + that.title;
+                that.pushImage(that.syncInfo, file, (error) => {
+                    if (!!error) cbs.failure('Upload failed: ' + error);
+                    cbs.updateProgress(100);
+                    cbs.success(config.getIPFSFile + '?hash=' + that.syncInfo.hash + '&path=' + that.syncInfo.path + '/' + file.name);
+                });
+            };
+        },
+        computed: {
+            title() {
+                return (this.schema) ? this.schema.title.substring(0, this.schema.title.length - 4) : '';
+            },
+            syncInfo() {
+                return this.$store.getters.syncInfo;
+            }
+        },
+        watch: {
+            '$route.params.name'() {
+                this.loadData();
+            }
+        }
+    }
 </script>
 
 <style>

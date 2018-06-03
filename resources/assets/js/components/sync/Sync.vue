@@ -6,9 +6,9 @@
         />
         <div class="row justify-content-center">
             <div class="col" id="accordion">
-                <remote-sync v-if="checkArray(outdated.remote)" :remote="outdated.remote" :syncInfo="syncInfo"></remote-sync>
-                <local-sync v-if="checkArray(outdated.local)" :local="outdated.local" :syncInfo="syncInfo"></local-sync>
-                <files-sync v-if="checkArray(outdated.files)" :files="outdated.files" :syncInfo="syncInfo"></files-sync>
+                <remote-sync v-if="checkArray(outdated.remote)" :remote="outdated.remote"></remote-sync>
+                <local-sync v-if="checkArray(outdated.local)" :local="outdated.local"></local-sync>
+                <files-sync v-if="checkArray(outdated.files)" :files="outdated.files"></files-sync>
             </div>
         </div>
         <loading-overlay></loading-overlay>
@@ -31,8 +31,7 @@
         },
         mixins: [TextFilter],
         props: {
-            'outdated': [Object],
-            'syncInfo': [Object]
+            'outdated': [Object]
         },
         methods: {
             checkArray(item) {
@@ -45,7 +44,11 @@
                     name: 'Index'
                 });
             }
-            VueEventListener.listen('hashChanged', (hash) => this.syncInfo.hash = hash);
+        },
+        computed: {
+            syncInfo() {
+                return this.$store.getters.syncInfo;
+            }
         }
     }
 </script>

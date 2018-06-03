@@ -6913,7 +6913,7 @@
 		},
 		getButton: function (text, icon, title) {
 			const el = this._super(text, icon, title);
-			el.className += 'btn btn-default';
+			el.className += 'btn btn-secondary';
 			return el;
 		},
 		getTable: function () {

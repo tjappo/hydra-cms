@@ -46,8 +46,7 @@
         name: 'LocalSync',
         mixins: [pushFile],
         props: {
-            'local': [Array],
-            'syncInfo': [Object]
+            'local': [Array]
         },
         methods: {
             closePopover(key) {
@@ -77,8 +76,10 @@
                 //     }
                 // );
             },
-            mounted() {
-                VueEventListener.listen('hashChanged', (hash) => this.syncInfo.hash = hash);
+        },
+        computed: {
+            syncInfo() {
+                return this.$store.getters.syncInfo;
             }
         }
     }

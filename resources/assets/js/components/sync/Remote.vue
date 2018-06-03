@@ -45,8 +45,7 @@
         name: 'RemoteSync',
         mixins: [pullFile],
         props: {
-            'remote': [Array],
-            'syncInfo': [Object]
+            'remote': [Array]
         },
         methods: {
             closePopover(key) {
@@ -75,8 +74,11 @@
                 //     }
                 // );
             },
-            mounted() {
-                VueEventListener.listen('hashChanged', (hash) => this.syncInfo.hash = hash);
+        },
+
+        computed: {
+            syncInfo() {
+                return this.$store.getters.syncInfo;
             }
         }
     }

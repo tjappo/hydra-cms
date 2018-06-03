@@ -10,9 +10,11 @@ import EventNotificationListener from './components/main/frontend/vue-event-noti
 import MetaHandler from './components/filters/metaHandler';
 import DataHandler from './components/filters/dataHandler';
 
+import {store} from './store/store';
+
 window.axios = require('axios');
 window.axios.defaults.headers.common = {
-	'X-Requested-With': 'XMLHttpRequest'
+    'X-Requested-With': 'XMLHttpRequest'
 };
 
 Vue.component('vue-headful', vueHeadful);
@@ -24,12 +26,13 @@ Vue.use(BootstrapVue);
  * Initialize Vue instances
  */
 new Vue({
-	el: '#app',
-	mixins: [EventNotificationListener],
-	components: {
-		App
-	},
-	template: '<App/>',
-	router,
-	linkActiveClass: 'open active',
+    el: '#app',
+    store,
+    mixins: [EventNotificationListener],
+    components: {
+        App
+    },
+    template: '<App/>',
+    router,
+    linkActiveClass: 'open active',
 });
