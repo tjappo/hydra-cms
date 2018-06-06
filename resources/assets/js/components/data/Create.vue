@@ -29,35 +29,27 @@
     import AdminMixin from '../main/frontend/functions';
     import TextFilter from '../filters/textFilters';
     import pushData from '../sync/functions/pushData';
-    import config from '../../../../../config.mjs';
+    import processData from './functions/processData';
 
     export default {
-        mixins: [AdminMixin, TextFilter, pushData],
+        mixins: [AdminMixin, TextFilter, pushData, processData],
         methods: {
             submitForm() {
+                VueEventListener.fire('toggleLoading');
                 const values = this.editor.getValue();
 
-                console.log(values);
+                if (!this.validateContent(values, this.title)) {
+                    VueEventListener.fire('toggleLoading');
+                    return;
+                }
 
-                // WRITE TO FILE
-                // axios.post('http://localhost:8000/data/' + this.name + '/add', {
-                // 	data: values,
-                // 	varName: this.schema.title,
-                // 	url: this.schema.url
-                // }).then(
-                // 	(response) => {
-                // 		VueEventListener.fire('success', "Object created");
-                //        window[this.schema.title] = response.data;
-                // 		this.$router.push({
-                // 			name: 'AdminIndex',
-                // 			params: {
-                // 				'name': this.name
-                // 			}
-                // 		});
-                // 	}
-                // ).catch(
-                // 	(error) => VueEventListener.fire('error', error.response.data)
-                // );
+                let newData = this.setData(this.schema.properties, values, undefined);
+                newData = Object.assign({"id": this.data.length + 1}, newData);
+
+                this.data.push(newData);
+                window[this.title + 'Data'] = this.data;
+
+                this.pushFile(this.syncInfo, this.title);
             },
         },
         created() {

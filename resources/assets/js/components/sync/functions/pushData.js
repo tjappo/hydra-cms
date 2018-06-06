@@ -5,7 +5,7 @@ import helpers from "./helpers";
 export default {
     mixins: [helpers],
     methods: {
-        pushFile(syncInfo, item) {
+        pushFile(syncInfo, item, callback) {
             if (!this.validateSyncInfo(syncInfo)) return;
 
             const that = this;
@@ -20,9 +20,11 @@ export default {
             }).then((result) => {
                 that.$store.dispatch('setHash', result.data.response.Hash);
                 VueEventListener.fire('toggleLoading');
+                if (typeof callback !== 'undefined') callback();
             }).catch((error) => {
                 VueEventListener.fire('error', error);
                 VueEventListener.fire('toggleLoading');
+                if (typeof callback !== 'undefined') callback();
             });
         },
         createIPFSLink(hash, path) {
