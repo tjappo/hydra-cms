@@ -12,8 +12,11 @@
 </template>
 
 <script>
+    import pushData from '../sync/functions/pushData';
+
     export default {
         name: 'DeleteData',
+        mixins: [pushData],
         props: {
             name: [String],
             id: [String, Number],
@@ -33,28 +36,22 @@
                     VueEventListener.fire('error', 'Invalid schema: ' + this.name);
                     return;
                 }
-                // WRITE TO FILE
-                axios.post('http://localhost:8000/data/' + this.name + '/delete', {
-                    varName: schema.title,
-                    url: schema.url,
-                    id: this.id
-                }).then(
-                    (response) => {
-                        VueEventListener.fire('success', "Data deleted");
-                        window[schema.title] = response.data;
-                        VueEventListener.fire('updateData', schema.title);
-                        this.$router.push({
-                            name: 'AdminIndex',
-                            params: {
-                                'name': this.name
-                            }
-                        });
-                    }
-                ).catch(
-                    (error) => VueEventListener.fire('Error: ', (!!error.response) ? error.response.data : '')
-                );
+
+                this.data = this.data.filter(function (item) {
+                    return item.id !== Number(id);
+                });
+
+                window[this.name + 'Data'] = this.data;
+
+                this.pushFile(this.syncInfo, this.name);
+                
                 this.popoverToggle();
             },
         },
+        computed: {
+            syncInfo() {
+                return this.$store.getters.syncInfo;
+            }
+        }
     }
 </script>
