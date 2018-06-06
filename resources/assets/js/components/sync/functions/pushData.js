@@ -50,11 +50,11 @@ export default {
             }).then((result) => {
                 that.$store.dispatch('setHash', result.data.response.Hash);
                 VueEventListener.fire('toggleLoading');
-                callback();
+                if (typeof callback !== 'undefined') callback();
             }).catch((error) => {
                 VueEventListener.fire('error', error);
                 VueEventListener.fire('toggleLoading');
-                callback(error);
+                if (typeof callback !== 'undefined') callback(error);
             });
         }
     }

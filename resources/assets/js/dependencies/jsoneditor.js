@@ -5,6 +5,8 @@
  * Date: 2016-08-07
  */
 
+import config from "../../../../config.mjs";
+
 /**
  * See README.md for requirements and usage info
  */
@@ -5913,7 +5915,7 @@
 
 				self.jsoneditor.options.upload(self.path, file, {
 					success: function (url) {
-						self.setValue(url);
+						self.setValue('.' + url);
 
 						if (self.parent) self.parent.onChildEditorChange(self);
 						else self.jsoneditor.onChange();
@@ -5935,6 +5937,14 @@
 				});
 			});
 		},
+		loadPreviewUrl() {
+            this.preview.innerHTML += '<br>';
+            let img = document.createElement('img');
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100px';
+            img.src = config.exportPath + this.value;
+            this.preview.appendChild(img);
+		},
 		enable: function () {
 			if (this.uploader) this.uploader.disabled = false;
 			this._super();
@@ -5948,6 +5958,9 @@
 				this.value = val;
 				this.input.value = this.value;
 				this.onChange();
+				if (typeof val === 'string' && !!val) {
+                    this.loadPreviewUrl();
+                }
 			}
 		},
 		destroy: function () {

@@ -53,21 +53,7 @@
             },
         },
         created() {
-            const that = this;
-            // Specify upload handler
-            JSONEditor.defaults.options.upload = function (type, file, cbs) {
-                VueEventListener.fire('toggleLoading');
-                if (!that.validateSyncInfo(that.syncInfo)) {
-                    VueEventListener.fire('toggleLoading');
-                    return;
-                }
-                that.syncInfo.path += '/img/' + that.title;
-                that.pushImage(that.syncInfo, file, (error) => {
-                    if (!!error) cbs.failure('Upload failed: ' + error);
-                    cbs.updateProgress(100);
-                    cbs.success('/' + that.syncInfo.path + '/' + file.name);
-                });
-            };
+            this.initialiseImageUploadHandler();
         },
         mounted() {
             this.loadData();

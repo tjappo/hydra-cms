@@ -7,7 +7,7 @@ window['newsData'] = [
 		},
 		"date": "2018-01-05",
 		"author": "RalfS",
-		"image": "/img/news/phantom-ui.jpg",
+		"image": "./img/news/phantom-ui.jpg",
 		"preview": {
 			"en": "<p>December was an amazing month for Shift, and the team has a lot of news to share with you. The biggest news, of course, is that our dev team nailed the prototype release of Phantom and released a beautiful new website, co-created with our marketing staff, to introduce the decentralized web to the world and function as a starting point toward building more of a following for Shift. The website (shiftnrg.org) is fully hosted, replicated, and monitored through Shift’s IPFS cluster.</p>"
 		},

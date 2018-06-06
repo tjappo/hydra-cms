@@ -28,9 +28,11 @@
 <script>
 	import AdminMixin from '../main/frontend/functions';
 	import TextFilter from '../filters/textFilters.js';
+    import pushData from '../sync/functions/pushData';
+    import processData from './functions/processData';
 
 	export default {
-		mixins: [AdminMixin, TextFilter],
+		mixins: [AdminMixin, TextFilter, pushData, processData],
 		props: {
 			'id': [Number, String],
 		},
@@ -41,28 +43,22 @@
 		},
 		methods: {
 			submitForm() {
+                VueEventListener.fire('toggleLoading');
 				const values = this.editor.getValue();
 
-				// WRITE TO FILE
-				axios.put('http://localhost:8000/data/' + this.name + '/update', {
-					oldData: this.oldData,
-					data: values,
-					varName: this.schema.title,
-					url: this.schema.url
-				}).then(
-					(response) => {
-						VueEventListener.fire('success', "Object updated");
-						window[this.schema.title] = response.data;
-						this.$router.push({
-							name: 'AdminIndex',
-							params: {
-								'name': this.name
-							}
-						});
-					}
-				).catch(
-					(error) => VueEventListener.fire('error', error.response.data)
-				);
+                if (!this.validateContent(values, this.title)) {
+                    VueEventListener.fire('toggleLoading');
+                    return;
+                }
+
+                const dataName = this.title + 'Data';
+                const index = this.data.findIndex(x => x.id === this.oldData.id);
+                this.data[index] = this.setData(this.schema.properties, values, this.oldData);
+                this.data[index] = Object.assign({"id": this.oldData.id}, window[dataName][index]);
+
+                window[this.title + 'Data'] = this.data;
+
+                this.pushFile(this.syncInfo, this.title);
 			},
 			validateID() {
 				const index = (typeof this.id === "number") ? this.id : Number(this.id);
@@ -81,8 +77,12 @@
 					if (!Object.keys(this.schema.properties).includes(key)) delete data[key];
 				});
 				this.editor.setValue(data);
+                this.editor.validate()
 			}
 		},
+        created() {
+		    this.initialiseImageUploadHandler();
+        },
 		mounted() {
 			this.loadData(this.validateID);
 		},

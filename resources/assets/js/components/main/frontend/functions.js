@@ -10,35 +10,13 @@ module.exports = {
 		}
 	},
 	methods: {
-		initializeJsonEditor() {
+		initializeJsonEditor(edit) {
 			this.editor = new JSONEditor(document.getElementById("jsoneditor-wrapper"), {
 				//...
 				theme: 'bootstrap4',
 				schema: this.schema,
 				disable_properties: true,
-				disable_edit_json: true,
-				custom_validators: [
-					(schema, value, path) => {
-						let errors = [];
-						if (schema.format === "date") {
-							if (!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(value)) {
-								// Errors must be an object with `path`, `property`, and `message`
-								errors.push({
-									path: path,
-									property: 'format',
-									message: 'Dates must be in the format "YYYY-MM-DD"'
-								});
-							} else if (new Date(value) < new Date()) {
-								errors.push({
-									path: path,
-									property: 'format',
-									message: 'Dates should not be before today'
-								});
-							}
-						}
-						return errors;
-					}
-				]
+				disable_edit_json: true
 			});
 			this.validateEditor();
 		},
