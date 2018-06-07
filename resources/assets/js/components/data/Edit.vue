@@ -59,7 +59,15 @@
                 window[this.title + 'Data'] = this.data;
 
                 this.pushFile(this.syncInfo, this.title);
-			},
+                VueEventListener.fire('toggleLoading');
+                VueEventListener.fire('success', "Data Edited");
+                this.$router.push({
+                    name: 'AdminIndex',
+                    params: {
+                        'name': this.title
+                    }
+                });
+            },
 			validateID() {
 				const index = (typeof this.id === "number") ? this.id : Number(this.id);
 				for (let item of this.data) {

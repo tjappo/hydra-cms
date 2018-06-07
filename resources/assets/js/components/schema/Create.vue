@@ -84,31 +84,29 @@
 <script>
     import TextFilter from '../filters/textFilters.js';
     import SchemaFilter from './components/schemaFilters';
+    import processSchema from './functions/processSchema';
+    import pushData from '../sync/functions/pushData';
 
     export default {
-        mixins: [TextFilter, SchemaFilter],
+        mixins: [TextFilter, SchemaFilter, processSchema, pushData],
         methods: {
             submitForm() {
-                if (!this.validateForm()) return;
+                VueEventListener.fire('toggleLoading');
+                if (!this.validateForm()) {
+                    VueEventListener.fire('toggleLoading');
+                    return;
+                }
 
-                axios.post('http://localhost:8000/schema/create', {
-                    title: this.data.title,
-                    items: this.data.items
-                }).then(
-                    (response) => {
-                        VueEventListener.fire('success', "Schema Created");
-                        window[this.data.title + 'Data'] = [];
-                        window[this.data.title + 'Schema'] = response.data;
-                        VueEventListener.fire('addDataChild', this.data.title);
-                        this.$router.push({
-                            name: 'Index'
-                        });
-                    }
-                ).catch(
-                    (error) => VueEventListener.fire(
-                        'An unexpected error has occurred: ',
-                        (!!error.response) ? error.response.data : '')
-                );
+                window[this.data.title + 'Data'] = [];
+                window[this.data.title + 'Schema'] = this.initialiseSchema(this.data.title, this.data.items);
+
+                this.pushData();
+                VueEventListener.fire('toggleLoading');
+                VueEventListener.fire('success', "Schema Created");
+                VueEventListener.fire('addDataChild', this.data.title);
+                this.$router.push({
+                    name: 'Index'
+                });
             },
         }
     }

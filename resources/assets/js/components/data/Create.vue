@@ -50,6 +50,14 @@
                 window[this.title + 'Data'] = this.data;
 
                 this.pushFile(this.syncInfo, this.title);
+                VueEventListener.fire('toggleLoading');
+                VueEventListener.fire('success', "Data Created");
+                this.$router.push({
+                    name: 'AdminIndex',
+                    params: {
+                        'name': this.title
+                    }
+                });
             },
         },
         created() {

@@ -31,8 +31,10 @@
                 this.showPopover = !this.showPopover;
             },
             deleteObject() {
+                VueEventListener.fire('toggleLoading');
                 const schema = window[this.name + 'Schema'];
                 if (!window[this.name + 'Data'] && !schema) {
+                    VueEventListener.fire('toggleLoading');
                     VueEventListener.fire('error', 'Invalid schema: ' + this.name);
                     return;
                 }
@@ -44,8 +46,16 @@
                 window[this.name + 'Data'] = this.data;
 
                 this.pushFile(this.syncInfo, this.name);
-                
+
                 this.popoverToggle();
+                VueEventListener.fire('toggleLoading');
+                VueEventListener.fire('success', "Data Deleted");
+                this.$router.push({
+                    name: 'AdminIndex',
+                    params: {
+                        'name': this.name
+                    }
+                });
             },
         },
         computed: {
