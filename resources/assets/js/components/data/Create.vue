@@ -49,8 +49,7 @@
                 this.data.push(newData);
                 window[this.title + 'Data'] = this.data;
 
-                this.pushFile(this.syncInfo, this.title);
-                VueEventListener.fire('toggleLoading');
+                this.pushFile(this.title);
                 VueEventListener.fire('success', "Data Created");
                 this.$router.push({
                     name: 'AdminIndex',
@@ -70,9 +69,6 @@
             title() {
                 return (this.schema) ? this.schema.title.substring(0, this.schema.title.length - 4) : '';
             },
-            syncInfo() {
-                return this.$store.getters.syncInfo;
-            }
         },
         watch: {
             '$route.params.name'() {

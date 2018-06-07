@@ -58,8 +58,7 @@
 
                 window[this.title + 'Data'] = this.data;
 
-                this.pushFile(this.syncInfo, this.title);
-                VueEventListener.fire('toggleLoading');
+                this.pushFile(this.title);
                 VueEventListener.fire('success', "Data Edited");
                 this.$router.push({
                     name: 'AdminIndex',

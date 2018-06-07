@@ -45,10 +45,9 @@
 
                 window[this.name + 'Data'] = this.data;
 
-                this.pushFile(this.syncInfo, this.name);
+                this.pushFile(this.name);
 
                 this.popoverToggle();
-                VueEventListener.fire('toggleLoading');
                 VueEventListener.fire('success', "Data Deleted");
                 this.$router.push({
                     name: 'AdminIndex',
@@ -57,11 +56,6 @@
                     }
                 });
             },
-        },
-        computed: {
-            syncInfo() {
-                return this.$store.getters.syncInfo;
-            }
         }
     }
 </script>

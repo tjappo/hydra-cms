@@ -37,7 +37,7 @@ function getBaseObject(item) {
  * @param res response object
  * @returns {undefined | Object} corresponding schema
  */
-function getSchemaObject(item, res) {
+function getSchemaObject(item) {
     let baseObject, stringObject;
     switch (item.type) {
         case "string":

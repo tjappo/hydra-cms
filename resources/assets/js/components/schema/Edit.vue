@@ -116,25 +116,20 @@
                 }
             },
             submitForm() {
-                if (!this.validateForm()) return;
+                VueEventListener.fire('toggleLoading');
+                if (!this.validateForm()) {
+                    VueEventListener.fire('toggleLoading');
+                    return;
+                }
 
-                axios.put('http://localhost:8000/schema/update', {
-                    oldData: window[this.name + 'Schema'],
-                    title: this.data.title,
-                    items: this.data.items
-                }).then(
-                    (response) => {
-                        VueEventListener.fire('success', "Schema Edited");
-                        window[this.data.title + 'Schema'] = response.data;
-                        this.$router.push({
-                            name: 'Index'
-                        });
-                    }
-                ).catch(
-                    (error) => VueEventListener.fire(
-                        'An unexpected error has occurred: ',
-                        (!!error.response) ? error.response.data : '')
-                );
+                window[this.data.title + 'Data'] = [];
+                window[this.data.title + 'Schema'].properties = this.getSchema(this.data.items);
+
+                this.pushFile(this.data.title);
+                VueEventListener.fire('success', "Schema Updated");
+                this.$router.push({
+                    name: 'Index'
+                });
             },
         },
         mounted() {

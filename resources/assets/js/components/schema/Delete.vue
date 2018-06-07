@@ -25,27 +25,28 @@
                 this.showPopover = !this.showPopover;
             },
             deleteSchema() {
+                VueEventListener.fire('toggleLoading');
+
                 if (!window[this.title + 'Data'] && !window[this.title + 'Schema']) {
+                    VueEventListener.fire('toggleLoading');
                     VueEventListener.fire('error', 'Invalid schema: ' + this.title);
                     return;
                 }
 
-                axios.post('http://localhost:8000/schema/delete', {
-                    title: this.title,
-                }).then(
-                    () => {
-                        VueEventListener.fire('success', "Schema deleted");
-                        window[this.title + 'Data'] = window[this.title + 'Schema'] = undefined;
-                        VueEventListener.fire('removeDataChild', this.title);
-                        this.$router.push('/');
-                    }
-                ).catch(
-                    (error) => {
-                        VueEventListener.fire('Error: ', (!!error.response) ? error.response.data : '');
-                    }
-                );
+                window[this.title + 'Data'] = undefined;
+                window[this.title + 'Schema'] = undefined;
+
+                this.removeFile(this.title);
 
                 this.popoverToggle();
+                VueEventListener.fire('success', "Schema Deleted");
+                VueEventListener.fire('removeDataChild', this.title);
+                        this.$router.push({
+                            name: 'Index'
+                        });
+                this.$router.push({
+                    name: 'Index'
+                });
             }
         }
     }

@@ -100,8 +100,7 @@
                 window[this.data.title + 'Data'] = [];
                 window[this.data.title + 'Schema'] = this.initialiseSchema(this.data.title, this.data.items);
 
-                this.pushData();
-                VueEventListener.fire('toggleLoading');
+                this.pushFile(this.title);
                 VueEventListener.fire('success', "Schema Created");
                 VueEventListener.fire('addDataChild', this.data.title);
                 this.$router.push({

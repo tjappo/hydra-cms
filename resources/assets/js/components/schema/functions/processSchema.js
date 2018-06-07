@@ -17,10 +17,10 @@ export default {
 
             return schema;
         },
-        getSchema(items, res) {
+        getSchema(items) {
             let result = {};
             for (let item of items) {
-                let temp = getSchemaObject(item, res);
+                let temp = getSchemaObject(item);
                 if (!temp) return;
                 result[item.name] = temp;
             }
