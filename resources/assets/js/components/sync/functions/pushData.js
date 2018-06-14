@@ -28,7 +28,7 @@ export default {
             });
         },
         createIPFSLink(hash, path) {
-            return config.createIPFS + '?hash=' + hash + "&path=" + path;
+            return config.createIPFSFile + '?hash=' + hash + "&path=" + path;
         },
         validateSyncInfo() {
             if (!this.syncInfo || !this.syncInfo.hash || !this.syncInfo.path) {
@@ -62,7 +62,6 @@ export default {
 
             const that = this;
             let params = new FormData();
-            // params.append('file', file);
             axios.post(this.removeIPFSLink(that.syncInfo.hash, that.syncInfo.path + '/' + title + '/data/json.js'), params, {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -78,7 +77,7 @@ export default {
             });
         },
         removeIPFSLink(hash, path) {
-            return config.deleteIPFS + '?hash=' + hash + "&path=" + path;
+            return config.deleteIPFSFile + '?hash=' + hash + "&path=" + path;
         }
     },
     computed: {

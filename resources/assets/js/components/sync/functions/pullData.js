@@ -2,11 +2,11 @@ import config from "../../../../../../config.mjs";
 
 export default {
     methods: {
-        pullFile(syncInfo, item) {
+        pullFile(item) {
             axios.get(config.getIPFSFile, {
                 params: {
-                    hash: syncInfo.hash,
-                    path: syncInfo.path + '/' + item.Name + '/data.json.js',
+                    hash: this.syncInfo.hash,
+                    path: this.syncInfo.path + '/' + item.Name + '/data.json.js',
                 }
             }).then((result) => {
                 const temp = this.getDataString(result.data.response, item.Name),
@@ -19,6 +19,21 @@ export default {
                 VueEventListener.fire("toggleLoading");
             }).catch((error) => {
                 VueEventListener.fire('error', error);
+            });
+        },
+        pullFolder() {
+            const that = this;
+            axios.get(config.getIPFSFolder, {
+                params: this.syncInfo
+            })
+                .then((result) => {
+                    const folders = result.data.response.Objects[0].Links;
+                    folders.forEach((folder) => {
+                        if (folder.Name !== 'img')
+                            that.pullFile(folder);
+                    });
+                }).catch((error) => {
+                VueEventListener.fire('error', "Error loading data: " + error);
             });
         },
         getDataString(string, name) {
@@ -44,7 +59,11 @@ export default {
             } catch (e) {
                 VueEventListener.fire('error', "Error while parsing schema JSON");
             }
-
+        }
+    },
+    computed: {
+        syncInfo() {
+            return this.$store.getters.syncInfo;
         }
     }
 }

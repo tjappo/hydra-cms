@@ -19,10 +19,11 @@
     import nav from './frontend/components/_nav';
     import {Header as AppHeader, Sidebar, Aside as AppAside, Footer as AppFooter, Breadcrumb} from './index.js';
     import TextFilter from '../filters/textFilters.js';
+    import pullData from '../sync/functions/pullData';
 
     export default {
         name: 'app',
-        mixins: [TextFilter],
+        mixins: [TextFilter, pullData],
         components: {
             AppHeader,
             Sidebar,
@@ -68,6 +69,9 @@
                     return item.name !== this.$options.filters.capitalize(route);
                 });
             }
+        },
+        beforeMount() {
+            this.pullFolder();
         },
         mounted() {
             this.addDynamicRoutes();
