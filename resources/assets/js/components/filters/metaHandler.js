@@ -1,7 +1,7 @@
 module.exports = {
 	data() {
 		return {
-			metaData: metaData,
+			metaData: this.validateMetaData,
 			page: {
 				'title': undefined,
 				'description': undefined,
@@ -10,6 +10,7 @@ module.exports = {
 	},
 	methods: {
 		initialise() {
+			if (!this.metaData) return;
 			for (let i = 0; i < this.metaData.length; i++) {
 				if (this.metaData[i].page === this.$route.name) {
 					this.page = this.metaData[i];
@@ -27,6 +28,9 @@ module.exports = {
 		},
 		metaDescription() {
 			return this.page.description || 'Meta description of the page';
+		},
+		validateMetaData() {
+			return metaData || [];
 		}
 	}
 };

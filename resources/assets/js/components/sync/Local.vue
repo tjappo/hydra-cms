@@ -56,31 +56,9 @@
                 this.closePopover(key);
                 VueEventListener.fire('toggleLoading');
 
-                this.pushFile(this.syncInfo, item);
+                this.pushFile(item);
                 this.local.splice(key, 1);
-                // axios.post('http://localhost:8000/local/pushFolder', {
-                //     item: item,
-                //     syncInfo: this.syncInfo
-                // }).then(
-                //     () => {
-                //         VueEventListener.fire('toggleLoading');
-                //         VueEventListener.fire('success', "Folder Pushed");
-                //         // this.local.splice(key, 1);
-                //     }
-                // ).catch(
-                //     (error) => {
-                //         VueEventListener.fire('toggleLoading');
-                //         VueEventListener.fire(
-                //             'An unexpected error has occurred: ',
-                //             (!!error.response) ? error.response.data : '')
-                //     }
-                // );
             },
-        },
-        computed: {
-            syncInfo() {
-                return this.$store.getters.syncInfo;
-            }
         }
     }
 </script>

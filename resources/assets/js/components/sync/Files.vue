@@ -69,19 +69,14 @@
             pushData(item, key) {
                 this.closePopover('Push', key);
                 VueEventListener.fire('toggleLoading');
-                this.pushFile(this.syncInfo, item);
+                this.pushFile(item);
                 this.files.splice(key, 1);
             },
             pullData(item, key) {
                 this.closePopover('Pull', key);
                 VueEventListener.fire('toggleLoading');
-                this.pullFile(this.syncInfo, item);
+                this.pullFile(item);
                 this.files.splice(key, 1);
-            }
-        },
-        computed: {
-            syncInfo() {
-                return this.$store.getters.syncInfo;
             }
         }
     }

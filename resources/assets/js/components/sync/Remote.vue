@@ -54,32 +54,9 @@
             pullData(item, key) {
                 this.closePopover(key);
                 VueEventListener.fire('toggleLoading');
-                this.pullFile(this.syncInfo, item);
+                this.pullFile(item);
                 this.remote.splice(key, 1);
-                // axios.post('http://localhost:8000/remote/pullFolder', {
-                //     item: item,
-                //     syncInfo: this.syncInfo
-                // }).then(
-                //     () => {
-                //         VueEventListener.fire('toggleLoading');
-                //         VueEventListener.fire('success', "Folder Pulled");
-                //         // this.local.splice(key, 1);
-                //     }
-                // ).catch(
-                //     (error) => {
-                //         VueEventListener.fire('toggleLoading');
-                //         VueEventListener.fire(
-                //             'An unexpected error has occurred: ',
-                //             (!!error.response) ? error.response.data : '')
-                //     }
-                // );
             },
-        },
-
-        computed: {
-            syncInfo() {
-                return this.$store.getters.syncInfo;
-            }
         }
     }
 </script>

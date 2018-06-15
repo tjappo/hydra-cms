@@ -44,11 +44,6 @@
                     name: 'Index'
                 });
             }
-        },
-        computed: {
-            syncInfo() {
-                return this.$store.getters.syncInfo;
-            }
         }
     }
 </script>
