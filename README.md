@@ -27,11 +27,7 @@ npm run dev
 
 ## Usage
 
-You just have to run a single command
-
-```
-npm run start
-```
+Open `index.html`, and start using the program.
 
 ## Authors
 - Jasper Hu (Shift Team)
