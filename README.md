@@ -1,43 +1,30 @@
-## Hydra version 0.0.1-alpha
-Hydra is the Content Management System (CMS) for the data layer that can be used on the Interplanetary File System (IPFS).
+# hydra-cms
 
-## Installation
+> Database solution for IPFS
 
-This program requires Node 6+, or any higher version.
+## Build Setup
 
-Download Hydra
-```
-git clone https://github.com/tjappo/hydra-cms.git && cd hydra-cms
-```
-
-Install dependencies
-```
+``` bash
+# install dependencies
 npm install
-```
 
-Build the files
-```
-npm run production
-```
-
-If it hangs at 91%, you can run the following command instead of the previous one
-```
+# serve with hot reload at localhost:8080
 npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+# run unit tests
+npm run unit
+
+# run e2e tests
+npm run e2e
+
+# run all tests
+npm test
 ```
 
-## Usage
-
-Open `index.html`, and start using the program.
-
-## Authors
-- Jasper Hu (Shift Team)
-
-## License
-
-Copyright © 2018 Shift
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the [GNU General Public License](https://github.com/ShiftNrg/hydra/tree/master/LICENSE) along with this program.  If not, see <http://www.gnu.org/licenses/>.
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

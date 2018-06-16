@@ -1,0 +1,48 @@
+{
+  "name": "hydra-cms",
+  "version": "0.0.1-alpha",
+  "description": "Database solution for IPFS",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=development node_modules/mocha/bin/mocha -r @std/esm test/test.mjs",
+    "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --watch-poll --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+  },
+  "author": "Jasper Hu",
+  "license": "GNU GPLv3",
+  "devDependencies": {
+    "axios": "^0.17.1",
+    "bootstrap": "^4.0.0",
+    "browser-sync": "^2.23.6",
+    "browser-sync-webpack-plugin": "^1.2.0",
+    "ejs": "^2.5.7",
+    "faker": "^4.1.0",
+    "fs": "0.0.1-security",
+    "jquery": "^3.2.1",
+    "mocha": "^5.0.4",
+    "mock-fs": "^4.4.2",
+    "object-hash": "^1.2.0",
+    "popper": "^1.0.1",
+    "script-loader": "^0.7.2",
+    "toastr": "^2.1.4",
+    "vue": "^2.5.13",
+    "vue-headful": "^1.0.0",
+    "vue-router": "^3.0.1",
+    "webpack": "^3.11.0"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^1.0.0-alpha.2",
+    "bootstrap-vue": "^1.4.1",
+    "chart.js": "^2.7.1",
+    "esm": "^3.0.5",
+    "laravel-mix": "^1.7.2",
+    "moment": "^2.22.0",
+    "simple-line-icons": "^2.4.1",
+    "vue-chartjs": "^3.1.0",
+    "vue-loading-template": "^0.1.7",
+    "vuex": "^3.0.1"
+  }
+}
