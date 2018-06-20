@@ -1,4 +1,4 @@
-import config from './config.global.mjs';
+import config from './config.global.js';
 
 /**
  * CONFIGURATION

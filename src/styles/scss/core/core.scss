@@ -1,13 +1,10 @@
 // Import core styles
 @import "variables";
 @import "mixins";
-
 // Additional typography
 @import "typography";
-
 // Animations
 @import "animate";
-
 // Components
 @import "aside";
 @import "avatars";
@@ -31,17 +28,12 @@
 @import "switches";
 @import "tables";
 @import "widgets";
-
 // Layout Options
 @import "layout";
-
 @import "others";
-
 // Utility classes
 @import "utilities";
-
 // Temporary fixes
 @import "temp";
-
 // Right-to-left
 @import "rtl";

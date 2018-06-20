@@ -1,2 +1,2 @@
-require('./dependencies');
-require('./app');
+require('./dependencies')
+require('./app')

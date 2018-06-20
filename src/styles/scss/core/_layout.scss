@@ -1,5 +1,5 @@
 // IE10&11 Flexbox fix
-@media all and (-ms-high-contrast:none) {
+@media all and (-ms-high-contrast: none) {
   html {
     display: flex;
     flex-direction: column;
@@ -291,9 +291,11 @@ app-root {
 .aside-menu {
   transition: margin-left $layout-transition-speed, margin-right $layout-transition-speed, width $layout-transition-speed, flex $layout-transition-speed;
 }
+
 .sidebar-nav {
   transition: width $layout-transition-speed;
 }
+
 .breadcrumb {
   transition: left $layout-transition-speed, right $layout-transition-speed, width $layout-transition-speed;
 }

@@ -104,7 +104,6 @@
     left: $width - $height + $handle-margin;
   }
 
-
   @if $type == ddd {
     @extend .switch-pill;
   }
@@ -163,11 +162,11 @@
 @mixin switch-variant($color) {
   > .switch-input:checked ~ .switch-label {
     background: $color !important;
-    border-color: darken($color,10%);
+    border-color: darken($color, 10%);
   }
 
   > .switch-input:checked ~ .switch-handle {
-    border-color: darken($color,10%);
+    border-color: darken($color, 10%);
   }
 }
 
@@ -220,7 +219,6 @@ $switch-xs-width: 24px;
 $switch-xs-height: 16px;
 $switch-xs-font-size: 7px;
 
-
 $switch-text-lg-width: 56px;
 $switch-text-lg-height: 28px;
 $switch-text-lg-font-size: 12px;
@@ -236,7 +234,6 @@ $switch-text-sm-font-size: 8px;
 $switch-text-xs-width: 32px;
 $switch-text-xs-height: 16px;
 $switch-text-xs-font-size: 7px;
-
 
 $switch-icon-lg-width: 56px;
 $switch-icon-lg-height: 28px;

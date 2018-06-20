@@ -6,13 +6,16 @@ module.exports = {
     parser: 'babel-eslint'
   },
   env: {
-    browser: true,
+    browser: true
   },
   globals: {
-      "moment": true,
-      "Vue": true,
-      "VueEventListener": true,
-      "metaData": true
+    'moment': true,
+    'Vue': true,
+    'VueEventListener': true,
+    'metaData': true,
+    'axios': true,
+    'JSONEditor': true,
+    'toastr': true
   },
   extends: [
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
@@ -33,7 +36,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'indent': 'off',
     'vue/script-indent': ['warn', 2, {
-        'baseIndent': 1
+      'baseIndent': 1
     }]
   }
 }
