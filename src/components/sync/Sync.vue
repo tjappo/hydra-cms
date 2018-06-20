@@ -7,7 +7,8 @@
     <div class="row justify-content-center">
       <div
         class="col"
-        id="accordion">
+        id="accordion"
+        v-if="outdated">
         <remote-sync
           v-if="checkArray(outdated.remote)"
           :remote="outdated.remote"/>
@@ -41,7 +42,8 @@
     props: {
       'outdated': {
         type: Object,
-        default: {}
+        default: () => {
+        }
       }
     },
     methods: {

@@ -108,6 +108,8 @@
           return
         }
 
+        this.setMerkleHash(this.hash);
+
         this.getSyncInfo({
           hash: this.hash,
           path: this.path
