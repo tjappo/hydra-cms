@@ -5,7 +5,7 @@
  * a generic config object will be constructed for us.
  */
 
-require('../src/index');
+require('../src/dependencies/index');
 require(Mix.paths.mix());
 
 /**

@@ -1,0 +1,54 @@
+// Here you can add other styles
+.switch-wrapper {
+  position: relative;
+  width: 60px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.switch-checkbox {
+  display: none;
+}
+
+.switch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  height: 30px;
+  padding: 0;
+  line-height: 30px;
+  border: 2px solid #E3E3E3;
+  border-radius: 30px;
+  background-color: #FFFFFF;
+  transition: background-color 0.3s ease-in;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+.switch-label:before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  background: #FFFFFF;
+  position: absolute;
+  bottom: 0;
+  right: 28px;
+  border: 2px solid #E3E3E3;
+  border-radius: 30px;
+  transition: all 0.3s ease-in 0s;
+}
+
+.switch-checkbox:checked + .switch-label {
+  background-color: #49E845;
+}
+
+.switch-checkbox:checked + .switch-label, .switch-checkbox:checked + .switch-label:before {
+  border-color: #49E845;
+}
+
+.switch-checkbox:checked + .switch-label:before {
+  right: 0;
+}

@@ -14,7 +14,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
  */
 
 mix.setPublicPath('./').js([
-	'resources/assets/js/dependencies.js',
+	'resources/assets/js/index.js',
 	'resources/assets/js/init.js',
 	'resources/assets/js/app.js',
 ], 'js/app.js').styles([

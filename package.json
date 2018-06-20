@@ -14,8 +14,21 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^10.0.1",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.1.1",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "chart.js": "^2.7.2",
+    "moment": "^2.22.2",
+    "popper.js": "^1.14.3",
+    "simple-line-icons": "^2.4.1",
+    "toastr": "^2.1.4",
     "vue": "^2.5.16",
-    "vue-router": "^3.0.1"
+    "vue-chartjs": "^3.3.1",
+    "vue-headful": "^2.0.1",
+    "vue-loading-template": "^0.1.7",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.49",
@@ -25,6 +38,7 @@
     "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/preset-stage-2": "^7.0.0-beta.49",
     "@babel/register": "^7.0.0-beta.49",
+    "@babel/runtime": "^7.0.0-beta.51",
     "autoprefixer": "^8.3.0",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^8.2.1",
@@ -56,6 +70,7 @@
     "mini-css-extract-plugin": "^0.4.0",
     "nightwatch": "^1.0.3",
     "node-notifier": "^5.1.2",
+    "node-sass": "^4.9.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "ora": "^2.0.0",
     "portfinder": "^1.0.13",
@@ -63,6 +78,7 @@
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
     "rimraf": "^2.6.0",
+    "sass-loader": "^7.0.3",
     "selenium-server": "^3.11.0",
     "semver": "^5.3.0",
     "shelljs": "^0.8.1",
