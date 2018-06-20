@@ -47,7 +47,7 @@ export default {
         return [JSON.parse(dataString), schemaString]
       } catch (e) {
         console.log(e)
-        VueEventListener.fire('error', 'Error while parsing data JSON')
+        VueEventListener.fire('error', 'Error while parsing data JSON of ' + name)
       }
     },
     getSchemaString (string, name) {
@@ -58,7 +58,7 @@ export default {
       try {
         return JSON.parse(schemaString)
       } catch (e) {
-        VueEventListener.fire('error', 'Error while parsing schema JSON')
+        VueEventListener.fire('error', 'Error while parsing schema JSON of ' + name)
       }
     }
   },
