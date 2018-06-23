@@ -41,34 +41,34 @@
     },
     data () {
       return {
-        nav: nav.items,
+        nav: nav.items.slice(0),
         dataIndex: 1
       }
     },
     methods: {
-      addDynamicRoutes () {
+      initialiseDataRoute () {
         this.nav.push({
           name: 'Data',
           url: '/',
-          icon: 'icon-puzzle',
+          icon: '',
+          faIcon: 'sitemap',
           children: []
         })
-        for (let route of this.allRoutes) {
-          this.addDataChild(route)
-        }
       },
       addDataChild (route) {
         if (route === 'meta') {
           this.nav.push({
             name: this.$options.filters.capitalize(route),
             url: '/admin/' + route,
-            icon: 'fas fa-chart-line'
+            icon: '',
+            faIcon: 'chart-line'
           })
         } else {
           this.nav[this.dataIndex].children.push({
             name: this.$options.filters.capitalize(route),
             url: '/admin/' + route,
-            icon: 'fas fa-puzzle-piece'
+            icon: '',
+            faIcon: 'puzzle-piece'
           })
         }
       },
@@ -76,13 +76,18 @@
         this.nav[this.dataIndex].children.filter((item) => {
           return item.name !== this.$options.filters.capitalize(route)
         })
+      },
+      resetNav (routes) {
+        this.nav = nav.items.slice(0)
+        this.initialiseDataRoute()
+        routes.forEach((route) => this.addDataChild(route))
       }
     },
     beforeMount () {
       this.pullFolder()
     },
     mounted () {
-      this.addDynamicRoutes()
+      this.initialiseDataRoute()
       VueEventListener.listen('addDataChild', (route) => this.addDataChild(route))
       VueEventListener.listen('removeDataChild', (route) => this.removeDataChild(route))
     },
@@ -92,16 +97,24 @@
       },
       list () {
         return this.$route.matched
+      },
+      dataRoutes () {
+        return this.$store.getters.dataRoutes
+      }
+    },
+    watch: {
+      dataRoutes (newDataRoutes) {
+        this.resetNav(newDataRoutes)
       }
     }
   }
 </script>
 
 <style>
-    @import './styles/css/vendors/bootstrap-vue.css';
+  @import './styles/css/vendors/bootstrap-vue.css';
 </style>
 
 <style lang="scss">
-    // Import Main styles for this application
-    @import './styles/scss/style';
+  // Import Main styles for this application
+  @import './styles/scss/style';
 </style>

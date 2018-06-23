@@ -1,5 +1,8 @@
 import vueHeadful from 'vue-headful'
 import BootstrapVue from 'bootstrap-vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPuzzlePiece, faAngleRight, faChartLine, faTachometerAlt, faSitemap } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import router from './router'
 import App from './App.vue'
@@ -17,9 +20,12 @@ window.axios.defaults.headers.common = {
 
 Vue.config.productionTip = false
 Vue.component('vue-headful', vueHeadful)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.mixin(MetaHandler)
 Vue.mixin(DataHandler)
 Vue.use(BootstrapVue)
+
+library.add(faPuzzlePiece, faAngleRight, faChartLine, faTachometerAlt, faSitemap)
 
 /**
  * Initialize Vue instances

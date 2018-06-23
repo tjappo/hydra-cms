@@ -21,14 +21,16 @@
               <SidebarNavDropdown
                 :name="item.name"
                 :url="item.url"
-                :icon="item.icon">
+                :icon="item.icon"
+                :faIcon="item.faIcon">
                 <template v-for="(childL1, index) in item.children">
                   <template v-if="childL1.children">
                     <!-- Second level dropdown -->
                     <SidebarNavDropdown
                       :name="childL1.name"
                       :url="childL1.url"
-                      :icon="childL1.icon">
+                      :icon="childL1.icon"
+                      :faIcon="childL1.faIcon">
                       <li
                         class="nav-item"
                         v-for="(childL2, index) in childL1.children">
@@ -36,6 +38,7 @@
                           :name="childL2.name"
                           :url="childL2.url"
                           :icon="childL2.icon"
+                          :faIcon="childL2.faIcon"
                           :badge="childL2.badge"
                           :variant="item.variant"/>
                       </li>
@@ -47,6 +50,7 @@
                         :name="childL1.name"
                         :url="childL1.url"
                         :icon="childL1.icon"
+                        :faIcon="childL1.faIcon"
                         :badge="childL1.badge"
                         :variant="item.variant"/>
                     </SidebarNavItem>
@@ -60,6 +64,7 @@
                   :name="item.name"
                   :url="item.url"
                   :icon="item.icon"
+                  :faIcon="item.faIcon"
                   :badge="item.badge"
                   :variant="item.variant"/>
               </SidebarNavItem>

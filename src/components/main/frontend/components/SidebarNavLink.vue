@@ -3,7 +3,7 @@
     <a
       :href="url"
       :class="classList">
-      <i :class="icon"/> {{ name }}
+      <i :class="icon" v-if="!!icon"/><font-awesome-icon v-else :icon="faIcon" /> {{ name }}
       <b-badge
         v-if="badge && badge.text"
         :variant="badge.variant">{{ badge.text }}</b-badge>
@@ -13,7 +13,7 @@
     <router-link
       :to="url"
       :class="classList">
-      <i :class="icon"/> {{ name }}
+      <i :class="icon" v-if="!!icon"/><font-awesome-icon v-else :icon="faIcon" /> {{ name }}
       <b-badge
         v-if="badge && badge.text"
         :variant="badge.variant">{{ badge.text }}</b-badge>
@@ -34,6 +34,10 @@
         default: ''
       },
       icon: {
+        type: String,
+        default: ''
+      },
+      faIcon: {
         type: String,
         default: ''
       },

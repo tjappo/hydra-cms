@@ -2,7 +2,7 @@ import config from 'configFile'
 
 export default {
   methods: {
-    pullFile (item) {
+    pullFile (item, callback) {
       axios.get(config.getIPFSFile, {
         params: {
           hash: this.syncInfo.hash,
@@ -16,6 +16,7 @@ export default {
           window[item.Name + 'Data'] = data
           window[item.Name + 'Schema'] = schema
         }
+        if (typeof callback !== 'undefined') callback()
         VueEventListener.fire('toggleLoading')
       }).catch((error) => {
         VueEventListener.fire('error', error)
@@ -30,7 +31,7 @@ export default {
           const folders = result.data.response.Objects[0].Links
           folders.forEach((folder) => {
             if (folder.Name !== 'img') {
-              that.pullFile(folder)
+              that.pullFile(folder, () => that.$store.dispatch('addDataRoute', folder.Name))
             }
           })
         }).catch((error) => {

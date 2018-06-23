@@ -8,7 +8,8 @@ export const store = new Vuex.Store({
     syncInfo: {
       hash: 'QmWJcCR1v9HvjJ4yUQZFYYNoSbE6y9ZhHveUxcSKdm9tsV',
       path: 'data'
-    }
+    },
+    dataRoutes: []
   },
   getters: {
     hash: state => {
@@ -19,6 +20,9 @@ export const store = new Vuex.Store({
     },
     syncInfo: state => {
       return state.syncInfo
+    },
+    dataRoutes: state => {
+      return state.dataRoutes
     }
   },
   mutations: {
@@ -30,6 +34,12 @@ export const store = new Vuex.Store({
     },
     setSyncInfo: (state, syncInfo) => {
       state.syncInfo = syncInfo
+    },
+    addDataRoute: (state, newRoute) => {
+      state.dataRoutes.push(newRoute)
+    },
+    removeDataRoute: (state, routeToRemove) => {
+      state.dataRoutes = state.dataRoutes.filter((item) => item !== routeToRemove)
     }
   },
   actions: {
@@ -41,6 +51,12 @@ export const store = new Vuex.Store({
     },
     setSyncInfo: ({commit}, syncInfo) => {
       commit('setSyncInfo', syncInfo)
+    },
+    addDataRoute: ({commit}, newRoute) => {
+      commit('addDataRoute', newRoute)
+    },
+    removeDataRoute: ({commit}, routeToRemove) => {
+      commit('removeDataRoute', routeToRemove)
     }
   }
 })

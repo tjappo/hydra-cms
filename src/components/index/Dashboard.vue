@@ -10,19 +10,20 @@
           Main page
           <b-link
             class="btn btn-success float-right"
-            :to="{name: 'SchemaCreate'}">Create Schema</b-link>
+            :to="{name: 'SchemaCreate'}">Create Schema
+          </b-link>
         </div>
         <div class="card-body">
           <div class="row">
             <div
               class="col-sm-6"
-              v-for="(route, key) in allRoutes"
+              v-for="(route, key) in dataRoutes"
               :key="key"
             >
               <div class="card card-inverse card-info">
                 <div class="card-block">
                   <div class="h1 text-muted text-right mb-2">
-                    <i class="fas fa-puzzle-piece"/>
+                    <font-awesome-icon icon="puzzle-piece"/>
                   </div>
                   <div class="h4 mb-0">{{ getRouteLength(route) | numberWithCommas }}</div>
                   <small class="text-muted text-uppercase font-weight-bold">Items on the <strong>{{ route }}</strong>
@@ -32,8 +33,11 @@
                 <div class="card-footer p-x-1 py-h">
                   <b-link
                     class="font-weight-bold font-xs btn-block text-muted"
-                    :to="{ name: 'AdminIndex', params: {'name': route} }">View More <i
-                      class="fa fa-angle-right float-right font-lg"/></b-link>
+                    :to="{ name: 'AdminIndex', params: {'name': route} }">View More
+                    <font-awesome-icon
+                      icon="angle-right"
+                      class="float-right font-lg"/>
+                  </b-link>
                 </div>
               </div>
             </div><!--/.col-->
@@ -56,6 +60,11 @@
         if (!data || !window[route + 'Schema']) return
 
         return data.length
+      }
+    },
+    computed: {
+      dataRoutes () {
+        return this.$store.getters.dataRoutes
       }
     }
   }

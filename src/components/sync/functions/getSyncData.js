@@ -6,7 +6,7 @@ export default {
   mixins: [helpers],
   methods: {
     getFolders (syncInfo, callback) {
-      axios.get(config.getIPFS, {
+      axios.get(config.getIPFSFolder, {
         params: {
           hash: syncInfo.hash,
           path: syncInfo.path
@@ -20,10 +20,12 @@ export default {
               return result.data.response.Objects[0].Links
             }
           } else {
+            this.loading = false
             VueEventListener.fire('error', 'Invalid result data')
           }
         })
         .catch((error) => {
+          this.loading = false
           VueEventListener.fire('error', error)
         })
     },

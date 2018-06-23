@@ -60,7 +60,7 @@
                 @click.prevent.stop="closePopover('Pull', key)">No
               </button>
             </b-popover>
-            <b-btn variant="secondary">View differences</b-btn>
+            <!--<b-btn variant="secondary">View differences</b-btn>-->
             <b-btn
               variant="success"
               class="float-right"

@@ -1,6 +1,6 @@
 <template>
   <aside class="aside-menu">
-    <div class="card">
+    <div class="card mb-0 h-100">
       <div class="card-header">
         <h3>Synchronization</h3>
       </div>
