@@ -1,7 +1,7 @@
 import vueHeadful from 'vue-headful'
 import BootstrapVue from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPuzzlePiece, faAngleRight, faChartLine, faTachometerAlt, faSitemap } from '@fortawesome/free-solid-svg-icons'
+import { faPuzzlePiece, faAngleRight, faChartLine, faTachometerAlt, faSitemap, faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import router from './router'
@@ -25,7 +25,7 @@ Vue.mixin(MetaHandler)
 Vue.mixin(DataHandler)
 Vue.use(BootstrapVue)
 
-library.add(faPuzzlePiece, faAngleRight, faChartLine, faTachometerAlt, faSitemap)
+library.add(faPuzzlePiece, faAngleRight, faChartLine, faTachometerAlt, faSitemap, faTrashAlt, faPencilAlt)
 
 /**
  * Initialize Vue instances

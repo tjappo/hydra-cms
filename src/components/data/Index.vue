@@ -74,9 +74,9 @@
                       <router-link
                         :to="{ name: 'AdminEdit', params: {'name': name, 'id': item.id}}"
                         exact>
-                        <i
-                          class="fas fa-pencil-alt"
-                          aria-hidden="true"/>
+                        <font-awesome-icon
+                          icon="pencil-alt"
+                          aria-hidden="true" />
                       </router-link>
                       <delete-data
                         :name="name"

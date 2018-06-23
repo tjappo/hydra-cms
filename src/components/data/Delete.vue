@@ -1,10 +1,12 @@
 <template>
   <div class="d-inline">
-    <i
+    <font-awesome-icon
+      icon="trash-alt"
       :id="'popoverData-' + id"
-      class="popover-button fas fa-trash-alt"
+      class="popover-button"
       aria-hidden="true"
-      @click="popoverToggle" />
+      @click="popoverToggle"
+    />
     <b-popover
       :target="'popoverData-' + id"
       title="Delete Data"
