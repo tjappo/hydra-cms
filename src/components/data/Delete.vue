@@ -3,7 +3,7 @@
     <font-awesome-icon
       icon="trash-alt"
       :id="'popoverData-' + id"
-      class="popover-button"
+      class="popover-button float-right"
       aria-hidden="true"
       @click="popoverToggle"
     />
