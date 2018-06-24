@@ -52,7 +52,11 @@ export default {
           'content-type': 'multipart/form-data'
         }
       }).then((result) => {
-        that.$store.dispatch('setHash', result.data.response.Hash)
+        if (((result.data || {}).response || {}).Hash) {
+          that.$store.dispatch('setHash', result.data.response.Hash)
+        } else {
+          VueEventListener.fire('error', 'Error: Returned invalid hash')
+        }
         VueEventListener.fire('toggleLoading')
         if (typeof callback !== 'undefined') callback()
       }).catch((error) => {
@@ -71,7 +75,11 @@ export default {
           'content-type': 'multipart/form-data'
         }
       }).then((result) => {
-        that.$store.dispatch('setHash', result.data.response.Hash)
+        if (((result.data || {}).response || {}).Hash) {
+          that.$store.dispatch('setHash', result.data.response.Hash)
+        } else {
+          VueEventListener.fire('error', 'Error: Returned invalid hash')
+        }
         VueEventListener.fire('toggleLoading')
         if (typeof callback !== 'undefined') callback()
       }).catch((error) => {
