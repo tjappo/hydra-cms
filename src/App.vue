@@ -14,12 +14,14 @@
       <AppAside/>
     </div>
     <AppFooter/>
+    <AppModal />
   </div>
 </template>
 
 <script>
   import nav from '@/components/main/frontend/components/_nav'
   import {
+    AppModal,
     Aside as AppAside,
     Breadcrumb,
     Footer as AppFooter,
@@ -33,6 +35,7 @@
     name: 'App',
     mixins: [TextFilter, pullData],
     components: {
+      AppModal,
       AppHeader,
       Sidebar,
       AppAside,

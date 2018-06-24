@@ -28,13 +28,19 @@ export default {
         params: this.syncInfo
       })
         .then((result) => {
-          const folders = result.data.response.Objects[0].Links
-          folders.forEach((folder) => {
-            if (folder.Name !== 'img') {
-              that.pullFile(folder, () => that.$store.dispatch('addDataRoute', folder.Name))
-            }
-          })
-        }).catch((error) => {
+          if (((((result.data || {}).response || {}).Objects || [])[0] || {}).Links) {
+            const folders = result.data.response.Objects[0].Links
+            folders.forEach((folder) => {
+              if (folder.Name !== 'img') {
+                that.pullFile(folder, () => that.$store.dispatch('addDataRoute', folder.Name))
+              }
+            })
+          } else {
+            VueEventListener.fire('InvalidResponseError')
+            VueEventListener.fire('error', 'Invalid response when pulling folder')
+          }
+        })
+        .catch((error) => {
           VueEventListener.fire('error', 'Error loading data: ' + error)
         })
     },
@@ -45,7 +51,9 @@ export default {
       const dataString = string.substring(start + offset.length, end)
       const schemaString = string.substring(end + 1, string.length)
       try {
-        return [JSON.parse(dataString), schemaString]
+        return [
+          JSON.parse(dataString),
+          schemaString]
       } catch (e) {
         console.log(e)
         VueEventListener.fire('error', 'Error while parsing data JSON of ' + name)
