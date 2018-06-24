@@ -57,7 +57,7 @@
             <p>Are you sure you want to overwrite the local folder?</p>
             <button
               class="btn btn-xs btn-primary"
-              @click.prevent.stop="pullData(item)">Yes
+              @click.prevent.stop="pullData(item, key)">Yes
             </button>
             <button
               class="btn btn-xs btn-danger"
