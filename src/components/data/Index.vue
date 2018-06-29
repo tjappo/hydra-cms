@@ -22,6 +22,14 @@
               <delete-schema
                 class="float-right"
                 :title="name"/>
+              <router-link
+                :to="{ name: 'SchemaEdit', params: {'name': name}}"
+                class="float-right mr-3"
+                exact>
+                <a
+                  href="#"
+                  class="btn btn-warning">Edit Schema</a>
+              </router-link>
             </div>
             <div
               id="items-wrapper"
@@ -39,8 +47,8 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(item, index) in data"
-                    :key="index">
+                    v-for="(item) in data"
+                    :key="item.id">
                     <td
                       :scope="getScope(key)"
                       v-for="(value, key) in item"

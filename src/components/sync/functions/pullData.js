@@ -6,15 +6,20 @@ export default {
       axios.get(config.getIPFSFile, {
         params: {
           hash: this.syncInfo.hash,
-          path: this.syncInfo.path + '/' + item.Name + '/data.json.js'
+          path: this.syncInfo.path + '/' + (item.Name || item) + '/data.json.js'
         }
       }).then((result) => {
-        const temp = this.getDataString(result.data.response, item.Name)
-        const data = temp[0]
-        const schema = this.getSchemaString(temp[1], item.Name)
-        if (!!data && !!schema) {
-          window[item.Name + 'Data'] = data
-          window[item.Name + 'Schema'] = schema
+        if ((result.data || {}).response) {
+          const temp = this.getDataString(result.data.response, (item.Name || item))
+          const data = temp[0]
+          const schema = this.getSchemaString(temp[1], (item.Name || item))
+          if (!!data && !!schema) {
+            window[(item.Name || item) + 'Data'] = data
+            window[(item.Name || item) + 'Schema'] = schema
+          }
+        } else {
+          VueEventListener.fire('InvalidResponseError')
+          VueEventListener.fire('error', 'Invalid response when pulling file')
         }
         if (typeof callback !== 'undefined') callback()
         VueEventListener.fire('toggleLoading')

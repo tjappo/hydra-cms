@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import config from 'configFile'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
     syncInfo: {
-      hash: 'QmWJcCR1v9HvjJ4yUQZFYYNoSbE6y9ZhHveUxcSKdm9tsV',
-      path: 'data'
+      hash: config.merkleHash,
+      path: config.dataPath
     },
     dataRoutes: []
   },

@@ -52,28 +52,24 @@
       deleteObject () {
         VueEventListener.fire('toggleLoading')
         const schema = window[this.name + 'Schema']
-        if (!window[this.name + 'Data'] && !schema) {
+        const dataName = this.name + 'Data'
+        if (!window[dataName] && !schema) {
           VueEventListener.fire('toggleLoading')
           VueEventListener.fire('error', 'Invalid schema: ' + this.name)
           return
         }
 
-        this.data = this.data.filter(function (item) {
-          return item.id !== Number(this.id)
-        })
+        const numberID = Number(this.id)
 
-        window[this.name + 'Data'] = this.data
+        window[dataName] = window[dataName].filter(function (item) {
+          return item.id !== numberID
+        })
 
         this.pushFile(this.name)
 
         this.popoverToggle()
         VueEventListener.fire('success', 'Data Deleted')
-        this.$router.push({
-          name: 'AdminIndex',
-          params: {
-            'name': this.name
-          }
-        })
+        VueEventListener.fire('updateData', dataName)
       }
     }
   }

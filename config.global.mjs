@@ -1,4 +1,6 @@
 const config = {};
+config.merkleHash = '';
+config.dataPath = '';
 config.exportPath = '';
 config.ignoreFolders = [];
 config.port = 8000;

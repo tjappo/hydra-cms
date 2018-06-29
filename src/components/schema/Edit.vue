@@ -134,9 +134,11 @@
 <script>
   import TextFilter from '../filters/textFilters.js'
   import SchemaFilter from './components/schemaFilters'
+  import ProcessSchema from './functions/processSchema'
+  import PushData from '../sync/functions/pushData'
 
   export default {
-    mixins: [TextFilter, SchemaFilter],
+    mixins: [TextFilter, SchemaFilter, ProcessSchema, PushData],
     props: {
       'name': {
         type: String,
@@ -175,7 +177,6 @@
           return
         }
 
-        window[this.data.title + 'Data'] = []
         window[this.data.title + 'Schema'].properties = this.getSchema(this.data.items)
 
         this.pushFile(this.data.title)

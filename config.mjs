@@ -3,6 +3,8 @@ import config from './config.global.mjs';
 /**
  * CONFIGURATION
  */
+config.merkleHash = 'QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn';
+config.dataPath = 'data';
 config.exportPath = 'export/data/';
 config.ignoreFolders = ['img'];
 config.port = 8000;

@@ -2,7 +2,7 @@
   <aside class="aside-menu">
     <div class="card mb-0 h-100">
       <div class="card-header">
-        <h3>Synchronization</h3>
+        <h4 class="text-center">Synchronization</h4>
       </div>
       <div class="card-body d-flex flex-column">
         <div class="hash-wrapper">
@@ -42,7 +42,7 @@
           :size="{ width: '50px', height: '50px' }"
           v-show="!!loading"/>
         <div
-          class="info-wrapper mt-auto"
+          class="info-wrapper mt-5"
           v-show="!!outdated.timestamp">
           <p class="text-warning mb-1"><strong>{{ outdatedRemote }}</strong> Remote Folders differ</p>
           <p class="text-warning mb-1"><strong>{{ outdatedLocal }}</strong> Local Folders differ</p>
