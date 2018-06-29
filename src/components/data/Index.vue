@@ -39,7 +39,7 @@
                   <tr>
                     <th
                       scope="col"
-                      v-for="(key, index) in getKeys()"
+                      v-for="(key, index) in getKeys"
                       :key="index">{{ key }}
                     </th>
                     <th scope="col">Options</th>
@@ -51,20 +51,20 @@
                     :key="item.id">
                     <td
                       :scope="getScope(key)"
-                      v-for="(value, key) in item"
-                      :key="key">
+                      v-for="(key, index) in getKeys"
+                      :key="index">
                       <img
-                        :src="exportPath + value"
+                        :src="exportPath + item[key]"
                         alt="image"
-                        v-if="key === 'image' && !!value"
+                        v-if="key === 'image' && !!item[key]"
                         height="100px"
                         width="100px">
                       <ul
                         class="list-group"
-                        v-else-if="Array.isArray(value) || typeof value === 'object' && !!value">
+                        v-else-if="Array.isArray(item[key]) || typeof item[key] === 'object' && !!item[key]">
                         <li
                           class="list-group-item"
-                          v-for="(value2, key2) in value"
+                          v-for="(value2, key2) in item[key]"
                           :key="key2">
                           <div class="d-block">
                             <span class="w-50"><strong>{{ key2 }}</strong></span>
@@ -72,11 +72,11 @@
                           </div>
                         </li>
                       </ul>
-                      <span v-else-if="checkBoolean(value)">
-                        <span v-if="value">&#10004;</span>
+                      <span v-else-if="checkBoolean(item[key])">
+                        <span v-if="item[key]">&#10004;</span>
                         <span v-else>&#10006;</span>
                       </span>
-                      <span v-else>{{ value | truncate(50) }}</span>
+                      <span v-else>{{ item[key] | truncate(50) }}</span>
                     </td>
                     <td>
                       <router-link
@@ -136,9 +136,6 @@
 
         this.data = window[data]
       },
-      getKeys () {
-        if (typeof this.data !== 'undefined' && this.data.length > 0) return Object.keys(this.data[0])
-      },
       getScope (key) {
         if (key === 'id') return 'row'
       },
@@ -149,6 +146,12 @@
     mounted () {
       this.loadData()
       VueEventListener.listen('updateData', (title) => (this.data = window[title]))
+    },
+    computed: {
+      getKeys () {
+        const schema = window[this.name + 'Schema']
+        if (typeof this.data !== 'undefined' && this.data.length > 0 && schema) return Object.keys(schema.properties)
+      }
     },
     watch: {
       '$route.params.name' () {
