@@ -64,10 +64,11 @@
   import TextFilters from '../../../filters/textFilters'
   import vueLoading from 'vue-loading-template'
   import getSyncData from '../../../sync/functions/getSyncData'
+  import Helpers from '../../../sync/functions/helpers'
 
   export default {
     name: 'CustomAside',
-    mixins: [TextFilters, getSyncData],
+    mixins: [TextFilters, getSyncData, Helpers],
     components: {
       vueLoading
     },
@@ -117,21 +118,6 @@
       },
       toggleAside () {
         document.body.classList.toggle('aside-menu-hidden')
-      },
-      setMerkleHash (new_hash) {
-        if (typeof (Storage) !== 'undefined') {
-          // Code for localStorage/sessionStorage.
-          localStorage.setItem('merkle_hash', new_hash)
-        }
-        this.$store.dispatch('setHash', new_hash)
-      },
-      getMerkleHash (fallback) {
-        if (typeof (Storage) !== 'undefined') {
-          // Code for localStorage/sessionStorage.
-          return localStorage.getItem('merkle_hash') || fallback
-        } else {
-          return fallback
-        }
       }
     },
     computed: {

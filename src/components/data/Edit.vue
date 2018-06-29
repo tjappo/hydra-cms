@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import AdminMixin from '../main/frontend/functions'
+  import AdminMixin from './functions/functions'
   import TextFilter from '../filters/textFilters.js'
   import pushData from '../sync/functions/pushData'
   import processData from './functions/processData'

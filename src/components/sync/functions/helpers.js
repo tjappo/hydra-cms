@@ -30,6 +30,21 @@ export default {
           cbs.success('/' + that.syncInfo.path + '/' + file.name)
         })
       }
+    },
+    setMerkleHash (hash) {
+      if (typeof (Storage) !== 'undefined') {
+        // Code for localStorage/sessionStorage.
+        localStorage.setItem('merkle_hash', hash)
+      }
+      this.$store.dispatch('setHash', hash)
+    },
+    getMerkleHash (fallback) {
+      if (typeof (Storage) !== 'undefined') {
+        // Code for localStorage/sessionStorage.
+        return localStorage.getItem('merkle_hash') || fallback
+      } else {
+        return fallback
+      }
     }
   }
 }

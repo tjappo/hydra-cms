@@ -153,6 +153,7 @@
         this.pushFile(this.data.title)
         VueEventListener.fire('success', 'Schema Created')
         VueEventListener.fire('addDataChild', this.data.title)
+        this.$store.dispatch('addDataRoute', this.data.title)
         this.$router.push({
           name: 'Index'
         })

@@ -19,7 +19,7 @@ export default {
         }
       }).then((result) => {
         if (((result.data || {}).response || {}).Hash) {
-          that.$store.dispatch('setHash', result.data.response.Hash)
+          that.setMerkleHash(result.data.response.Hash)
         } else {
           VueEventListener.fire('error', 'Error: Returned invalid hash')
         }
@@ -53,7 +53,7 @@ export default {
         }
       }).then((result) => {
         if (((result.data || {}).response || {}).Hash) {
-          that.$store.dispatch('setHash', result.data.response.Hash)
+          that.setMerkleHash(result.data.response.Hash)
         } else {
           VueEventListener.fire('error', 'Error: Returned invalid hash')
         }
@@ -76,7 +76,7 @@ export default {
         }
       }).then((result) => {
         if (((result.data || {}).response || {}).Hash) {
-          that.$store.dispatch('setHash', result.data.response.Hash)
+          that.setMerkleHash(result.data.response.Hash)
         } else {
           VueEventListener.fire('error', 'Error: Returned invalid hash')
         }
