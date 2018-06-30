@@ -32,18 +32,35 @@ function getBaseObject (item) {
 }
 
 /**
+ * Returns the base enum list object of a schema
+ * @param item given item
+ * @param options given options
+ * @returns {{type: *, description: *, default: *, required: *}}
+ */
+function getSelectObject (item, options) {
+  return {
+    'type': 'string',
+    'enum': options || [],
+    'default': item.default || '',
+    'required': item.required || false
+  }
+}
+
+/**
  * Returns the corresponding object to the given item type
  * @param item given item
  * @param res response object
  * @returns {undefined | Object} corresponding schema
  */
-function getSchemaObject (item) {
+function getSchemaObject (item, options) {
   let baseObject, stringObject
   switch (item.type) {
   case 'string':
     return getStringObject(item)
   case 'number':
     return getBaseObject(item)
+  case 'select':
+    return getSelectObject(item, options)
   case 'date':
     baseObject = getBaseObject(item)
     baseObject.type = 'string'

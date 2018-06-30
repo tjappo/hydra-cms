@@ -2,12 +2,14 @@ export default {
   data () {
     return {
       data: {
-        'title': '',
-        items: []
+        title: '',
+        items: [],
+        options: {}
       },
       types: {
         'string': 'String',
         'number': 'Number',
+        'select': 'List',
         'date': 'Date',
         'checkbox': 'Boolean',
         'media': 'Media upload',
@@ -48,7 +50,11 @@ export default {
 
       return true
     },
-    addColumn (name, type, description, defaultVal, requiredVal) {
+    addColumn (name, type, description, defaultVal, requiredVal, options) {
+      if (options) {
+        this.data.options[this.data.items.length] = options
+      }
+
       this.data.items.push({
         name: name || '',
         type: type || '',
@@ -59,6 +65,7 @@ export default {
     },
     removeRow (index) {
       this.data.items.splice(index, 1)
+      this.updateOptions(index)
     },
     validateString (str) {
       const filters = this.$options.filters
@@ -78,7 +85,29 @@ export default {
     },
     checkBoolean (type) {
       return (type === 'checkbox')
+    },
+    addOptions ([id, options]) {
+      this.data.options[id] = options
+    },
+    initOptions (id) {
+      VueEventListener.fire('initOptions', [id, this.data.options[id] || []])
+    },
+    updateOptions (index) {
+      if (this.data.options[index]) {
+        let options = {}
+        Object.keys(this.data.options).forEach((key) => {
+          if (key < index) {
+            options[key] = this.data.options[key]
+          } else if (key > index) {
+            options[key - 1] = this.data.options[key]
+          }
+        })
+        this.data.options = options
+      }
     }
+  },
+  mounted () {
+    VueEventListener.listen('addOptions', this.addOptions)
   },
   computed: {
     itemsExists () {

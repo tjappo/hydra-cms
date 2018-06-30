@@ -99,10 +99,19 @@
                       </div>
                     </td>
                     <td>
-                      <i
-                        class="popover-button fas fa-trash-alt"
+                      <font-awesome-icon
+                        icon="pencil-alt"
+                        class="popover-button"
                         aria-hidden="true"
-                        @click="removeRow(index)"/>
+                        @click="initOptions(index)"
+                        v-if="item.type === 'select'"
+                      />
+                      <font-awesome-icon
+                        icon="trash-alt"
+                        class="popover-button"
+                        aria-hidden="true"
+                        @click="removeRow(index)"
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -125,6 +134,7 @@
               </b-link>
             </div>
           </form>
+          <List/>
         </div>
       </div>
     </div>
@@ -136,9 +146,12 @@
   import SchemaFilter from './components/schemaFilters'
   import ProcessSchema from './functions/processSchema'
   import PushData from '../sync/functions/pushData'
+  import List from './components/List'
 
   export default {
+    name: 'SchemaEdit',
     mixins: [TextFilter, SchemaFilter, ProcessSchema, PushData],
+    components: {List},
     props: {
       'name': {
         type: String,
@@ -158,7 +171,9 @@
         for (let item in properties) {
           let values = properties[item]
           let type = values.type
-          if (values.media) {
+          if (values.enum) {
+            type = 'select'
+          } else if (values.media) {
             type = 'media'
           } else if (values.format) {
             type = values.format
@@ -167,7 +182,7 @@
             values = values.properties.en
             type = (!!values.format && values.format === 'html') ? 'html' : values.type
           }
-          this.addColumn(item, type, values.description, values.default, values.required)
+          this.addColumn(item, type, values.description, values.default, values.required, values.enum)
         }
       },
       submitForm () {

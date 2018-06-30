@@ -61,7 +61,7 @@
 
         const numberID = Number(this.id)
 
-        window[dataName].splice(numberID, 1);
+        window[dataName].splice(numberID, 1)
 
         this.pushFile(this.name)
 

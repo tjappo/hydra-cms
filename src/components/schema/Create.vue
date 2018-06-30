@@ -99,10 +99,19 @@
                       </div>
                     </td>
                     <td>
-                      <i
-                        class="popover-button fas fa-trash-alt"
+                      <font-awesome-icon
+                        icon="pencil-alt"
+                        class="popover-button"
                         aria-hidden="true"
-                        @click="removeRow(index)" />
+                        @click="initOptions(index)"
+                        v-if="item.type === 'select'"
+                      />
+                      <font-awesome-icon
+                        icon="trash-alt"
+                        class="popover-button"
+                        aria-hidden="true"
+                        @click="removeRow(index)"
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -125,6 +134,7 @@
               </b-link>
             </div>
           </form>
+          <List/>
         </div>
       </div>
     </div>
@@ -136,9 +146,12 @@
   import SchemaFilter from './components/schemaFilters'
   import processSchema from './functions/processSchema'
   import pushData from '../sync/functions/pushData'
+  import List from './components/List.vue'
 
   export default {
+    name: 'SchemaCreate',
     mixins: [TextFilter, SchemaFilter, processSchema, pushData],
+    components: {List},
     methods: {
       submitForm () {
         VueEventListener.fire('toggleLoading')
@@ -148,7 +161,7 @@
         }
 
         window[this.data.title + 'Data'] = []
-        window[this.data.title + 'Schema'] = this.initialiseSchema(this.data.title, this.data.items)
+        window[this.data.title + 'Schema'] = this.initialiseSchema(this.data)
 
         this.pushFile(this.data.title)
         VueEventListener.fire('success', 'Schema Created')

@@ -24,7 +24,7 @@
 
 <script>
   export default {
-    name: 'DeleteSchema',
+    name: 'SchemaDelete',
     props: {
       'title': {
         type: [String],
