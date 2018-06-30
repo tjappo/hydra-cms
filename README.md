@@ -22,7 +22,7 @@ npm run build
 
 ## Installation on IPFS
 
-Edit the `index.html` file by adding this to the `<head>` tag 
+Edit the `dist/index.html` file by adding this to the `<head>` tag 
 
 ```
 <!--- Base Tag -->
