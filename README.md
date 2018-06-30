@@ -17,13 +17,30 @@ npm install
 
 Build the files
 ```
-npm run production
+npm run build
 ```
 
-If it hangs at 91%, you can run the following command instead of the previous one
+## Installation on IPFS
+
+Edit the `index.html` file by adding this to the `<head>` tag 
+
 ```
-npm run dev
+<!--- Base Tag -->
+<script>
+    var base = '';
+    var parts = window.location.pathname.split('/');
+    parts.forEach(function(part, pos){
+        if (part == 'ipfs' || part == 'ipns') {
+            base = parts.slice(0, pos+2).join('/');
+        }
+    });
+    document.write('<base href="'+ base + '/" />');
+</script>    
 ```
+
+Edit all `/static` paths to relative `./static` paths
+
+Upload the `dist` folder to Phantom   
 
 ## Usage
 
