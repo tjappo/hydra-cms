@@ -47,8 +47,8 @@
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(item) in data"
-                    :key="item.id">
+                    v-for="(item, index) in data"
+                    :key="index">
                     <td
                       :scope="getScope(key)"
                       v-for="(key, index) in getKeys"
@@ -88,7 +88,7 @@
                       </router-link>
                       <delete-data
                         :name="name"
-                        :id="item.id"/>
+                        :id="index"/>
                     </td>
                   </tr>
                 </tbody>

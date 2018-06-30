@@ -61,9 +61,7 @@
 
         const numberID = Number(this.id)
 
-        window[dataName] = window[dataName].filter(function (item) {
-          return item.id !== numberID
-        })
+        window[dataName].splice(numberID, 1);
 
         this.pushFile(this.name)
 
