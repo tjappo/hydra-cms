@@ -11,6 +11,8 @@ import Sync from '@/components/sync/Sync.vue'
 
 import Dashboard from '@/components/index/Dashboard.vue'
 
+import VisualComposer from '@/components/visualComposer/Index'
+
 window.Vue = Vue
 Vue.use(VueRouter)
 
@@ -58,6 +60,11 @@ const routes = [
     name: 'Sync',
     component: Sync,
     props: true
+  },
+  {
+    path: '/VisualComposer',
+    name: 'VisualComposer',
+    component: VisualComposer
   },
   {
     path: '*',
