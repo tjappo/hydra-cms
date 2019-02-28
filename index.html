@@ -12,5 +12,714 @@
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+  <script>
+    window['indexData'] = {
+      en: {
+        how: {
+          title: "Here's How Shift Works.",
+          sliderItems: [
+            {
+              title: "Decentralized apps",
+              imageKey: 'dapps',
+              descriptions: [
+                "Shift is an accessible and open-source blockchain application platform. Developers can create their own decentralized applications (dApp) with the benefit of an easy setup. Each dApp will have its own sidechain that is independent from Shiftâ€™s main chain, but sidechains can still connect to and synchronize with the main chain. This enables infinite scalability without endangering the stability of the main chain.",
+                "Shiftâ€™s blockchain technology is written in JavaScript, encouraging mass-adoption since coders are already familiar with this programming language. Every dApp will have access to Shiftâ€™s own IPFS cluster to store data using a promising peer-2-peer hypermedia distribution protocol, the InterPlanetary File System. The existence of the Shift token â€” defined as a utility coin â€” allows every dApp owner to implement an intrinsic monetization model or trading platform for digital assets in their dApp."
+              ]
+            },
+            {
+              title: "dPOS Blockchain",
+              imageKey: 'dpos',
+              descriptions: [
+                "Shift uses a delegated Proof-of-Stake (dPOS) consensus algorithm, and its network consists of master nodes and delegate nodes. Delegate nodes are allowed to make changes in the blockchain (i.e., the distributed and decentralized ledger). 101 out of an infinite number of delegate nodes are selected to participate in delegate rounds based on obtaining the communityâ€™s approval votes to become block producers. Every token holder is able to cast a maximum of 101 different votes on their 101 favorite delegates, and/or become a delegate themselves. A vote is proportional to the token holderâ€™s account balance. Every delegate round, the 101 delegates with the highest approval rate (i.e., backed by the largest amount of Shift tokens) are selected to generate blocks for the delegate round. Block producers are rewarded with block rewards in the form of new tokens that are released by the ShiftNRG software.",
+                "The system functions at its best when token holders vote for the delegates with the highest productivity, as well as delegates that reinvest a part of their forged Shift tokens in the projectâ€™s development. Shift will introduce a new version of this dPOS consensus algorithm very soon, which will be unique within the ecosystem of dPOS platforms on the market."
+              ]
+            },
+            {
+              title: "Hydra CMS",
+              imageKey: 'hydra',
+              descriptions: [
+                "Hydra is a content management system (CMS) written in pure JavaScript: it is compatible with the InterPlanetary File System and being pre-built into the Shift cluster of storage nodes. This makes Shift the first ever project to bring decentralized database solutions to the promising hypermedia distribution protocol. This pre-build allows the Shift application platform to support the decentralized web hosting of dynamic content.",
+                "The Shift Team is also working on the compatibility of websockets with IPFS, such that there will be a socket client at IPFS and a socket server at the cluster, even though IPFSâ€™ pubsub is still in development and not yet completed as an alternative to traditional websockets. Shiftâ€™s socket solution will support the ability to host â€œin real-timeâ€ websites that are truly decentralized."
+              ]
+            },
+            {
+              title: "Jenga DNS monitor",
+              imageKey: 'jenga',
+              descriptions: [
+                "Jenga is a domain name system (DNS) monitor that continuously monitors all storage nodes in the Shift cluster to populate DNS records. Nodes which point to unhealthy DNS records are removed from the cluster. The resulting construction is almost resistant to DDoS attacks. One domain can be pointed to anywhere, from ten to one-thousand nodes that serve your files.",
+                "We thus found a smart way to bridge the old internet (DNS/http) to the new web. Jenga is the closest you can get to decentralized DNS, since true decentralized DNS does not exist yet. This is accomplished without requiring the end user to install any third-party extensions, plugins, or browser add-ons. In essence, Shift is already the worldâ€™s first taste of Web 3.0: uncensorable, and secure."
+              ]
+            },
+            {
+              title: "Decentralized storage layer",
+              imageKey: 'phantom',
+              descriptions: [
+                "Shift uses a peer-2-peer hypermedia distribution protocol, the InterPlanetary File System (IPFS), as a storage layer upon the blockchain. In essence, IPFS is a much smarter protocol than HTTP, since IPFS uses hash-based file storage in contrast to HTTP which uses location-based storage. The Shift Team regards this protocol as a key contributor to the decentralization of the internet. Besides IPFS (Filecoin) itself, Shift is ahead in its IPFS tool development and on the implementation of IPFS with blockchain technology. Shift is the first project to ever successfully build a working IPFS cluster for data storage. The prototype, our pre-beta, is already functional on Shiftâ€™s testnet."
+              ]
+            }
+          ],
+          dapps: {
+            left: [
+              {
+                title: "Phantom",
+                descriptions: [
+                  "Shiftâ€™s first official dApp, called Phantom, is a user interface for file management over the IPFS network on Shiftâ€™s cluster. Data can be pinned â€” based on a tokenomic services model â€” to be permanently stored on the cluster. Phantom also contains a wizard that enables decentralized web hosting and supports the management of real top level domains."
+                ]
+              },
+              {
+                title: "Sidechains",
+                descriptions: [
+                  "Phantom will soon have its own chain, as a sidechain tied to Shiftâ€™s main chain. The Phantom sidechain will have its own rules and transaction types, allowing endless possibilities. The prototype, which is a pre-beta, is already functional at Shiftâ€™s testnet. This very website is already powered by our storage nodes."
+                ]
+              }
+            ],
+            right: [
+              {
+                title: "Tokenomic services model",
+                descriptions: [
+                  "The cluster consists of a swarm of storage nodes (peers). Every token holder is able to join the cluster, and can provide disk space (storage capacity) to the Shift cluster. In 2018, Shift will present a tokenomic services model which will make it economically beneficial to join the cluster.",
+                  "Shift tokens can also be used for making a request to use a certain part of the available disk space that is provided by the cluster. Data can be published and pinned on the cluster. This means it will be stored permanently on the cluster â€” as long as the content publisher holds tokens as Proof-of-Storage."
+                ]
+              },
+              {
+                title: "Complimentary file transfers",
+                descriptions: [
+                  "It is also possible to send files (free of charge) outside the cluster, to all peers that are connected to the cluster but which are not part of it. However, these peers running an IPFS daemon will likely have a garbage collector that removes stored files occasionally, creating a cache."
+                ]
+              }
+            ]
+          }
+        },
+        intro: {
+          title: "Right now, you're already on the decentralized web",
+          subtitle: {
+            firstLine: "...with no browser plugins, and real top level domains.",
+            secondLine: "This is Phantom: Shift's flagship dApp for disrupting the hosting industry."
+          },
+          dataTitle: "Thatâ€™s right: this website is hosted, replicated, and monitored through the Shift IPFS cluster!"
+        },
+        uses: {
+          title: "Join the New Web Revolution",
+          items: [
+            {
+              title: "One of the biggest threats to the web today is the web itself.",
+              description: "Businesses can unilaterally shut down (e.g.: Gothamist, DNAinfo), taking independent writersâ€™ data with them. Shift and Phantom allow this kind of disaster to be avoided: user content is stored in a decentralized fashion, ensuring that authors can always retain access."
+            },
+            {
+              title: "In the near future, the web will evolve beyond the existing systems and infrastructure.",
+              description: "In order to do so, there must be replacement protocols and services made available for everyone to join the new web revolution. This is the mission of Shift and Phantom: to augment and replace classical hosting and DNS providers."
+            },
+            {
+              title: "For any decentralized system to work, users need to participate and must stand to gain a benefit.",
+              description: "Enter Shift: it provides a utility token that users can use within the ecosystem to secure storage on the Phantom dApp or trade with others for services. Shift's delegated Proof-of-Stake consensus algorithm also allows for benefits to be earned by users who participate in the voting process which rewards others for contributing reliable nodes to the network."
+            },
+            {
+              title: "Net Neutrality is one of the top threats today when it comes to accessing the internet.",
+              description: "Providers can slow down connectivity, or charge additional fees to access certain services. With Phantom, itâ€™s possible to circumvent the effects of such behavior, as the data is never centralized. Getting a website served from a group of peers is nearly impossible to stop, in contrast to the ease of metering access to certain services which have known internet footprints."
+            }
+          ],
+          specs: {
+            title: "Network specifications",
+            consensusAlgorithm: "Consensus algorihm",
+            delegatedProofOfStake: "Delegated Proof-Of-Stake",
+            blockProducers: "Block producers",
+            blockTime: "Block time",
+            seconds: "seconds",
+            roundTime: "Round time",
+            minutes: "minutes",
+            blockReward: "Block reward",
+            forger: "forger",
+            project: "project",
+            supply: "Supply",
+            inflation: "inflation",
+            marketListings: "Market listings",
+            mediaTitle: "Read About Shift in the Media"
+          }
+        },
+        why: {
+          items: [
+            {
+              title: "What do successful operating systems have in common?",
+              descriptions: [
+                "Consider the earliest example of a â€œkiller appâ€: the VisiCalc spreadsheet software catapulted Apple II personal computers to unprecedented levels of adoption in the early 80s, simply because for ten months, the best spreadsheet software on the market was only available for the Apple II.",
+                "Likewise, Microsoft invested heavily in promoting Internet Explorer as a user-friendly application with mass appeal because they understood that even without making IE the best browser on the market, including it as a built-in perk with Windows would facilitate adoption of both their application and their OS, driving software developers to follow suit in a snowballing effect which helped to make market dominance all but inevitable."
+              ]
+            },
+            {
+              title: "Shift is the first next-gen blockchain with a built-in â€œkiller dApp.â€",
+              descriptions: [
+                "While other companies are busy writing whitepapers and raising hundreds of millions of dollars, Shift has been busy working: we have created the backbone of a robust dApp ecosystem, with a strong and democratic dPOS platform of decentralization that can be used by anyone who knows JavaScript. The Phantom dApp with Shift will create a new decentralized web, empowering everyday users and keeping their content safe.",
+                "We are confident that providing the first low cost, easy-to-use decentralized hosting infrastructure, which saves users money over traditional file storage methods and protects their content from external censorship, will act as a massive stimulus for the mainstream adoption of Shift."
+              ]
+            }
+          ]
+        }
+      },
+      fr: {
+        how: {
+          title: "Voici Comment Shift Fonctionne.",
+          sliderItems: [
+            {
+              title: "Applications dÃ©centralisÃ©es",
+              imageKey: 'dapps',
+              descriptions: [
+                "Shift est une plateforme d'applications sur la blockchain accessible et open-source. Les dÃ©veloppeurs peuvent y crÃ©er leurs propres applications dÃ©centralisÃ©es (dApp) avec l'avantage d'une installation simple. Chaque dApp aura sa propre sidechain indÃ©pendante de la mainchain Shift, mais les sidechains pourront quand mÃªme s'y connecter afin de se synchroniser avec elle. Cela permet une scalabilitÃ© infinie sans mettre en danger la stabilitÃ© de la mainchain.",
+                "La blockchain Shift a Ã©tÃ© codÃ©e en JavaScript, encourageant ainsi son adoption de masse, la plupart des dÃ©veloppeurs Ã©tant familiers avec ce langage de programmation. Chaque dApp aura accÃ¨s au cluster IPFS Shift afin d'y stocker des donnÃ©es en utilisant un protocole de distribution hypermedia prometteur, InterPlanetary File System (IPFS). L'existence du token Shift - un token utilitaire - permet Ã  chaque propriÃ©taire de dApp d'implÃ©menter un modÃ¨le de monÃ©tisation intrinsÃ¨que ou une plateforme d'Ã©change pour des biens virtuels dans leur dApp."
+              ]
+            },
+            {
+              title: "Blockchain dPOS",
+              imageKey: 'dpos',
+              descriptions: [
+                "Shift utilise un algorithme de consensus basÃ© sur un Proof-of-Stake 'de dÃ©lÃ©guÃ©s' (dPOS), et son rÃ©seau consiste en des noeuds maÃ®tres et des noeuds dÃ©lÃ©guÃ©s. Les noeuds dÃ©lÃ©guÃ©s sont autorisÃ©s Ã  effectuer des modifications dans la blockchain (sorte de registre dÃ©centralisÃ© et distribuÃ©). Parmi un nombre infini de noeuds dÃ©lÃ©guÃ©s, 101 sont sÃ©lectionnÃ©s pour participer Ã  des cycles de dÃ©lÃ©gation basÃ©s sur l'obtention des votes d'approbation de la communautÃ© et de devenir des producteurs de blocks. Chaque dÃ©tenteur de token a la possibilitÃ© de voter pour ses 101 dÃ©lÃ©guÃ©s prÃ©fÃ©rÃ©s, et/ou de devenir lui-mÃªme dÃ©lÃ©guÃ©. Le poids d'un vote est proportionnel Ã  l'importance du solde du compte de ce dÃ©tenteur de tokens. A chaque cycle de dÃ©lÃ©gation, les 101 dÃ©lÃ©guÃ©s avec le plus haut taux d'approbation (c'est-Ã -dire soutenus par le plus grand nombre de tokens Shift) sont sÃ©lectionnÃ©s pour gÃ©nÃ©rer des blocks le temps de ce cycle. Les producteurs de blocks sont rÃ©munÃ©rÃ©s par des rÃ©compenses de blocks sous la forme de nouveaux tokens dÃ©livrÃ©s par le software ShiftNRG.",
+                "Le systÃ¨me atteint son potentiel maximal d'efficacitÃ© lorsque les dÃ©tenteurs de tokens votent pour les dÃ©lÃ©guÃ©s avec la productivitÃ© la plus importante, ainsi que ceux qui rÃ©investissent une part de leurs tokens Shift forgÃ©s dans le dÃ©veloppement du projet. Shift introduira trÃ¨s prochainement une nouvelle version de cet algorithme de consensus dPOS, qui sera le seul du genre dans l'Ã©cosystÃ¨me des plateformes dPOS du marchÃ©."
+              ]
+            },
+            {
+              title: "CMS Hydra",
+              imageKey: 'hydra',
+              descriptions: [
+                "Hydra est un systÃ¨me de gestion de contenu (CMS) Ã©crit en pur JavaScript: il est compatible avec IPFS (InterPlanetary File SystÃ¨me) et est incorporÃ© dans le cluster de noeuds de stockage de Shift. Cela fait de Shift le tout premier projet Ã  offrir une solution de base de donnÃ©es dÃ©centralisÃ©e au protocole prometteur de distribution hypermedia. Cela permet Ã  la plateforme applicative Shift de gÃ©rer l'hÃ©bergement web dÃ©centralisÃ© de contenus dynamiques.",
+                "L'Ã©quipe Shift travaille Ã©galement sur la compatibilitÃ© des websockets avec IPFS, de faÃ§on Ã  obtenir un socket 'client' cÃ´tÃ© IPFS et un socket 'serveur' cÃ´tÃ© cluster, mÃªme si le systÃ¨me de pubsub IPFS est encore en dÃ©veloppement et pas encore utilisable en tant qu'alternative aux websockets traditionnels. La solution de sockets Shift permettra d'hÃ©berger des sites web de type 'temps rÃ©el' qui seront vÃ©ritablement dÃ©centralisÃ©s."
+              ]
+            },
+            {
+              title: "Controleur de DNS Jenga",
+              imageKey: 'jenga',
+              descriptions: [
+                "Jenga est un contrÃ´leur DNS (Domain Name System) qui surveille en continu tous les noeuds de stockage sur le cluster Shift afin de gÃ©rer les entrÃ©es DNS. Les noeuds pointant sur des entrÃ©es DNS ne fonctionnant pas/mal sont supprimÃ©es du cluster. Le rÃ©sultat est un systÃ¨me presque complÃ¨tement rÃ©sistant aux attaques DDoS. Un domaine peut rediriger partout, de dix Ã  mille noeuds qui distribueront vos fichiers.",
+                "Nous avons trouvÃ© une faÃ§on intelligente pour relier l'internet 'classique' (DNS/http) au nouveau web. Jenga est le plus proche de que l'on pourrait appeler un DNS dÃ©centralisÃ©, mÃªme si un vÃ©ritable systÃ¨me de ce type n'existe pas vraiment encore. Tout cela est accompli sans que l'utilisateur final n'ait besoin d'installer une quelconque extension tierce, plugin, ou add-on sur son navigateur. Pour rÃ©sumer, Shift est un premier pas dans ce que l'on peut appeler le Web 3.0: non censurable, et sÃ©curisÃ©."
+              ]
+            },
+            {
+              title: "Couche de stockage dÃ©centralisÃ©",
+              imageKey: 'phantom',
+              descriptions: [
+                "Shift utilise un protocole de distribution hypermedia p2p appelÃ© IPFS (InterPlanetary File System) en tant que couche de stockage sur la blockchain. En quelques mots, IPFS est un protocole bien plus intelligent que HTTP, car il utilise un stockage de fichiers basÃ© sur leur hash, contrairement Ã  HTTP qui se base sur leur localisation. L'Ã©quipe Shift considÃ¨re ce protocole comme un contributeur clef de la dÃ©centralisation d'Internet. Outre IPFS (Filecoin), Shift est largement en avance dans le dÃ©veloppement de son outil IPFS et sur l'implÃ©mentation d'IPFS dans la technologie blockchain. Shift est le premier projet Ã  parvenir Ã  la construction d'un cluster IPFS dÃ©diÃ© au stockage de donnÃ©es. Le prototype, en pre-beta, est dÃ©jÃ  fonctionnel sur le testnet Shift."
+              ]
+            }
+          ],
+          dapps: {
+            left: [
+              {
+                title: "Phantom",
+                descriptions: [
+                  "La premiÃ¨re dApp officielle de Shift, appelÃ©e Phantom, est une interface utilisateur permettant la gestion de fichiers sur le rÃ©seau IPFS du cluster Shift. Les donnÃ©es peuvent Ãªtre Ã©pinglÃ©es - en se basant sur un modÃ¨le de services 'tokenomic' (Ã©conomie basÃ©e sur des tokens) - afin d'Ãªtre stockÃ© de faÃ§on permanente sur le cluster. Phantom permet Ã©galement l'hÃ©bergement web dÃ©centralisÃ©, et supporte la gestion de vÃ©ritables domaines de premier niveau."
+                ]
+              },
+              {
+                title: "Sidechains",
+                descriptions: [
+                  "Phantom aura bientÃ´t sa propre chain, qui sera une sidechain reliÃ©e Ã  la mainchain Shift. La sidechain Phantom aura ses propres rÃ¨gles et types de transactions, permettant des possibilitÃ©s infinies. Le prototype, actuellement en pre-beta, est dÃ©jÃ  fonctionnel sur le testnet Shift. Le site web que vous visitez actuellement est dÃ©jÃ  hÃ©bergÃ© sur nos noeuds de stockage."
+                ]
+              }
+            ],
+            right: [
+              {
+                title: "ModÃ¨le de services 'tokenomics'",
+                descriptions: [
+                  "Le cluster consiste en une nuÃ©e de noeuds de stockages (pairs). Chaque dÃ©tenteur de token peut rejoindre le cluster, et offrir de l'espace disque (capacitÃ© de stockage) au cluster Shift. En 2018, Shift prÃ©sentera un modÃ¨le de services basÃ© sur des tokens qui rendra le fait de rejoindre le cluster financiÃ¨rement rentable.",
+                  "Les tokens Shift peuvent Ã©galement Ãªtre utilisÃ©s pour effectuer une requÃªte afin d'utiliser une certaine partie de l'espace disque proposÃ© par le cluster. Des donnÃ©es peuvent Ãªtre publiÃ©es et Ã©pinglÃ©es sur le cluster. Cela signifie qu'elles seront stockÃ©es de faÃ§on permanente sur le cluster - aussi longtemps que le gÃ©rant de ce contenu dÃ©tient des tokens en tant que Proof-of-Storage (preuve de stockage)."
+                ]
+              },
+              {
+                title: "Transferts de fichiers complÃ©mentaires",
+                descriptions: [
+                  "Il est Ã©galement possible d'envoyer des fichiers (sans frais) Ã  l'extÃ©rieur du cluster, Ã  tous les pairs connectÃ©s au cluster mais sans en faire partie. Cependant, ces pairs faisant fonctionner un deamon IPFS auront probablement un 'garbage collector', systÃ¨me nettoyant de leur stockage les fichiers de faÃ§on rÃ©guliÃ¨re, crÃ©ant un cache."
+                ]
+              }
+            ]
+          }
+        },
+        intro: {
+          title: "Vous Ãªtes dÃ©jÃ  sur le web dÃ©centralisÃ©",
+          subtitle: {
+            firstLine: "...sans extensions de navigateur, et sur de vÃ©ritables domaines de premier niveau.",
+            secondLine: "Phantom: la dApp phare de Shift faite pour bouleverser l'industrie de l'hÃ©bergement."
+          },
+          dataTitle: "En effet, ce site est hÃ©bergÃ©, rÃ©pliquÃ© et contrÃ´lÃ© via le cluster IPFS Shift !"
+        },
+        uses: {
+          title: "Rejoignez la RÃ©volution du Nouveau Web",
+          items: [
+            {
+              title: "L'une des plus grandes menaces planant sur le web aujourd'hui n'est autre que le web lui-mÃªme.",
+              description: "Les entreprises peuvent fermer brutalement (ex: Gothamist, DNAinfo), emportant avec elles des donnÃ©es utilisateur. Shift et Phantom permettent d'Ã©viter ce type de dÃ©sastres: les contenus utilisateur sont stockÃ©s de faÃ§on dÃ©centralisÃ©e, en s'assurant que les propriÃ©taires conservent toujours l'accÃ¨s Ã  leurs donnÃ©es."
+            },
+            {
+              title: "Dans un futur proche, le web Ã©voluera au-delÃ  des sytÃ¨mes et infrastructures existants.",
+              description: "Dans cette optique, de nouveaux protocoles et services doivent Ãªtre rendus accessibles Ã  tous afin de crÃ©er une nouvelle rÃ©volution web. C'est la mission de Shift et de Phantom: amÃ©liorer et remplacer les fournisseurs d'hÃ©bergement classique et de DNS."
+            },
+            {
+              title: "Pour qu'un systÃ¨me dÃ©centralisÃ© fonctionne, les utilisateurs doivent participer et en tirer un bÃ©nÃ©fice.",
+              description: "C'est la que Shift entre en jeu: il offre un token 'utilitaire' que les clients peuvent utiliser dans son Ã©cosystÃ¨me afin de sÃ©curiser leur stockage sur la dApp Phantom, ou d'Ã©changer des services avec les autres utilisateurs. L'algorithme de consensus dPOS (Delegated Proof-of-Stake) de Shift permet Ã©galement d'offrir des bÃ©nÃ©fices aux utilisateurs participant au processus de vote, qui rÃ©compense les contributeurs apportant des noeuds fiables au rÃ©seau."
+            },
+            {
+              title: "La NeutralitÃ© du Net est une des plus grandes menaces aujourd'hui en ce qui concerne l'accÃ¨s Ã  Internet.",
+              description: "Les fournisseurs d'accÃ¨s peuvent ralentir volontairement le dÃ©bit, ou facturer des frais additionnels pour accÃ©der Ã  certains services. Avec Phantom, il est possible de contourner les effets de telles pratiques, puisque les donnÃ©es ne sont jamais centralisÃ©es. Il est quasiment impossible de bloquer un site web fourni par un groupe de pairs, contrairement Ã  la facilitÃ© avec laquelle il est possible de filtrer l'accÃ¨s Ã  certains services ayant des 'empreintes' Internet connues."
+            }
+          ],
+          specs: {
+            title: "SpÃ©cifications techniques",
+            consensusAlgorithm: "Consensus algorithm",
+            delegatedProofOfStake: "Delegated Proof-Of-Stake",
+            blockProducers: "Block",
+            blockTime: "Block time",
+            seconds: "secondes",
+            roundTime: "Round time",
+            minutes: "minutes",
+            blockReward: "Block reward",
+            forger: "forger",
+            project: "project",
+            supply: "Supply",
+            inflation: "inflation",
+            marketListings: "Market listings",
+            mediaTitle: "DÃ©couvrez Shift dans les MÃ©dias"
+          }
+        },
+        why: {
+          items: [
+            {
+              title: "Quel point commun ont tous les systÃ¨mes d'exploitation?",
+              descriptions: [
+                "Prenons un exemple d'application dite 'killer app': le tableur logiciel VisiCalc propulsÃ© par les ordinateurs personnels Apple II ont connu des niveaux d'adoption jamais atteints au dÃ©but des annÃ©es 80, simplement du fait que pendant dix mois, le meilleur tableau logiciel du marchÃ© n'Ã©tait disponible que sur ces machines.",
+                "De la mÃªme faÃ§on, Microsoft a investi lourdement dans la prommotion d'Internet Explorer en tant qu'application 'user-friendly' Ã  destination du grand public, car ils avaient compris que mÃªme sans faire d'IE le meilleur navigateur web du marchÃ©, l'inclure en tant qu'application 'bonus' dans Windows faciliterait l'adoption de ce dernier et de leur OS, menant ensuite les dÃ©veloppeurs logiciels Ã  emboÃ®ter le pas dans un effet 'boule de neige', ce qui a conduit Ã  rendre inÃ©vitable leur dominance sur le marchÃ©."
+              ]
+            },
+            {
+              title: "Shift est la premiÃ¨re blockchain nouvelle gÃ©nÃ©ration avec une 'killer dApp' prÃ©-intÃ©grÃ©e.",
+              descriptions: [
+                "Pendant que d'autres sociÃ©tÃ©s sont occupÃ©es Ã  Ã©crire des livres blancs et Ã  lever des centaines de millions de dollars, Shift s'est concentrÃ© sur le dÃ©veloppement: nous avons crÃ©Ã© le squelette d'un Ã©cosystÃ¨me robuste de dApps, parallÃ¨lement Ã  une plateforme de dÃ©centralisation dPOS solide et dÃ©mocratique, qui peut Ãªtre utilisÃ©e par n'importe qui maitrisant JavaScript. La dApp Phantom crÃ©era un nouveau web dÃ©centralisÃ©, autonomisant les utilisateurs de tous les jours et gardant leurs donnÃ©es en lieu sÃ»r.",
+                "Nous sommes confiants dans le fait que proposer la premiÃ¨re infrastructure d'hÃ©bergement Ã  bas prix, facile Ã  utiliser, dÃ©centralisÃ©e, permettant aux utilisateurs d'Ã©conomiser de l'argent par rapport aux mÃ©thodes traditionnelles de stockage de fichiers et protÃ©geant leurs contenus de censures externes, aura l'effet d'un stimulus massif menant Ã  l'adoption de Shift par le grand public."
+              ]
+            }
+          ]
+        }
+      },
+      kr: {
+        how: {
+          title: "Shiftì˜ ìž‘ë™ ì›ë¦¬ëŠ” ë‹¤ìŒê³¼ ê°™ìŠµë‹ˆë‹¤.",
+          sliderItems: [
+            {
+              title: "ë¶„ê¶Œëœ ì•±",
+              imageKey: 'dapps',
+              descriptions: [
+                "ShiftëŠ” ì ‘ê·¼ì´ ê°€ëŠ¥í•˜ê³  ì†ŒìŠ¤ê°€ ê³µê°œëœ ë¸”ë¡ ì²´ì¸ ì‘ìš© í”„ë¡œê·¸ëž¨ í”Œëž«í¼ìž…ë‹ˆë‹¤. ê°œë°œìžëŠ” ëˆ„êµ¬ë‚˜ ì‰½ê²Œ ì ‘ê·¼í•  ìˆ˜ ìžˆëŠ” ì„¤ì¹˜ ë°©ë²•ì˜ ìž¥ì ì„ í™œìš©í•˜ì—¬ ìžì²´ ë¶„ì‚° ì‘ìš© í”„ë¡œê·¸ëž¨ (dApp)ì„ ë§Œë“œëŠ” ê²ƒì´ ê°€ëŠ¥í•©ë‹ˆë‹¤. ê°ê°ì˜ dAppì—ëŠ” Shiftì˜ ë©”ì¸ ì²´ì¸ê³¼ ë…ë¦½ì ì¸ ìžì²´ ì‚¬ì´ë“œ ì²´ì¸ì´ ìžˆì§€ë§Œ ì‚¬ì´ë“œ ì²´ì¸ì€ ì—¬ì „ížˆ ë©”ì¸ ì²´ì¸ì— ì—°ê²°í•˜ì—¬ ë™ê¸°í™” í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ì´ê²ƒì€ ë©”ì¸ ì²´ì¸ì˜ ì•ˆì •ì„±ì„ í•´ì¹˜ì§€ ì•Šìœ¼ë©° ë˜í•œ ë¬´í•œ í™•ìž¥ì„ ê°€ëŠ¥í•˜ê²Œ í•©ë‹ˆë‹¤.",
+                "Shiftì˜ ë¸”ë¡ì²´ì¸ ê¸°ìˆ ì€ JavaScriptë¡œ ì“°ì—¬ì ¸  ì½”ë“œ ê°œë°œìžë“¤ì´ ì´ë¯¸ í”„ë¡œê·¸ëž˜ë° ì–¸ì–´ì— ì¹œê·¼í•˜ê¸° ë•Œë¬¸ì— ëŒ€ëŸ‰ ì±„íƒì„ ê¶Œìž¥í•©ë‹ˆë‹¤. ëª¨ë“  dAppëŠ” ìœ ë§í•œ P2P í•˜ì´í¼ë¯¸ë””ì–´ ë¶„ì‚° í”„ë¡œí† ì½œì¸ InterPlanetary File Systemì„ ì‚¬ìš©í•˜ì—¬ Shiftë¥¼ ì†Œìœ í•œ IPFS í´ëŸ¬ìŠ¤í„°ì— ì—°ê²°í•˜ì—¬ ë°ì´í„°ë¥¼ ì €ìž¥í•©ë‹ˆë‹¤. ìœ í‹¸ë¦¬í‹° ì½”ì¸ìœ¼ë¡œ ì •ì˜ ë‚´ë ¤ì§„ Shift í† í°ì˜ ì¡´ìž¬ëŠ” ëª¨ë“  dApp ì†Œìœ ìžê°€ ë³¸ì¸ì˜ dAppì—ì„œ ë””ì§€í„¸ ìžì‚°ì— ëŒ€í•œ ê³ ìœ ì˜ ìˆ˜ìµ ì°½ì¶œ ëª¨ë¸ êµ¬í˜„ ë° ê±°ëž˜ í”Œëž«í¼ì„ ì‹¤í–‰ í•  ìˆ˜ ìžˆê²Œ í•©ë‹ˆë‹¤."
+              ]
+            },
+            {
+              title: "dPOS ë¸”ë¡ ì²´ì¸",
+              imageKey: 'dpos',
+              descriptions: [
+                "ShiftëŠ” ìœ„ìž„ ëœ ì§€ë¶„ì¦ëª…(dPOS) ë°©ì‹ì˜ í•©ì˜ ì•Œê³ ë¦¬ì¦˜ì„ ì‚¬ìš©í•˜ë©°, ë„¤íŠ¸ì›Œí¬ëŠ” ë§ˆìŠ¤í„° ë…¸ë“œì™€ ìœ„ìž„ ë…¸ë“œë¡œ êµ¬ì„±ì´ ì´ë£¨ì–´ ì§‘ë‹ˆë‹¤. ëŒ€í‘œë‹¨ ë…¸ë“œëŠ” ë¸”ë¡ì²´ì¸ (ì¦‰, ë¶„ì‚° ë° ë¶„ì‚° ì›ìž¥)ì„ ë³€ê²½í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ë¸”ë¡ì„ ìƒì„±í•˜ëŠ” ëŒ€í‘œê°€ ë˜ê¸° ìœ„í•´ì„œ ì»¤ë®¤ë‹ˆí‹°ì˜ ë“í‘œë¥¼ ì–»ëŠ” ê²ƒì„ ê¸°ë°˜ìœ¼ë¡œ ë¬´ì œí•œì˜ ëŒ€ë¦¬ìž ë…¸ë“œ ì¤‘ 101ê°œê°€ ëŒ€í‘œë‹¨ì— ì°¸ì—¬í•˜ë„ë¡ ì„ íƒë©ë‹ˆë‹¤. ëª¨ë“  í† í° ë³´ìœ ìžëŠ” ê°€ìž¥ ì¢‹ì•„í•˜ëŠ” 101ëª…ì˜ ëŒ€í‘œìžì—ê²Œ ìµœëŒ€ 101ê°œì˜ íˆ¬í‘œë¥¼ í•˜ê³  ëŒ€ë¦¬ì¸ì´ ë  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. íˆ¬í‘œëŠ” í† í° ë³´ìœ ìžì˜ ê³„ì • ë‚´ì˜ ê³„ì¢Œì— ë¹„ë¡€í•©ë‹ˆë‹¤. ëª¨ë“  ëŒ€í‘œë‹¨ ë¼ìš´ë“œì—ì„œ ìŠ¹ì¸ ë¹„ìœ¨ì´ ê°€ìž¥ ë†’ì€ (ì¦‰, ê°€ìž¥ ë§Žì€ ì–‘ì˜ Shift í† í°ì´ ë’·ë°›ì¹¨ë˜ëŠ”) 101 ëª…ì˜ ëŒ€í‘œê°€ ëŒ€í‘œë‹¨ ë¼ìš´ë“œë¥¼ ìœ„í•œ ë¸”ë¡ì„ ìƒì„±í•˜ë„ë¡ ì„ íƒë©ë‹ˆë‹¤. ë¸”ë¡ ìƒì„±ì„ ë§¡ì€ ëŒ€í‘œëŠ” ShiftNRG ì†Œí”„íŠ¸ì›¨ì–´ì—ì„œ ì œê³µí•˜ëŠ” ìƒˆë¡œìš´ í† í° í˜•íƒœë¡œ ë¸”ë¡ ë³´ìƒì„ ì œê³µë°›ê²Œ ë©ë‹ˆë‹¤.",
+                "ì´ ì‹œìŠ¤í…œì€ í† í° ë³´ìœ ìžê°€ ê°€ìž¥ ë†’ì€ ìƒì‚°ì„±ì„ ê°€ì§„ ëŒ€í‘œìžì—ê²Œ íˆ¬í‘œ í•  ë•Œë¿ë§Œ ì•„ë‹ˆë¼ í”„ë¡œì íŠ¸ ê°œë°œì—ì„œ ì‹œí”„íŠ¸ í† í°ì˜ ì¼ë¶€ë¥¼ ìž¬íˆ¬ìží•˜ëŠ” ë°©ë²•ìœ¼ë¡œ ëŒ€í‘œìžì—ê²Œ ìµœìƒì˜ ê¸°ëŠ¥ì„ ì œê³µí•©ë‹ˆë‹¤. ShiftëŠ” ì‹œìž¥ì— ëŸ°ì¹­ëœ dPOS í”Œëž«í¼ì˜ ìƒíƒœê³„ ë‚´ì—ì„œ ë…ë³´ì   dPOS í•©ì˜ ì•Œê³ ë¦¬ì¦˜ì˜ ìƒˆ ë²„ì „ ë„ìž…ì„ ê³„íší•˜ê³  ìžˆìŠµë‹ˆë‹¤."
+              ]
+            },
+            {
+              title: "ížˆë“œë¼ CMS",
+              imageKey: 'hydra',
+              descriptions: [
+                "HydraëŠ” ìˆœìˆ˜ JavaScriptë¡œ ìž‘ì„±ëœ ì½˜í…ì¸  ê´€ë¦¬ ì‹œìŠ¤í…œ(CMS)ìž…ë‹ˆë‹¤. InterPlanetary File Systemê³¼ í˜¸í™˜ë˜ë©° ì €ìž¥ì†Œ ë…¸ë“œì˜ Shift í´ëŸ¬ìŠ¤í„°ì— ë¯¸ë¦¬ ë‚´ìž¥ë˜ì–´ ìžˆìŠµë‹ˆë‹¤.  ë”°ë¼ì„œ ShiftëŠ” ìœ ë§í•œ í•˜ì´í¼ ë¯¸ë””ì–´ ë°°ë¶„ í”„ë¡œí† ì½œì— ë¶„ì‚° ëœ ë°ì´í„°ë² ì´ìŠ¤ ì†”ë£¨ì…˜ì„ ì œê³µí•˜ê²Œ ë˜ëŠ” ìµœì´ˆì˜ í”„ë¡œì íŠ¸ìž…ë‹ˆë‹¤. ì‚¬ì „ì— êµ¬ì¶•í•˜ëŠ” ê²ƒì„ í—ˆìš©í•¨ìœ¼ë¡œì¨ Shift ì• í”Œë¦¬ì¼€ì´ì…˜ í”Œëž«í¼ì€ ë™ì  ì»¨í…ì¸ ì˜ ë¶„ì‚° ëœ ì›¹ í˜¸ìŠ¤íŒ…ì„ ì§€ì›í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.",
+                "Shift íŒ€ì€ ì›¹ ì†Œì¼“ê³¼ IPFSì˜ í˜¸í™˜ì„±ì— ëŒ€í•´ì„œë„ ì—°êµ¬í•˜ê³  ìžˆìŠµë‹ˆë‹¤. IPFSì˜ pubsubëŠ” ì•„ì§ ê°œë°œ ë‹¨ê³„ì´ë©° ì•„ì§ ì´ì „ì— ì‚¬ìš©ë˜ë˜ ë°©ì‹ì˜ ëŒ€ì²´ì•ˆìœ¼ë¡œ ëª¨ë‘ ì™„ì„±ë˜ì§€ëŠ” ì•Šì•˜ì§€ë§Œ IPFSì™€ ì†Œì¼“ ì„œë²„ì— ì†Œì¼“ í´ë¼ì´ì–¸íŠ¸ê°€ ìžˆì„ ê²ƒìž…ë‹ˆë‹¤.  Shiftì˜ ì†Œì¼“ ì†”ë£¨ì…˜ì€ ì§„ì •ìœ¼ë¡œ ë¶„ì‚° ëœ â€œì‹¤ì‹œê°„â€ì›¹ ì‚¬ì´íŠ¸ë¥¼ í˜¸ìŠ¤íŠ¸ í•  ìˆ˜ ìžˆëŠ” ê¸°ëŠ¥ì„ ì§€ì›í•©ë‹ˆë‹¤."
+              ]
+            },
+            {
+              title: "Jenga DNS ëª¨ë‹ˆí„°",
+              imageKey: 'jenga',
+              descriptions: [
+                "JengaëŠ” DNS ê¸°ë¡ë“¤ì„ ì±„ìš°ê¸° ìœ„í•œ Shift í´ëŸ¬ìŠ¤í„°ì˜ ëª¨ë“  ì €ìž¥ ìž¥ì¹˜ ë…¸ë“œë¥¼ ì§€ì†ì ìœ¼ë¡œ ëª¨ë‹ˆí„°ë§í•˜ëŠ” ë„ë©”ì¸ ë„¤ìž„ ì‹œìŠ¤í…œ (DNS) ëª¨ë‹ˆí„°ìž…ë‹ˆë‹¤. ë¹„ì •ìƒì ì¸ DNS ê¸°ë¡ì„ ê°€ë¦¬í‚¤ëŠ” ë…¸ë“œëŠ” í´ëŸ¬ìŠ¤í„°ì—ì„œ ì‚­ì œë©ë‹ˆë‹¤. ê·¸ ê²°ê³¼ë¡œ ìƒì„±ë˜ëŠ” êµ¬ì¡°ëŠ” DDoS ê³µê²©ì— ê±°ì˜ ì™„ë²½í•˜ê²Œ ì €í•­í•©ë‹ˆë‹¤. í•˜ë‚˜ì˜ ë„ë©”ì¸ì€ íŒŒì¼ì„ ì œê³µí•˜ëŠ” 10ê°œì—ì„œ 1ì²œê°œì˜ ë…¸ë“œë¡œ ì–´ë””ì—ì„œë“  ì§€ëª©í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.",
+                "ìš°ë¦¬ëŠ” ì˜¤ëž˜ëœ ì¸í„°ë„· (DNS / http)ì„ ìƒˆ ì›¹ì— ì—°ê²°í•˜ëŠ” ìŠ¤ë§ˆíŠ¸í•œ ë°©ë²•ì„ ë°œê²¬í–ˆìŠµë‹ˆë‹¤. JengaëŠ” ë¶„ê¶Œí™” ëœ DNSì— ê°€ìž¥ ê°€ê¹Œì´ì— ì¡´ìž¬í•©ë‹ˆë‹¤.  ê·¸ ì´ìœ ëŠ” ì§„ì •ìœ¼ë¡œ ë¶„ê¶Œí™” ëœ DNSëŠ” ì•„ì§ ì¡´ìž¬í•˜ì§€ ì•Šê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤. ì´ê²ƒì€ ìµœì¢… ì‚¬ìš©ìžê°€ íƒ€ì‚¬ í™•ìž¥, í”ŒëŸ¬ê·¸ì¸ ë˜ëŠ” ë¸Œë¼ìš°ì € ì• ë“œì˜¨ì„ ì„¤ì¹˜í•˜ì§€ ì•Šê³ ë„ ìˆ˜í–‰ë©ë‹ˆë‹¤. ë³¸ì§ˆì ìœ¼ë¡œ, ShiftëŠ” ì´ë¯¸ ì›¹ 3.0ì˜ ì„¸ê³„ ìµœì´ˆì˜ ì„¸ë ¨ë¨ì„ ë³´ì—¬ì¤ë‹ˆë‹¤ : ì™„ë²½í•˜ë©° ì•ˆì „í•©ë‹ˆë‹¤."
+              ]
+            },
+            {
+              title: "ë¶„ì‚° ëœ ì €ìž¥ ë ˆì´ì–´",
+              imageKey: 'phantom',
+              descriptions: [
+                "ShiftëŠ” P2P í•˜ì´í¼ ë¯¸ë””ì–´ ë°°ë¶„ í”„ë¡œí† ì½œ ì¸ InterPlanetary File Systemì„ ë¸”ë¡ ì²´ì¸ì˜ ì €ìž¥ì†Œ ë ˆì´ì–´ë¡œ ì‚¬ìš©í•©ë‹ˆë‹¤. ë³¸ì§ˆì ìœ¼ë¡œ, IPFSëŠ” ìœ„ì¹˜ ê¸°ë°˜ ì €ìž¥ì†Œë¥¼ ì‚¬ìš©í•˜ëŠ” HTTPì™€ëŠ” ë‹¬ë¦¬ í•´ì‹œ ê¸°ë°˜ íŒŒì¼ ì €ìž¥ì†Œë¥¼ ì‚¬ìš©í•˜ê¸° ë•Œë¬¸ì— IPFSëŠ” HTTPë³´ë‹¤ í›¨ì”¬ ìŠ¤ë§ˆíŠ¸í•œ í”„ë¡œí† ì½œìž…ë‹ˆë‹¤. Shift íŒ€ì€ì´ í”„ë¡œí† ì½œì„ ì¸í„°ë„·ì˜ ë¶„ê¶Œí™”ì— ì£¼ìš” í•µì‹¬ìœ¼ë¡œ ê°„ì£¼í•©ë‹ˆë‹¤. IPFS (Filecoin) ì™¸ì—ë„ ShiftëŠ” IPFS ë„êµ¬ ê°œë°œ ë° ë¸”ë¡ ì²´ì¸ ê¸°ìˆ ì„ ì‚¬ìš©í•˜ëŠ” IPFS êµ¬í˜„ì— ì•žìž¥ì„œê³  ìžˆìŠµë‹ˆë‹¤. ShiftëŠ” ë°ì´í„° ì €ìž¥ì„ ìœ„í•´ ìž‘ë™í•˜ëŠ” IPFS í´ëŸ¬ìŠ¤í„°ë¥¼ ì„±ê³µì ìœ¼ë¡œ êµ¬ì¶• í•œ ìµœì´ˆì˜ í”„ë¡œì íŠ¸ìž…ë‹ˆë‹¤. í”„ë¡œí†  íƒ€ìž… ì¸ ìš°ë¦¬ì˜ í”„ë¦¬-ë² íƒ€ëŠ” ì´ë¯¸ Shiftì˜ í…ŒìŠ¤íŠ¸ë„·ì—ì„œ ìž‘ë™í•˜ê²Œ ë©ë‹ˆë‹¤."
+              ]
+            }
+          ],
+          dapps: {
+            left: [
+              {
+                title: "íŒ¬í…€",
+                descriptions: [
+                  "Shiftì˜ ì²« ë²ˆì§¸ ê³µì‹ dApp ì¸ íŒ¬í…€ì€ Shiftì˜ í´ëŸ¬ìŠ¤í„°ì—ì„œ IPFS ë„¤íŠ¸ì›Œí¬ë¥¼ í†µí•œ íŒŒì¼ ê´€ë¦¬ë¥¼ ìœ„í•œ ì‚¬ìš©ìž ë§žì¶¤ ì¸í„°íŽ˜ì´ìŠ¤ìž…ë‹ˆë‹¤. í† í° í˜• ì„œë¹„ìŠ¤ ëª¨ë¸ì„ ê¸°ë°˜ìœ¼ë¡œ ë°ì´í„°ë¥¼ ê³ ì •í•˜ì—¬ í´ëŸ¬ìŠ¤í„°ì— ì˜êµ¬ ì €ìž¥í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. íŒ¬í…€ì€ ë˜í•œ ë¶„ì‚° ì›¹ í˜¸ìŠ¤íŒ…ì´ ê°€ëŠ¥í•˜ë„ë¡ ì‹¤ì œ ìµœìƒìœ„ ë„ë©”ì¸ì˜ ê´€ë¦¬ë¥¼ ì§€ì›í•˜ëŠ” ë„ìš°ë¯¸ í”„ë¡œê·¸ëž¨ì„ í¬í•¨í•©ë‹ˆë‹¤."
+                ]
+              },
+              {
+                title: "ì‚¬ì´ë“œ ì²´ì¸",
+                descriptions: [
+                  "íŒ¬í…€ì€ Shiftì˜ ë©”ì¸ ì²´ì¸ì— ì—°ê²°ëœ ì‚¬ì´ë“œ ì²´ì¸ì²˜ëŸ¼ ê³§ ìžì²´ì ì¸ ì²´ì¸ì„ ê°–ê²Œ ë©ë‹ˆë‹¤. íŒ¬í…€ì˜ ì‚¬ì´ë“œ ì²´ì¸ì€ ìžì²´ ê·œì¹™ê³¼ íŠ¸ëžœìž­ì…˜ ìœ í˜•ì„ ê°€ì§€ë¯€ë¡œ ë¬´í•œí•œ ê°€ëŠ¥ì„±ì„ ê°€ëŠ¥í•˜ê²Œ í•©ë‹ˆë‹¤.  í”„ë¦¬-ë² íƒ€ì¸ í”„ë¡œí† íƒ€ìž…ì€ ì´ë¯¸ Shiftì˜ í…ŒìŠ¤íŠ¸ë„·ì—ì„œ ìž‘ë™í•©ë‹ˆë‹¤. ì´ ì›¹ ì‚¬ì´íŠ¸ëŠ” ì´ë¯¸ ì €ìž¥ ë…¸ë“œì— ìš´ì˜ë˜ê³  ìžˆìŠµë‹ˆë‹¤."
+                ]
+              }
+            ],
+            right: [
+              {
+                title: "í† í°ê²½ì œ ì„œë¹„ìŠ¤ ëª¨ë¸",
+                descriptions: [
+                  "í´ëŸ¬ìŠ¤í„°ëŠ” ì €ìž¥ ë…¸ë“œë“¤(í”¼ì–´)ë¡œ êµ¬ì„±ë©ë‹ˆë‹¤. ëª¨ë“  í† í° ë³´ìœ ìžëŠ” í´ëŸ¬ìŠ¤í„°ì— ì°¸ì—¬í•  ìˆ˜ ìžˆìœ¼ë©° ë””ìŠ¤í¬ ê³µê°„ (ì €ìž¥ ìš©ëŸ‰)ì„ Shift í´ëŸ¬ìŠ¤í„°ì— ì œê³µ í•  ìˆ˜ ìžˆê²Œ ë©ë‹ˆë‹¤. 2018ë…„ì— ShiftëŠ” í´ëŸ¬ìŠ¤í„°ì— ì°¸ì—¬í•˜ëŠ” ê²ƒì´ ê²½ì œì ìœ¼ë¡œ ìœ ìµí•œ í† í°ê²½ì œ ì„œë¹„ìŠ¤ ëª¨ë¸ì„ ì œì‹œí•©ë‹ˆë‹¤.",
+                  "Shiftí† í°ì€ í´ëŸ¬ìŠ¤í„°ì—ì„œ ì œê³µë˜ëŠ” ì‚¬ìš© ê°€ëŠ¥í•œ ë””ìŠ¤í¬ ê³µê°„ì˜ íŠ¹ì • ë¶€ë¶„ì„ ì‚¬ìš©í•˜ë„ë¡ ìš”ì²­í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ë˜í•œ, ë°ì´í„°ë¥¼ ê²Œì‹œí•˜ê³  í´ëŸ¬ìŠ¤í„°ì— ê³ ì • í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ì¦‰, ì»¨í…ì¸  ê²Œì‹œìžê°€ í† í°ì„ ì§€ë¶„ ì¦ëª…ìœ¼ë¡œ ë³´ìœ í•˜ê³ ìžˆëŠ” í•œ í´ëŸ¬ìŠ¤í„°ì— ì˜êµ¬ ì €ìž¥ë©ë‹ˆë‹¤."
+                ]
+              },
+              {
+                title: "ë¬´ë£Œ íŒŒì¼ ì „ì†¡",
+                descriptions: [
+                  "ë˜í•œ í´ëŸ¬ìŠ¤í„° ì™¸ë¶€ì˜ íŒŒì¼ (ë¬´ë£Œ)ì„ í´ëŸ¬ìŠ¤í„°ì— ì—°ê²°ì‹œí‚¬ ìˆ˜ ë„ ìžˆì§€ë§Œ, í´ëŸ¬ìŠ¤í„°ì˜ ì¼ë¶€ê°€ ì•„ë‹Œ ëª¨ë“  ë™ë£Œì—ê²Œ ë³´ë‚¼ ìˆ˜ë„ ìžˆìŠµë‹ˆë‹¤. ê·¸ëŸ¬ë‚˜ IPFS ë°ëª¬ì„ ì‹¤í–‰í•˜ëŠ” ì´ëŸ¬í•œ í”¼ì–´ë“¤ì—ëŠ” ì €ìž¥ëœ íŒŒì¼ì„ ê°€ë” ì œê±°í•˜ì—¬ ë¶ˆí•„ìš”í•œ íŒŒì¼ ì¡°ê°ë“¤ì„ ëª¨ì„ ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+                ]
+              }
+            ]
+          }
+        },
+        intro: {
+          title: "ì§€ê¸ˆë¶€í„°, ë‹¹ì‹ ì€ ì´ë¯¸ ë¶„ê¶Œí˜• ì›¹ìƒì— ìžˆìŠµë‹ˆë‹¤.",
+          subtitle: {
+            firstLine: "ë¸Œë¼ìš°ì € í”ŒëŸ¬ê·¸ì¸ë„ ì—†ìœ¼ë©°, ìµœìƒìœ„ ë„ë©”ì¸ë„ ì—†ëŠ” ìƒí™©ìž…ë‹ˆë‹¤.",
+            secondLine: "ì´ê²ƒì€ íŒ¬í…€ìž…ë‹ˆë‹¤ : í˜¸ìŠ¤íŒ… ì‚°ì—…ì„ ë¶•ê´´ì‹œí‚¤ê¸° ìœ„í•œ Shiftì˜ ì£¼ë ¥ dAppìž…ë‹ˆë‹¤."
+          },
+          dataTitle: "ê·¸ê²ƒì€ ë§žë‹¤: ì´ ì›¹ì‚¬ì´íŠ¸ëŠ” êµëŒ€ IPFS ì†¡ì´ë¥¼ í†µí•´ì„œ ì ‘ëŒ€ë˜ê³ , ë³µì œë˜ê³ , ê°ì‹œëœë‹¤!"
+        },
+        uses: {
+          title: "ìƒˆë¡œìš´ ì›¹ í˜ëª…ì— ì°¸ì—¬í•˜ì„¸ìš”.",
+          items: [
+            {
+              title: "ì˜¤ëŠ˜ ë‚ ì˜ ì›¹ì— ëŒ€í•œ ê°€ìž¥ í° ìœ„í˜‘ ì¤‘ í•˜ë‚˜ëŠ” ì›¹ ê·¸ ìžì²´ìž…ë‹ˆë‹¤.",
+              description: "ê¸°ì—…ì€ ì˜ˆë¥¼ ë“¤ì–´ Gothamist, DNAinfoì™€ ê°™ì€ ê²ƒë“¤ì„ ì¼ë°©ì ìœ¼ë¡œ íì‡„ í•  ìˆ˜ ìžˆìœ¼ë©°, ë…ë¦½ì ì¸ ì‚¬ìš©ìžì˜ ë°ì´í„°ë¥¼ ìˆ˜ì§‘í•©ë‹ˆë‹¤. Shift ë° íŒ¬í…€ì€ ì´ëŸ¬í•œ ì¢…ë¥˜ì˜ ìž¬ì•™ì„ í”¼í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ì‚¬ìš©ìžì˜ ì½˜í…ì¸ ëŠ” ë¶„ì‚° ëœ ë°©ì‹ìœ¼ë¡œ ì €ìž¥ë˜ë¯€ë¡œ ìž‘ì„±ìžëŠ” í•­ìƒ ì•¡ì„¸ìŠ¤ ê¶Œí•œì„ ìœ ì§€í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+            },
+            {
+              title: "ê°€ê¹Œìš´ ë¯¸ëž˜ì— ì›¹ì€ ê¸°ì¡´ ì‹œìŠ¤í…œ ë° ì¸í”„ë¼ë¥¼ ë„˜ì–´ ë”ìš± ë°œì „ í•  ê²ƒìž…ë‹ˆë‹¤.",
+              description: "ê·¸ë ‡ê²Œ í•˜ê¸° ìœ„í•´ì„œëŠ” ëª¨ë“  ì‚¬ìš©ìžë“¤ì´ ìƒˆë¡œìš´ ì›¹ í˜ëª…ì— ì°¸ì—¬í•  ìˆ˜ ìžˆë„ë¡ ëŒ€ì²´ í”„ë¡œí† ì½œê³¼ ì„œë¹„ìŠ¤ê°€ ì¡´ìž¬í•´ì•¼ í•©ë‹ˆë‹¤. ì´ê²ƒì€ Shift ë° íŒ¬í…€ì´ ì¶”êµ¬í•˜ëŠ” ëª©í‘œ : ê¸°ì¡´ì˜ í˜¸ìŠ¤íŒ… ë° DNS ê³µê¸‰ìžë¥¼ ë”ìš± ê°•í™”í•˜ê³  ëŒ€ì²´í•©ë‹ˆë‹¤."
+            },
+            {
+              title: "ëª¨ë“  ë¶„ì‚° ì‹œìŠ¤í…œì´ ìž‘ë™í•˜ë ¤ë©´ ì‚¬ìš©ìžê°€ ì§ì ‘ ì°¸ì—¬í•´ì•¼ í•˜ë©° ìˆ˜ìµì„ ì–»ê¸° ìœ„í•´ ë°˜ë“œì‹œ ìœ ì§€í•´ì•¼í•©ë‹ˆë‹¤.",
+              description: "ì—”í„° Shift : ì‚¬ìš©ìžê°€ ìƒíƒœê³„ ë‚´ì—ì„œ íŒ¬í…€ dAppì˜ ì €ìž¥ì†Œë¥¼ ë³´í˜¸í•˜ê±°ë‚˜ ì„œë¹„ìŠ¤ë¥¼ ìœ„í•´ ë‹¤ë¥¸ ì‚¬ëžŒê³¼ ê±°ëž˜ê°€ ê°€ëŠ¥í•œ ìœ í‹¸ë¦¬í‹° í† í°ì„ ì œê³µí•©ë‹ˆë‹¤. Shiftì˜ ìœ„ìž„ ëœ ì§€ë¶„ì¦ëª… ì»¨ì„¼ì„œìŠ¤ ì•Œê³ ë¦¬ì¦˜ì„ ì‚¬ìš©í•˜ê²Œ ë˜ë©´ ì‹ ë¢°í•  ìˆ˜ ìžˆëŠ” ë…¸ë“œë¥¼ ë„¤íŠ¸ì›Œí¬ì— ê³µí—Œ í•œ ì‚¬ëžŒë“¤ì—ê²Œ íˆ¬í‘œ í•¨ìœ¼ë¡œì¨ ì‚¬ìš©ìžê°€ ëˆ„ë¦´ ìˆ˜ ìžˆëŠ” ì´ìµì„ ì–»ì„ ìˆ˜ ìžˆìŠµë‹ˆë‹¤."
+            },
+            {
+              title: "ë„· ì¤‘ë¦½ì„±ì€ ì¸í„°ë„·ì˜ ì ‘ì†ê³¼ ê´€ë ¨í•˜ì—¬ ì˜¤ëŠ˜ë‚  ê°€ìž¥ í° ìœ„í˜‘ ì¤‘ í•˜ë‚˜ë¡œ ë‹¤ê°€ì˜¤ê³  ìžˆìŠµë‹ˆë‹¤.",
+              description: "ê³µê¸‰ìžëŠ” ì—°ê²° ì†ë„ë¥¼ ë‚®ì¶”ê±°ë‚˜ íŠ¹ì • ì„œë¹„ìŠ¤ì— ì ‘ì†ì„ ìœ„í•´ ì¶”ê°€ ìš”ê¸ˆì„ ì²­êµ¬ í•  ìˆ˜ ìžˆê²Œ ë©ë‹ˆë‹¤. íŒ¬í…€ì„ ì‚¬ìš©í•˜ë©´ ë°ì´í„°ê°€ ì¤‘ì•™ ì§‘ì¤‘í™”ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì´ëŸ¬í•œ ì˜í–¥ì„ ë¯¸ë¦¬ í”¼í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤. ì¸í„°ë„·ìƒ í”ì ì„ ì•Œê³  ìžˆëŠ” íŠ¹ì • ì„œë¹„ìŠ¤ì— ëŒ€í•œ ì ‘ì†ì„ ì‰½ê²Œ ì¸¡ì • í•  ìˆ˜ ìžˆëŠ” ê²ƒê³¼ëŠ” ë‹¬ë¦¬, í”¼ì–´ ê·¸ë£¹ì—ì„œ ì œê³µë˜ëŠ” ì›¹ ì‚¬ì´íŠ¸ë¥¼ ì–»ëŠ” ê²ƒì€ ê±°ì˜ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤."
+            }
+          ],
+          specs: {
+            title: "ë„¤íŠ¸ì›Œí¬ ì‚¬ì–‘",
+            consensusAlgorithm: "í•©ì˜ ì•Œê³ ë¦¬ì¦˜",
+            delegatedProofOfStake: "ìœ„ìž„ ëœ ì§€ë¶„ ì¦ëª…",
+            blockProducers: "ë¸”ë¡ ìƒì‚°ìžë“¤",
+            blockTime: "ë¸”ë¡ ì‹œê°„",
+            seconds: "ì´ˆ",
+            roundTime: "ë¼ìš´ë“œ íƒ€ìž„",
+            minutes: "ë¶„",
+            blockReward: "ë¸”ë¡ ë³´ìƒ",
+            forger: "ëŒ€ìž¥ìž¥ì´",
+            project: "ê³„íš",
+            supply: "ê³µê¸‰",
+            inflation: "ì¸í”Œë ˆì´ì…˜",
+            marketListings: "ê±°ëž˜ì†Œ ë¦¬ìŠ¤íŠ¸",
+            mediaTitle: "ë¯¸ë””ì–´ì—ì„œ Shift ì •ë³´ ì½ê¸°"
+          }
+        },
+        why: {
+          items: [
+            {
+              title: "ì„±ê³µì ì¸ ìš´ì˜ ì‹œìŠ¤í…œì—ëŠ” ì–´ë– í•œ ê³µí†µì ì´ ìžˆì„ê¹Œìš”?",
+              descriptions: [
+                "â€œí‚¬ëŸ¬ ì•±â€ì˜ ì´ˆê¸°ë¥¼ ì˜ˆë¥¼ ë“¤ì–´ ìƒê°í•´ ë´…ì‹œë‹¤. VisiCalc ìŠ¤í”„ë ˆë“œ ì‹œíŠ¸ ì†Œí”„íŠ¸ì›¨ì–´ëŠ” 80ë…„ëŒ€ ì´ˆë°˜ Apple IIì¸ ê°œì¸ìš© ì»´í“¨í„°ë¥¼ ìƒˆë¡œìš´ ìˆ˜ì¤€ìœ¼ë¡œ ëŒì–´ ì˜¬ë ¸ìŠµë‹ˆë‹¤. ê°„ë‹¨ížˆ ë§í•´ì„œ 10ê°œì›” ê°„ ë§ˆì¼“ì—ì„œ ê°€ìž¥ ì¢‹ì€ ìŠ¤í”„ë ˆë“œ ì‹œíŠ¸ ì†Œí”„íŠ¸ì›¨ì–´ëŠ” Apple IIì—ì„œë§Œ ì‚¬ìš© ê°€ëŠ¥í–ˆê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤.",
+                "ë§ˆì°¬ê°€ì§€ë¡œ, MicrosoftëŠ” Internet Explorerë¥¼ ëŒ€ì¤‘ì—ê²Œ í˜¸ì†Œí•  ìˆ˜ ìžˆëŠ” ìœ ì €ì—ê²Œ ì¹œí™”ì ì¸ ì‘ìš© í”„ë¡œê·¸ëž¨ìœ¼ë¡œ í™ë³´í•˜ëŠ” ë° ë§Žì€ íˆ¬ìžë¥¼ í–ˆìŠµë‹ˆë‹¤. IEë¥¼ Windowsì—ì„œ ì œê³µí•˜ëŠ” ìµœìƒì˜ ë¸Œë¼ìš°ì €ë¡œ ì œìž‘í•˜ì§€ ì•Šì•˜ìŒì—ë„ Windowsì˜ ê¸°ë³¸ ì œê³µ ê¸°ëŠ¥ì„ í¬í•¨í•˜ì—¬ ë‘ ì‘ìš© í”„ë¡œê·¸ëž¨ ì†Œí”„íŠ¸ì›¨ì–´ ê°œë°œìžë“¤ì—ê²Œ ì‹œìž¥ ì§€ë°°ë ¥ì„ ë§ˆì¹˜ ëˆˆë©ì´ì²˜ëŸ¼ ì»¤ì§€ëŠ” íš¨ê³¼ë¥¼ ë§Œë“¤ì–´ë‚´ë„ë¡ ì œìž‘í•˜ì˜€ìŠµë‹ˆë‹¤."
+              ]
+            },
+            {
+              title: "ShiftëŠ” â€œí‚¬ëŸ¬ dAppâ€ìœ¼ë¡œ ë§Œë“¤ì–´ì§„ ì²«ë²ˆ ì§¸ ì°¨ì„¸ëŒ€ ë¸”ë¡ì²´ì¸ìž…ë‹ˆë‹¤.",
+              descriptions: [
+                "ë‹¤ë¥¸ íšŒì‚¬ë“¤ì´ ë°±ì„œë¥¼ ì œìž‘í•˜ê³  ìˆ˜ì–µ ë‹¬ëŸ¬ì˜ ìžê¸ˆì„ ëª¨ìœ¼ëŠ” ë° ë°”ìœ ë°˜ë©´ ShiftëŠ” ë°”ì˜ê²Œ ìš°ë¦¬ì˜ ì—…ë¬´ì— ì§‘ì¤‘í•˜ê³  ìžˆìŠµë‹ˆë‹¤. ìš°ë¦¬ëŠ” JavaScript ë‹¤ë£° ì¤„ ì•„ëŠ” ëª¨ë“  ì‚¬ìš©ìžë“¤ì´ ì´ìš©í•  ìˆ˜ ìžˆëŠ” ê°•ë ¥í•˜ê³  ë¯¼ì£¼ì ì¸ dPOS í”Œëž«í¼ì„ ê°–ì¶˜ ê²¬ê³ í•œ dApp ìƒíƒœê³„ì˜ ì¤‘ì‹¬ì„ ë§Œë“¤ì—ˆìŠµë‹ˆë‹¤. íŒ¬í…€ dAppê³¼ í•¨ê»˜í•˜ëŠ” ShiftëŠ” ìƒˆë¡œìš´ ë¶„ì‚° ì›¹ì„ ë§Œë“¤ì–´ ì¼ìƒì ì¸ ì‚¬ìš©ìžì—ê²Œ íž˜ì„ ì‹¤ì–´ì£¼ê³  ì»¨í…ì¸ ë¥¼ ì•ˆì „í•˜ê²Œ ìœ ì§€í•©ë‹ˆë‹¤.",
+                "ìš°ë¦¬ëŠ” ê¸°ì¡´ì— ì œê³µë˜ë˜ íŒŒì¼ì˜ ì €ìž¥ ë°©ë²•ê³¼ ë‹¤ë¥´ê²Œ ì‚¬ìš©ìžì˜ ë¹„ìš©ì„ ì ˆê°í•˜ê³  ì™¸ë¶€ ê²€ì—´ë¡œë¶€í„° ì»¨í…ì¸ ë¥¼ ë³´í˜¸í•  ìˆ˜ ìžˆëŠ” ì €ë ´í•œ ë¹„ìš©ì˜ ê°„íŽ¸í•œ ë¶„ì‚°í˜• í˜¸ìŠ¤íŒ… ì¸í”„ë¼ë¥¼ ì œê³µí•¨ìœ¼ë¡œì¨ Shiftê°€ ì£¼ë¥˜ê°€ ë  ìˆ˜ ìžˆëŠ” ì—„ì²­ë‚œ ìžê·¹ì œê°€ ë  ê²ƒì´ë¼ê³  í™•ì‹ í•©ë‹ˆë‹¤."
+              ]
+            }
+          ]
+        }
+      },
+      de: {
+        how: {
+          title: "Hier ist wie Shift funktioniert.",
+          sliderItems: [
+            {
+              title: "Dezentrale Programme",
+              imageKey: 'dapps',
+              descriptions: [
+                "Shift ist eine zugÃ¤ngliche und open-source Plattform fÃ¼r Blockchain Programme. Entwickler kÃ¶nnen Ihre eigenen dezentralen Programme (dApps) erstellen mit dem Vorteil eines leichten Setups. Jede dApp wird ihre eigene Sidechain haben welche unabhÃ¤ngig von Shifts Mainchain ist, wobei Sidechains trotzdem sich zur Mainchain verbinden und synchronisieren kÃ¶nnen. Dies ermÃ¶glicht unbegrenzte Skalierung ohne die StabilitÃ¤t von der Mainchain zu gefÃ¤hrden.",
+                "Shifts Blockchain Technologie ist in JavaScript geschrieben, was fÃ¶rderlich fÃ¼r die Massentauglichkeit ist, da Programmierer mit dieser Programmiersprache vertraut sind. Jede dApp hat Zugriff zu Shifts eigenem IPFS Cluster um Daten zu speichern mit einem vielversprechenden peer-2-peer â€žHypermedia Distributionâ€œ Protokoll, das InterPlanetary Dateisystem. Die Existenz des Shift Tokens - definiert als Utility Coin - erlaubt jedem dApp Besitzer ein intrinsisches Monetisierungsmodell oder eine Tradingplattform fÃ¼r digitale Assets in deren eigene dApp zu implementieren."
+              ]
+            },
+            {
+              title: "dPOS Blockchain",
+              imageKey: 'dpos',
+              descriptions: [
+                "Shift benutzt ein Delegate Proof-of-Stake (dPOS) Consensus Protokoll, wobei sein Netzwerk aus Masternodes und Delegate-Nodes besteht. Delegate-Nodes ist es erlaubt Ã„nderungen an der Blockchain zu machen (z.B., den verteilten und dezentralem Ledger). 101 von einer unbegrenzten Anzahl an Delegate-Nodes werden ausgewÃ¤hlt um in Delegate-Runden teilzunehmen, basierend auf Abstimmung der Community, um BlÃ¶cke erstellen zu dÃ¼rfen. Jedem Token Besitzer ist es mÃ¶glich 101 verschiedene Stimmen fÃ¼r deren 101 bevorzugten Delegates zu machen, und/oder ein Delegate selber zu bekommen. Eine Stimme ist proportional zu dem Kontostand des Token Besitzers. In jeder Delegate-Runde werden die 101 Delegates mit der hÃ¶chsten Akzeptanzrate (z.B., gestÃ¼tzt durch die hÃ¶chste Anzahl an Shift Tokens) ausgewÃ¤hlt um neue BlÃ¶cke fÃ¼r die Delegaterunde zu generieren. Ersteller von BlÃ¶cken werden mit Block Belohnungen in Form von neuen Tokens entlohnt welche durch die ShiftNRG Software herausgeben werden.",
+                "Das System funktioniert am besten, wenn Token Besitzer fÃ¼r Delegates wÃ¤hlen mit der hÃ¶chsten ProduktivitÃ¤t, als auch fÃ¼r Delegates, welche einen Teil der geforgten Shift Token in die Projektentwicklung reinvestieren."
+              ]
+            },
+            {
+              title: "Hydra CMS",
+              imageKey: 'hydra',
+              descriptions: [
+                "Hydra ist ein Content-Management-System (CMS) geschrieben in reinem JavaScript: es ist kompatibel mit dem InterPlanetary Dateisystem und ist vorgefertigt in dem Shift Cluster von Storage-Nodes. Dies macht Shift das erste Projekt welches dezentrale DatenbanklÃ¶sungen zu dem vielversprechenden Hypermedia-Distribution-Protokoll bringt. Dies ermÃ¶glicht der Shift Anwendungsplattform dezentrales Webhosting von dynamischen Inhalt zu unterstÃ¼tzen.",
+                "Das Shift Team arbeitet auch an der KompatibilitÃ¤t von Websockets mit IPFS, sodass es einen Socket Client bei IPFS und einen Socket Client bei dem Cluster geben wird, obwohl IPFSâ€™ Pubsub noch immer in Entwicklung ist und noch nicht als eine Alternative fÃ¼r traditionelle Websockets fertig gestellt wurde. Shifts Socket LÃ¶sung wird es ermÃ¶glichen â€œin Echtzeitâ€ Webseiten zu hosten die wirklich dezentral sind."
+              ]
+            },
+            {
+              title: "Jenga DNS Ãœberwachung",
+              imageKey: 'jenga',
+              descriptions: [
+                "Jenga ist eine Domain-Name-System (DNS) Ãœberwachung welche kontinuierlich alle Storage-Nodes im Shift Cluster Ã¼berwacht um DNS EintrÃ¤ge einzutragen. Nodes welche zu einem DNS Eintrag zeigen der nicht in Ordnung ist, werden von dem Cluster entfernt. Das resultierende Konstrukt ist fast resistent gegen DDoS Attacken. Eine Domain kann irgendwo hinzeigen, von zehn bis eintausend Nodes welche ihre Daten zu VerfÃ¼gung stellen.",
+                "Wir haben daher einen intelligenten Weg gefunden um das alte Internet (DNS/http) mit dem Neuen zu verbinden. Jenga ist das NÃ¤heste durch das Sie zu einer dezentralen DNS kommen kÃ¶nnen, da wahre dezentrale DNS bist jetzt noch nicht existiert. Dies wir erreicht ohne das der Endbenutzer eine Erweiterungen, Plugins oder Browser Erweiterungen, von Dritten installieren muss. Im Wesentlichen, Shift ist jetzt schon der welterste Vorgeschmack auf das Web 3.0: unzensuriert und sicher."
+              ]
+            },
+            {
+              title: "Dezentraler Storage Layer",
+              imageKey: 'phantom',
+              descriptions: [
+                "Shift benutzt ein peer-2-peer hypermedia Verteilungsprotokoll, das InterPlanetary File System (IPFS), als ein Storage Layer auf der Blockchain. Im Wesentlichen, IPFS ist ein viel intelligenteres Protokoll als HTTP, da IPFS Hash basierende Datenspeicherung nutzt im Vergleich zu HTTP welche ortsabhÃ¤ngige Speicherung verwendet. Das Shift Team betrachtet dieses Protokoll als ein SchlÃ¼ssel zum dezentralen Internet. Neben IPFS (Filecoin) selber, Shift ist voraus in seiner IPFS Tool Entwicklung und in der Implementierung von IPFS mit der Blockchain Technologie. Shift ist das erste Projekt was jemals erfolgreich einen funktionierenden IPFS Cluster fÃ¼r Datenspeicherung gebaut hat. Der Prototyp, die pre-beta, ist schon jetzt funktional auf ShiftÂ´s Testnet."
+              ]
+            }
+          ],
+          dapps: {
+            left: [
+              {
+                title: "Phantom",
+                descriptions: [
+                  "Shifts erste offizielle dApp, genannt Phantom, ist eine Benutzerschnittstelle fÃ¼r Dateimanagment Ã¼ber das IPFS Netzwerk auf Shifts Cluster. Dateien kÃ¶nnen gepinnt werden - basierend auf einem Tokenomik Service Modell - um auf dem Cluster permanent gespeichert zu werden. Phantom beinhaltet auch einen Wizard welcher dezentrales Webhosting ermÃ¶glicht und das Verwalten von echten Top-Level-Domains unterstÃ¼tzt."
+                ]
+              },
+              {
+                title: "Sidechains",
+                descriptions: [
+                  "Phantom wird bald seine eigene Chain haben, als eine Sidechain verlinkt zu Shifts Mainchain. Die Phantom Sidechain wird ihre eigenen Regeln und Transaktionstypen haben, was unbegrenzte MÃ¶glichkeiten erlaubt. Der Prototyp, welcher in Pre-Beta ist, ist schon jetzt funktional auf Shifts Testnet. Diese Webseite ist schon jetzt betrieben bei unseren Storage-Nodes."
+                ]
+              }
+            ],
+            right: [
+              {
+                title: "Tokenomik Servicemodell",
+                descriptions: [
+                  "Der Cluster besteht aus einen Schwarm von Storage-Nodes (peers). Jedem Token Besitzer ist es mÃ¶glich dem Cluster beizutreten, und kann Speicherplatz (SpeicherkapazitÃ¤t) zu dem Shift Cluster zu VerfÃ¼gung stellen. In 2018 wird Shift ein Tokenomik Servicemodell prÃ¤sentieren welches es Ã¶konomisch Vorteilhaft macht dem Cluster beizutreten.",
+                  "Shift Tokens kÃ¶nnen auch benutzt werden um eine Anfrage zu machen, um einen bestimmten Teil der verfÃ¼gbaren SpeicherkapazitÃ¤t, der vom Cluster zu VerfÃ¼gung gestellt wird, zu benutzen. Daten kÃ¶nnen verÃ¶ffentlicht und auf dem Cluster angeheftet werden. Das heiÃŸt, dass diese permanent auf dem Cluster gespeichert werden - solang der VerÃ¶ffentlicher die Tokens als ein Proof-of-Storage hÃ¤lt."
+                ]
+              },
+              {
+                title: "Freiwilliger Datentransfer",
+                descriptions: [
+                  "Es ist auch mÃ¶glich Daten auÃŸerhalb des Cluster zu versenden (ohne Kosten), zu allen Peers die zu dem Cluster verbunden aber nicht Teil von diesem sind. Jedoch, diese Peers, die einen IPFS Daemon betreiben sehr wahrscheinlich einen Garbage Collector haben, welcher gelegentlich Daten entfernt, Erstellung von einem Cache."
+                ]
+              }
+            ]
+          }
+        },
+        intro: {
+          title: "Jetzt sind Sie auf einem dezentralem Web",
+          subtitle: {
+            firstLine: "...mit keinen Browserplugins, und einer echten Toplevel-Domain",
+            secondLine: "Das ist Phantom: Shifts Flaggschiff dApp um die Hosting-Industrie zu revolutionieren."
+          },
+          dataTitle: "Das ist Richtig: Diese Webseite ist gehostet, vervielfÃ¤ltigt, und Ã¼berwacht Ã¼ber Shifts IPFS Cluster!"
+        },
+        uses: {
+          title: "Nehme Teil an der neuen Web Revolution",
+          items: [
+            {
+              title: "Eines der grÃ¶ÃŸten Gefahren des Webs heutzutage ist das Web selber.",
+              description: "Firmen kÃ¶nnen unilateral stilllegen (z.B.: Gothamist, DNAinfo), um unabhÃ¤ngige Daten von Schriftstellern mitzunehmen. Shift und Phantom macht es mÃ¶glich diese Katastrophe zu vermeiden: Content von Benutzer ist auf einer dezentralen Art gespeichert, um sicherzustellen das Autoren jederzeit Zugriff haben."
+            },
+            {
+              title: "In naher Zukunft, das Web wird sich Ã¼ber existierende Syteme und Infrastrukturen weiterentwickeln.",
+              description: "Um dies zu erreichen muss es einen Ersatz fÃ¼r Protokolle und Service fÃ¼r jeden geben um bei der Webrevolution teilnehmen zu kÃ¶nnen. Das ist die Mission von Shift und Phantom: Die Verbesserung und das Ersetzen von klassischen Hosting und DNS Anbietern."
+            },
+            {
+              title: "Damit jedes dezentrale System funktionieren kann mÃ¼ssen Benutzer teilnehmen und bleiben um einen Vorteil zu bekommen.",
+              description: "Treten Sie Shift bei: Es stellt einen Utility Token zu VerfÃ¼gung den Benutzer im Ecosystem benutzen kÃ¶nnen um Speicher in der Phantom dApp sicherstellen zu kÃ¶nnen oder um Service mit anderen Benutzer zu tauschen. Shifts Delegate Proof-of-Stake Konsenusalgorithmus erlaubt es Benutzern, welche im Wahlprozess teilnemen, Vorteile zu bekommen und dies belohnt andere die zuverlÃ¤ssige Nodes dem Netzwerk zu VerfÃ¼gung stellen."
+            },
+            {
+              title: "NetzneutralitÃ¤t ist eines der grÃ¶ÃŸten Gefahren heutzutage wenn es um den Zugriff auf das Internet ankommt.",
+              description: "Provider kÃ¶nnen die Verbindung verlangsamen, oder zusÃ¤tzliche Kosten verlangen um bestimmte Service zu benutzen. Mit Phantom ist es mÃ¶glich solches Verhalten zu verhindern, da die Daten nie zentralisiert werden. Wenn eine Webseite von einer Gruppe von Peers angeboten wird ist es fast unmÃ¶glich diese zu stoppen, im Vergleich wie leicht es ist den Zugriff von bestimmten Services, welche einen bestimmten Abdruck im Internet hinterlassen, zu messen."
+            }
+          ],
+          specs: {
+            title: "Netzwerk Spezifikationen",
+            consensusAlgorithm: "Konsenus Algorithmus",
+            delegatedProofOfStake: "Delegated Proof-Of-Stake",
+            blockProducers: "Block Ersteller",
+            blockTime: "Block Zeit",
+            seconds: "Sekunden",
+            roundTime: "Rundenzeit",
+            minutes: "Minuten",
+            blockReward: "Block Belohnung",
+            forger: "Forger",
+            project: "Projekt",
+            supply: "Supply",
+            inflation: "Inflation",
+            marketListings: "AufzÃ¤hlung der MÃ¤rkte",
+            mediaTitle: "Lesen Sie Ã¼ber Shift in den Medien"
+          }
+        },
+        why: {
+          items: [
+            {
+              title: "Was erfolgreiche Betriebssystem gemeinsam haben?",
+              descriptions: [
+                "Betrachten man das erste Beispiel von einer â€œkiller appâ€: Das â€œVisiCalc spreadsheetâ€ Programm brachte den Apple II Personalcomputer zu unvorhergesehenen Levels von Adoption in den frÃ¼hen 80igern, weil fÃ¼r zehn Monate, das beste Kalkulationstabellen Programm auf dem Markt nur fÃ¼r den Apple II zu VerfÃ¼gung stand.",
+                "Ebenfalls, Microsoft investierte stark in die Vermarktung des Internet Explorer als ein benutzerfreundliches Programm mit riesiger Fangemeinde, weil Sie verstanden, dass auch ohne das Sie den IE den besten Browser auf dem Markt machen, die Inkludierung in Windows wÃ¼rde die Adoption von beiden, dem Programm und dem Betriebssystem, fÃ¶rdern, womit Softwareentwickler in einem Schneeballeffekt nachziehen was die Marktdominanz unausweichlich macht."
+              ]
+            },
+            {
+              title: "Shift ist die erste Blockchain einer neuen Generation mit eingebauter â€œkiller dAppâ€.",
+              descriptions: [
+                "WÃ¤hrenddessen andere Firmen beschÃ¤ftigt sind Whitepaper zu schreiben und hunderte von Millionen Dollar einzunehmen war Shift beschÃ¤ftigt mit Arbeit: Wir haben das RÃ¼ckgrat eines robusten Ecosystems fÃ¼r dApps gemacht, mit einer starken und demokratischen dPOS Plattform von Dezentralisierung welche von jedem benutzt werden kann der JavaScript kennt. Die Phantom dApp mit Shift wird ein neues dezentrales Internet kreieren, unterstÃ¼tzen von tÃ¤glichen Benutzern und der Sicherung von deren Daten.",
+                "Wir sind zuversichtlich, dass wenn wir die erste kostengÃ¼nstige, einfach zu benutzende dezentrale Hosting Infrastruktur anbieten, welche Benutzern Geld spart im Vergleich zu traditionellen Datenspeicher Methoden und deren Inhalt von Zensur beschÃ¼tzt ist, das ein massiver Anreiz fÃ¼r Akzeptanz von Shift im Konsumentenmarkt sein wird."
+              ]
+            }
+          ]
+        }
+      },
+      cn: {
+        how: {
+          title: "ä»¥ä¸‹æ˜¯Shiftçš„å·¥ä½œåŽŸç†",
+          sliderItems: [
+            {
+              title: "åŽ»ä¸­å¿ƒåŒ–APPS",
+              imageKey: 'dapps',
+              descriptions: [
+                "Shiftæ˜¯ä¸€ä¸ªå¯è®¿é—®çš„å¼€æºåŒºå—é“¾åº”ç”¨ç¨‹åºå¹³å°ã€‚ å¼€å‘äººå‘˜å¯ä»¥é€šè¿‡ç®€å•çš„è®¾ç½®åˆ›å»ºè‡ªå·±çš„åˆ†æ•£å¼åº”ç”¨ç¨‹åºï¼ˆdAppï¼‰ã€‚ æ¯ä¸ªdAppéƒ½æœ‰è‡ªå·±çš„ç‹¬ç«‹äºŽShiftä¸»é“¾çš„ä¾§é“¾ï¼Œä½†æ˜¯ä¾§é“¾ä»ç„¶å¯ä»¥è¿žæŽ¥åˆ°ä¸»é“¾å¹¶ä¸Žä¸»é“¾åŒæ­¥ã€‚ è¿™å®žçŽ°äº†æ— é™çš„å¯æ‰©å±•æ€§ï¼Œè€Œä¸ä¼šå±åŠä¸»é“¾çš„ç¨³å®šæ€§ã€‚",
+                "Shiftçš„åŒºå—é“¾æŠ€æœ¯æ˜¯ç”¨JavaScriptç¼–å†™çš„ï¼Œé¼“åŠ±å¤§è§„æ¨¡é‡‡ç”¨ï¼Œå› ä¸ºç¼–ç äººå‘˜å·²ç»ç†Ÿæ‚‰è¿™ç§ç¼–ç¨‹è¯­è¨€ã€‚ æ¯ä¸ªdAppéƒ½å¯ä»¥è®¿é—®Shiftè‡ªå·±çš„IPFSé›†ç¾¤ï¼Œä½¿ç”¨æœ‰å‰é€”çš„å¯¹ç­‰è¶…åª’ä½“åˆ†å‘åè®®InterPlanetaryæ–‡ä»¶ç³»ç»Ÿæ¥å­˜å‚¨æ•°æ®ã€‚ Shiftä»¤ç‰Œçš„å­˜åœ¨ - å®šä¹‰ä¸ºå®žç”¨å¸ - å…è®¸æ¯ä¸ªdAppæ‰€æœ‰è€…åœ¨å…¶dAppä¸­ä¸ºæ•°å­—èµ„äº§å®žçŽ°å†…åœ¨è´§å¸åŒ–æ¨¡åž‹æˆ–äº¤æ˜“å¹³å°ã€‚"
+              ]
+            },
+            {
+              title: "dPOS åŒºå—é“¾",
+              imageKey: 'dpos',
+              descriptions: [
+                "Shiftä½¿ç”¨delegated Proof-of-Stakeï¼ˆdPOSï¼‰ä¸€è‡´æ€§ç®—æ³•ï¼Œå…¶ç½‘ç»œç”±ä¸»èŠ‚ç‚¹å’Œå§”æ‰˜èŠ‚ç‚¹ç»„æˆã€‚ å…è®¸å§”æ‰˜èŠ‚ç‚¹åœ¨åŒºå—é“¾ä¸­è¿›è¡Œæ›´æ”¹ï¼ˆå³ï¼Œåˆ†å¸ƒå¼å’Œåˆ†æ•£å¼åˆ†ç±»å¸ï¼‰ã€‚ åŸºäºŽèŽ·å¾—ç¤¾åŒºçš„æ‰¹å‡†æŠ•ç¥¨ä»¥æˆä¸ºåŒºå—ç”Ÿæˆè€…ï¼Œé€‰æ‹©æ— é™æ•°é‡çš„ä»£è¡¨èŠ‚ç‚¹ä¸­çš„101ä¸ªå‚ä¸Žä»£ç†è½®æ¬¡ã€‚ æ¯ä¸ªä»£å¸æŒæœ‰è€…æœ€å¤šå¯ä»¥åœ¨101ä¸ªæœ€å–œæ¬¢çš„ä»£è¡¨èº«ä¸ŠæŠ•ç¥¨ï¼Œå¹¶ä¸”/æˆ–è€…è‡ªå·±æˆä¸ºä»£è¡¨ã€‚ æŠ•ç¥¨ä¸Žä»£å¸æŒæœ‰äººçš„è´¦æˆ·ä½™é¢æˆæ¯”ä¾‹ã€‚ æ¯ä¸ªä»£è¡¨è½®æ¬¡ï¼Œå…·æœ‰æœ€é«˜æ”¯æŒçŽ‡çš„101åä»£è¡¨ï¼ˆå³ç”±æœ€å¤§æ•°é‡çš„Shiftä»¤ç‰Œæ”¯æŒï¼‰è¢«é€‰ä¸ºç”ŸæˆåŒºå—è€…ã€‚ åŒºå—ç”Ÿæˆå™¨ä»¥ShiftNRGè½¯ä»¶å‘å¸ƒçš„æ–°ä»¤ç‰Œå½¢å¼èŽ·å¾—åŒºå—å¥–åŠ±ã€‚",
+                "å½“ä»£å¸æŒæœ‰è€…æŠ•ç¥¨ç»™å…·æœ‰æœ€é«˜ç”Ÿäº§åŠ›ä»¥åŠåœ¨é¡¹ç›®å¼€å‘ä¸­å°†å…¶é“¸é€ çš„Shiftä»£å¸çš„ä¸€éƒ¨åˆ†å†æŠ•èµ„çš„ä»£è¡¨æ—¶ï¼Œè¯¥ç³»ç»Ÿå‘æŒ¥æœ€ä½³ä½œç”¨ã€‚Shiftå°†å¾ˆå¿«æŽ¨å‡ºè¿™ç§dPOSå…±è¯†ç®—æ³•çš„æ–°ç‰ˆæœ¬ï¼Œè¿™å°†åœ¨å¸‚åœºä¸Šçš„dPOSå¹³å°ç”Ÿæ€ç³»ç»Ÿä¸­ç‹¬ä¸€æ— äºŒã€‚"
+              ]
+            },
+            {
+              title: "Hydra CMS",
+              imageKey: 'hydra',
+              descriptions: [
+                "Hydraæ˜¯ä¸€ä¸ªç”¨çº¯JavaScriptç¼–å†™çš„å†…å®¹ç®¡ç†ç³»ç»Ÿï¼ˆCMSï¼‰ï¼šå®ƒä¸ŽInterPlanetaryæ–‡ä»¶ç³»ç»Ÿå…¼å®¹ï¼Œå¹¶é¢„å…ˆæž„å»ºåˆ°å­˜å‚¨èŠ‚ç‚¹çš„Shifté›†ç¾¤ä¸­ã€‚ è¿™ä½¿å¾—Shiftæˆä¸ºé¦–ä¸ªå°†åˆ†æ•£å¼æ•°æ®åº“è§£å†³æ–¹æ¡ˆå¼•å…¥æœ‰å‰é€”çš„è¶…åª’ä½“åˆ†å‘åè®®çš„é¡¹ç›®ã€‚ æ­¤é¢„æž„å»ºå…è®¸Shiftåº”ç”¨ç¨‹åºå¹³å°æ”¯æŒåŠ¨æ€å†…å®¹çš„åˆ†æ•£å¼Webæ‰˜ç®¡",
+                "Shiftå›¢é˜Ÿè¿˜åœ¨ç ”ç©¶websocketsä¸ŽIPFSçš„å…¼å®¹æ€§ï¼Œè¿™æ ·IPFSä¸Šå°†æœ‰ä¸€ä¸ªå¥—æŽ¥å­—å®¢æˆ·ç«¯ï¼Œé›†ç¾¤ä¸­å°†æœ‰ä¸€ä¸ªå¥—æŽ¥å­—æœåŠ¡å™¨ï¼Œå³ä½¿ä½œä¸ºä¼ ç»ŸWebSocketsçš„æ›¿ä»£æ–¹æ¡ˆï¼ŒIPFSçš„pubsubä»å¤„äºŽå¼€å‘é˜¶æ®µï¼Œå°šæœªå®Œæˆã€‚ Shiftçš„å¥—æŽ¥å­—è§£å†³æ–¹æ¡ˆå°†æ”¯æŒæ‰˜ç®¡çœŸæ­£åˆ†æ•£çš„â€œå®žæ—¶â€ç½‘ç«™çš„èƒ½åŠ›"
+              ]
+            },
+            {
+              title: "Jenga DNS ç›‘è§†å™¨",
+              imageKey: 'jenga',
+              descriptions: [
+                "Jengaæ˜¯ä¸€ä¸ªåŸŸåç³»ç»Ÿï¼ˆDNSï¼‰ç›‘è§†å™¨ï¼Œå¯æŒç»­ç›‘è§†Shiftç¾¤é›†ä¸­çš„æ‰€æœ‰å­˜å‚¨èŠ‚ç‚¹ä»¥å¡«å……DNSè®°å½•ã€‚ æŒ‡å‘ä¸å¥åº·DNSè®°å½•çš„èŠ‚ç‚¹å°†ä»Žç¾¤é›†ä¸­è¢«åˆ é™¤ã€‚ ç”±æ­¤äº§ç”Ÿçš„ç»“æž„å‡ ä¹ŽæŠµæŠ—DDoSæ”»å‡»ã€‚ ä¸€ä¸ªåŸŸå¯ä»¥æŒ‡å‘ä»»ä½•åœ°æ–¹ï¼Œä»Žååˆ°ä¸€åƒä¸ªèŠ‚ç‚¹å°†ä¸ºæ‚¨çš„æ–‡ä»¶æä¾›æœåŠ¡ã€‚",
+                "å› æ­¤ï¼Œæˆ‘ä»¬æ‰¾åˆ°äº†ä¸€ç§å°†æ—§ç½‘ç»œï¼ˆDNS / httpï¼‰è¿žæŽ¥åˆ°æ–°ç½‘ç»œçš„æ™ºèƒ½æ–¹æ³•ã€‚ ç”±äºŽçœŸæ­£çš„åˆ†æ•£å¼DNSå°šä¸å­˜åœ¨ï¼Œå› æ­¤Jengaæ˜¯æ‚¨å¯ä»¥èŽ·å¾—åˆ†æ•£å¼DNSçš„æœ€æ–¹ä¾¿çš„æ–¹æ³•ã€‚ å®Œæˆæ­¤æ“ä½œæ—¶æ— éœ€æœ€ç»ˆç”¨æˆ·å®‰è£…ä»»ä½•ç¬¬ä¸‰æ–¹æ‰©å±•ï¼Œæ’ä»¶æˆ–æµè§ˆå™¨åŠ è½½é¡¹ã€‚ ä»Žæœ¬è´¨ä¸Šè®²ï¼ŒShiftå·²ç»æ˜¯ä¸–ç•Œä¸Šç¬¬ä¸€æ¬¡å°è¯•Web 3.0ï¼šä¸å¯æµ‹é‡ä¸”å®‰å…¨ã€‚"
+              ]
+            },
+            {
+              title: "åˆ†æ•£å­˜å‚¨å±‚",
+              imageKey: 'phantom',
+              descriptions: [
+                "Shiftä½¿ç”¨å¯¹ç­‰è®¡ç®—è¶…åª’ä½“åˆ†å‘åè®®ï¼Œå³Interplanetaryæ–‡ä»¶ç³»ç»Ÿï¼ˆIPFSï¼‰ä½œä¸ºåŒºå—é“¾ä¸Šçš„å­˜å‚¨å±‚ã€‚ æœ¬è´¨ä¸Šï¼ŒIPFSæ˜¯æ¯”HTTPæ›´æ™ºèƒ½çš„åè®®ï¼Œå› ä¸ºä¸Žä½¿ç”¨åŸºäºŽä½ç½®çš„å­˜å‚¨çš„HTTPç›¸æ¯”ï¼ŒIPFSä½¿ç”¨åŸºäºŽæ•£åˆ—çš„æ–‡ä»¶å­˜å‚¨ã€‚ Shiftå°ç»„è®¤ä¸ºè¯¥åè®®æ˜¯åŽ»ä¸­å¿ƒåŒ–ç½‘ç»œçš„å…³é”®å› ç´ ã€‚ é™¤äº†IPFSï¼ˆFilecoinï¼‰æœ¬èº«ï¼ŒShiftåœ¨å…¶IPFSå·¥å…·å¼€å‘å’Œä½¿ç”¨åŒºå—é“¾æŠ€æœ¯å®žæ–½IPFSæ–¹é¢å¤„äºŽé¢†å…ˆåœ°ä½ã€‚ Shiftæ˜¯ç¬¬ä¸€ä¸ªæˆåŠŸæž„å»ºç”¨äºŽæ•°æ®å­˜å‚¨çš„IPFSé›†ç¾¤çš„é¡¹ç›®ã€‚ åŽŸåž‹ï¼Œæˆ‘ä»¬çš„pre-betaï¼Œå·²ç»åœ¨Shiftçš„testnetä¸Šè¿è¡Œäº†"
+              ]
+            }
+          ],
+          dapps: {
+            left: [
+              {
+                title: "Phantom",
+                descriptions: [
+                  "Shiftçš„ç¬¬ä¸€ä¸ªå®˜æ–¹dAppï¼Œåä¸ºPhantomï¼Œæ˜¯ç”¨äºŽé€šè¿‡Shifté›†ç¾¤ä¸Šçš„IPFSç½‘ç»œè¿›è¡Œæ–‡ä»¶ç®¡ç†çš„ç”¨æˆ·ç•Œé¢ã€‚ å¯ä»¥åŸºäºŽä»¤ç‰Œå­¦æœåŠ¡æ¨¡åž‹å›ºå®šæ•°æ® - æ°¸ä¹…å­˜å‚¨åœ¨ç¾¤é›†ä¸Šã€‚ Phantomè¿˜åŒ…å«ä¸€ä¸ªå‘å¯¼ï¼Œå¯ä»¥å®žçŽ°åˆ†æ•£çš„Webæ‰˜ç®¡ï¼Œå¹¶æ”¯æŒçœŸæ­£çš„é¡¶çº§åŸŸåçš„ç®¡ç†"
+                ]
+              },
+              {
+                title: "ä¾§é“¾",
+                descriptions: [
+                  "Phantomå°†å¾ˆå¿«æ‹¥æœ‰è‡ªå·±çš„é“¾ï¼Œä½œä¸ºä¸ŽShiftçš„ä¸»é“¾ç›¸å…³çš„ä¾§é“¾ã€‚ Phantomä¾§é“¾å°†æœ‰è‡ªå·±çš„è§„åˆ™å’Œäº¤æ˜“ç±»åž‹ï¼Œå…è®¸æ— é™çš„å¯èƒ½æ€§ã€‚ åŽŸåž‹æ˜¯ä¸€ä¸ªpre-betaï¼Œå·²ç»åœ¨Shiftçš„testnetä¸Šè¿è¡Œäº†ã€‚ è¿™ä¸ªç½‘ç«™å·²ç»ç”±æˆ‘ä»¬çš„å­˜å‚¨èŠ‚ç‚¹æä¾›æ”¯æŒ"
+                ]
+              }
+            ],
+            right: [
+              {
+                title: "TokenomicæœåŠ¡æ¨¡åž‹",
+                descriptions: [
+                  "è¯¥é›†ç¾¤ç”±ä¸€ç¾¤å­˜å‚¨èŠ‚ç‚¹ï¼ˆå¯¹ç­‰ä½“ï¼‰ç»„æˆã€‚ æ¯ä¸ªä»¤ç‰ŒæŒæœ‰è€…éƒ½å¯ä»¥åŠ å…¥ç¾¤é›†ï¼Œå¹¶å¯ä»¥ä¸ºShiftç¾¤é›†æä¾›ç£ç›˜ç©ºé—´ï¼ˆå­˜å‚¨å®¹é‡ï¼‰ã€‚ åœ¨2018å¹´ï¼ŒShiftå°†æä¾›ä¸€ä¸ªä»¤ç‰Œå­¦æœåŠ¡æ¨¡åž‹ï¼Œè¿™å°†ä½¿åŠ å…¥é›†ç¾¤åœ¨ç»æµŽä¸Šæœ‰æ”¶ç›Š",
+                  "Shiftä»¤ç‰Œè¿˜å¯ç”¨äºŽè¯·æ±‚ä½¿ç”¨ç”±ç¾¤é›†æä¾›çš„å¯ç”¨ç£ç›˜ç©ºé—´çš„æŸä¸ªéƒ¨åˆ†ã€‚ æ•°æ®å¯ä»¥å‘å¸ƒå¹¶å›ºå®šåœ¨ç¾¤é›†ä¸Šã€‚ è¿™æ„å‘³ç€å®ƒå°†æ°¸ä¹…å­˜å‚¨åœ¨ç¾¤é›†ä¸­ - åªè¦å†…å®¹å‘å¸ƒè€…å°†ä»¤ç‰Œä¿å­˜ä¸ºå­˜å‚¨è¯æ˜Žå³å¯"
+                ]
+              },
+              {
+                title: "å…è´¹æ–‡ä»¶ä¼ è¾“",
+                descriptions: [
+                  "è¿˜å¯ä»¥å°†ç¾¤é›†å¤–çš„æ–‡ä»¶ï¼ˆå…è´¹ï¼‰å‘é€ç»™è¿žæŽ¥åˆ°ç¾¤é›†ä½†ä¸å±žäºŽç¾¤é›†çš„æ‰€æœ‰å¯¹ç­‰ä½“ã€‚ ä½†æ˜¯ï¼Œè¿è¡ŒIPFSå®ˆæŠ¤ç¨‹åºçš„è¿™äº›å¯¹ç­‰ç¨‹åºå¯èƒ½ä¼šæœ‰ä¸€ä¸ªåžƒåœ¾æ”¶é›†å™¨ï¼Œå¶å°”ä¼šåˆ é™¤å­˜å‚¨çš„æ–‡ä»¶ï¼Œä»Žè€Œåˆ›å»ºä¸€ä¸ªç¼“å­˜"
+                ]
+              }
+            ]
+          }
+        },
+        intro: {
+          title: "çŽ°åœ¨ï¼Œä½ å·²ç»åœ¨åŽ»ä¸­å¿ƒåŒ–çš„ç½‘ç»œä¸Šäº†",
+          subtitle: {
+            firstLine: "...æ²¡æœ‰æµè§ˆå™¨æ’ä»¶å’ŒçœŸæ­£çš„é¡¶çº§åŸŸåã€‚",
+            secondLine: "è¿™æ˜¯Phantomï¼šShiftçš„æ——èˆ°dAppï¼Œç”¨äºŽç“¦è§£æ‰˜ç®¡è¡Œä¸šã€‚"
+          },
+          dataTitle: "æ²¡é”™ï¼šè¿™ä¸ªç½‘ç«™æ˜¯é€šè¿‡Shift IPFSé›†ç¾¤æ‰˜ç®¡ï¼Œå¤åˆ¶å’Œç›‘æŽ§çš„ï¼"
+        },
+        uses: {
+          title: "åŠ å…¥æ–°ç½‘ç»œé©å‘½",
+          items: [
+            {
+              title: "å½“ä»Šç½‘ç»œé¢ä¸´çš„æœ€å¤§å¨èƒä¹‹ä¸€å°±æ˜¯ç½‘ç»œæœ¬èº«ã€‚",
+              description: "ä¼ä¸šå¯ä»¥å•æ–¹é¢å…³é—­ï¼ˆä¾‹å¦‚ï¼šGothamistï¼ŒDNAinfoï¼‰ï¼Œéšèº«æºå¸¦ç‹¬ç«‹ä½œè€…çš„æ•°æ®ã€‚ Shiftå’ŒPhantomå¯ä»¥é¿å…è¿™ç§ç¾éš¾ï¼šç”¨æˆ·å†…å®¹ä»¥åˆ†æ•£çš„æ–¹å¼å­˜å‚¨ï¼Œç¡®ä¿ä½œè€…å§‹ç»ˆä¿æŒè®¿é—®æƒé™"
+            },
+            {
+              title: "åœ¨ä¸ä¹…çš„å°†æ¥ï¼Œç½‘ç»œå°†å‘å±•åˆ°çŽ°æœ‰çš„ç³»ç»Ÿå’ŒåŸºç¡€è®¾æ–½ä¹‹å¤–",
+              description: "ä¸ºæ­¤ï¼Œå¿…é¡»ä¸ºæ¯ä¸ªäººæä¾›æ›¿ä»£åè®®å’ŒæœåŠ¡ï¼Œä»¥åŠ å…¥æ–°çš„ç½‘ç»œé©å‘½ã€‚ è¿™æ˜¯Shiftå’ŒPhantomçš„ä½¿å‘½ï¼šå¢žå¼ºå’Œå–ä»£ä¼ ç»Ÿæ‰˜ç®¡å’ŒDNSæä¾›å•†"
+            },
+            {
+              title: "å¯¹äºŽä»»ä½•åˆ†æ•£çš„ç³»ç»Ÿæ¥è¯´ï¼Œç”¨æˆ·éœ€è¦å‚ä¸Žå¹¶ä¸”å¿…é¡»ç«™èµ·æ¥èŽ·å¾—åˆ©ç›Š",
+              description: "è¾“å…¥Shiftï¼šå®ƒæä¾›äº†ä¸€ä¸ªå®žç”¨ç¨‹åºä»¤ç‰Œï¼Œç”¨æˆ·å¯ä»¥åœ¨ç”Ÿæ€ç³»ç»Ÿä¸­ä½¿ç”¨å®ƒæ¥ä¿æŠ¤Phantom dAppä¸Šçš„å­˜å‚¨ç©ºé—´æˆ–ä¸Žå…¶ä»–äººçš„äº¤æ˜“æœåŠ¡ã€‚ Shiftçš„å§”æ‰˜Proof-of-Stakeä¸€è‡´æ€§ç®—æ³•è¿˜å…è®¸å‚ä¸ŽæŠ•ç¥¨è¿‡ç¨‹çš„ç”¨æˆ·èŽ·å¾—æ”¶ç›Šï¼Œè¯¥æŠ•ç¥¨è¿‡ç¨‹å¥–åŠ±å…¶ä»–äººä¸ºç½‘ç»œæä¾›å¯é çš„èŠ‚ç‚¹"
+            },
+            {
+              title: "ç½‘ç»œä¸­ç«‹æ€§æ˜¯å½“ä»Šè®¿é—®äº’è”ç½‘æ—¶çš„ä¸»è¦å¨èƒä¹‹ä¸€",
+              description: "æä¾›å•†å¯ä»¥å‡æ…¢è¿žæŽ¥é€Ÿåº¦ï¼Œæˆ–æ”¶å–é¢å¤–è´¹ç”¨ä»¥è®¿é—®æŸäº›æœåŠ¡ã€‚ ä½¿ç”¨Phantomï¼Œå¯ä»¥è§„é¿æ­¤ç±»è¡Œä¸ºçš„å½±å“ï¼Œå› ä¸ºæ•°æ®æ°¸è¿œä¸ä¼šé›†ä¸­åŒ–ã€‚ ä»Žä¸€ç»„åŒä¼´é‚£é‡ŒèŽ·å¾—ä¸€ä¸ªç½‘ç«™å‡ ä¹Žæ˜¯ä¸å¯èƒ½åœæ­¢çš„ï¼Œç›¸æ¯”ä¹‹ä¸‹ï¼Œå¯¹äºŽå·²çŸ¥äº’è”ç½‘è¶³è¿¹çš„æŸäº›æœåŠ¡çš„è®¡é‡è®¿é—®éžå¸¸å®¹æ˜“ã€‚"
+            }
+          ],
+          specs: {
+            title: "ç½‘ç»œè§„æ ¼",
+            consensusAlgorithm: "å…±è¯†ç®—æ³•",
+            delegatedProofOfStake: "å§”æ‰˜è¯æ˜Ž",
+            blockProducers: "åŒºå—ç”Ÿæˆè€…",
+            blockTime: "åŒºå—æ—¶é—´",
+            seconds: "ç§’",
+            roundTime: "å›žåˆæ—¶é—´",
+            minutes: "åˆ†é’Ÿ",
+            blockReward: "åŒºå—å¥–åŠ±",
+            forger: "é“¸é€ ",
+            project: "é¡¹ç›®",
+            supply: "ä¾›åº”",
+            inflation: "é€šè´§è†¨èƒ€",
+            marketListings: "äº¤æ˜“å¯¹åˆ—è¡¨",
+            mediaTitle: "é˜…è¯»åª’ä½“ä¸­å…³äºŽShiftçš„ä¿¡æ¯"
+          }
+        },
+        why: {
+          items: [
+            {
+              title: "æˆåŠŸçš„æ“ä½œç³»ç»Ÿæœ‰ä»€ä¹ˆå…±åŒä¹‹å¤„ï¼Ÿ",
+              descriptions: [
+                "è€ƒè™‘ä¸€ä¸‹â€œæ€æ‰‹çº§åº”ç”¨â€æœ€æ—©çš„ä¾‹å­ï¼šVisiCalcç”µå­è¡¨æ ¼è½¯ä»¶åœ¨80å¹´ä»£æ—©æœŸå°†Apple IIä¸ªäººç”µè„‘æŽ¨å‘äº†å‰æ‰€æœªæœ‰çš„é‡‡ç”¨æ°´å¹³ï¼Œä»…ä»…å› ä¸ºåä¸ªæœˆä»¥æ¥ï¼Œå¸‚åœºä¸Šæœ€å¥½çš„ç”µå­è¡¨æ ¼è½¯ä»¶ä»…é€‚ç”¨äºŽApple II",
+                "åŒæ ·ï¼Œå¾®è½¯æŠ•å…¥å¤§é‡èµ„é‡‘æŽ¨å¹¿Internet Explorerä½œä¸ºä¸€ä¸ªå…·æœ‰å¤§ä¼—å¸å¼•åŠ›çš„ç”¨æˆ·å‹å¥½åž‹åº”ç”¨ç¨‹åºï¼Œå› ä¸ºä»–ä»¬æ˜Žç™½å³ä½¿ä¸ä½¿IEæˆä¸ºå¸‚åœºä¸Šæœ€å¥½çš„æµè§ˆå™¨ï¼ŒåŒ…æ‹¬å®ƒä½œä¸ºWindowsçš„å†…ç½®ç‰¹æƒä¹Ÿå°†ä¿ƒè¿›å…¶åº”ç”¨ç¨‹åºçš„é‡‡ç”¨, å°±å’Œä»–ä»¬çš„æ“ä½œç³»ç»Ÿä¸€æ ·ï¼ŒæŽ¨åŠ¨è½¯ä»¶å¼€å‘äººå‘˜æ•ˆä»¿é›ªçƒæ•ˆåº”ï¼Œè¿™æœ‰åŠ©äºŽä¸å¯é¿å…åœ°ä½¿å¸‚åœºå æ®ä¸»å¯¼åœ°ä½"
+              ]
+            },
+            {
+              title: "Shiftæ˜¯ç¬¬ä¸€æ¬¾å…·æœ‰å†…ç½®â€œæ€æ‰‹dAppâ€çš„ä¸‹ä¸€ä»£åŒºå—é“¾ã€‚",
+              descriptions: [
+                "è™½ç„¶å…¶ä»–å…¬å¸æ­£åœ¨å¿™äºŽç¼–å†™ç™½çš®ä¹¦å¹¶ç­¹é›†æ•°äº¿ç¾Žå…ƒï¼Œä½†Shiftä¸€ç›´åœ¨å¿™ç€å·¥ä½œï¼šæˆ‘ä»¬å·²ç»åˆ›å»ºäº†ä¸€ä¸ªå¼ºå¤§çš„dAppç”Ÿæ€ç³»ç»Ÿçš„éª¨å¹²ï¼Œæ‹¥æœ‰å¼ºå¤§è€Œæ°‘ä¸»çš„dPOSåˆ†æ•£å¹³å°ï¼Œä»»ä½•çŸ¥é“JavaScriptçš„äººéƒ½å¯ä»¥ä½¿ç”¨å®ƒã€‚ å¸¦æœ‰Shiftçš„Phantom dAppå°†åˆ›å»ºä¸€ä¸ªæ–°çš„åˆ†æ•£å¼ç½‘ç»œï¼Œä¸ºæ—¥å¸¸ç”¨æˆ·æä¾›æ”¯æŒå¹¶ä¿è¯å…¶å†…å®¹çš„å®‰å…¨",
+                "æˆ‘ä»¬æœ‰ä¿¡å¿ƒæä¾›ç¬¬ä¸€ä¸ªä½Žæˆæœ¬ï¼Œæ˜“äºŽä½¿ç”¨çš„åˆ†æ•£å¼æ‰˜ç®¡åŸºç¡€æž¶æž„ï¼Œå®ƒå¯ä»¥ä¸ºç”¨æˆ·èŠ‚çœèµ„é‡‘è€Œä¸æ˜¯ä¼ ç»Ÿçš„æ–‡ä»¶å­˜å‚¨æ–¹æ³•ï¼Œå¹¶ä¿æŠ¤å…¶å†…å®¹å…å—å¤–éƒ¨å®¡æŸ¥ï¼Œè¿™å°†æˆä¸ºShiftçš„ä¸»æµé‡‡ç”¨çš„å·¨å¤§åˆºæ¿€å› ç´ "
+              ]
+            }
+          ]
+        }
+      }
+    };
+  </script>
   </body>
 </html>

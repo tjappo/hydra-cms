@@ -18,8 +18,7 @@
             <div
               class="col-sm-6"
               v-for="(route, key) in dataRoutes"
-              :key="key"
-            >
+              :key="key">
               <div class="card card-inverse card-info">
                 <div class="card-block">
                   <div class="h1 text-muted text-right mb-2">
